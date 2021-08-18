@@ -1,0 +1,147 @@
+/* Learning takeaways from this experience:
+- You can totally use :focus or :focus-within to do the sort of overlay styling I wanted
+in a pure css way
+- Things break down if you're doing an overlay and the overlay has buttons/links inside that need
+to behave slighly differently when you click on them both inside and outside the overlay view
+*/
+
+.body {
+  all: unset;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.3em;
+  background-color: #404245;
+}
+
+/* When the element is open, I want the sapce saver to take up the same horizontal size as the original component */
+.space-saver.open,
+.body {
+  width: calc(
+    (
+        100vw - (2 * var(--body-padding)) -
+          ((1vw + 2em) * (var(--number-of-colums)))
+      ) / var(--number-of-colums)
+  );
+  margin: 0.8em 0.5vw;
+  padding: 0.5em 1em;
+}
+
+.body:hover,
+.hidden:focus + .body {
+  background-color: #505255;
+}
+
+.list h2 {
+  font-family: var(--my-header-font);
+  color: var(--my-yellow);
+  margin: 0 0 0.1em;
+}
+
+.event-body,
+.blurb {
+  font-family: "Roboto Slab", serif;
+  font-weight: lighter;
+  display: flex;
+}
+
+/* With multiple links I want them to show up stacked as an indented list */
+.event-body .links {
+  display: block;
+  margin-left: 0.5em;
+}
+.event-body .link,
+.event-body .links {
+  color: #fff;
+  text-decoration: none;
+}
+.event-body .link:hover,
+.event-body .links:hover {
+  text-decoration: underline;
+}
+.info-col {
+  flex: 2;
+  margin-right: 0.5em;
+}
+.info-col > div {
+  margin: 0.3em 0;
+}
+.image {
+  margin: 0.5em;
+}
+
+.info-col label {
+  font-weight: normal;
+}
+
+.DanceEventBG .close,
+/* All detials will be hidden until focused  */
+.DanceEventBG .details {
+  display: none;
+}
+.DanceEventBG.open .details {
+  display: inline;
+}
+.DanceEventBG.open {
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000a;
+  height: 100vh;
+  width: 100vw;
+  z-index: 100;
+}
+
+/* Add margin when looking at focused dance event */
+.DanceEventBG.open .info-col > div {
+  margin: 0.5em 0;
+}
+
+.blurb {
+  margin-top: 1em;
+  max-width: 25em;
+  overflow: scroll;
+}
+
+.DanceEventBG.open .body {
+  width: 30em;
+  /* height: 25em; */
+  max-width: 85vw;
+  max-height: 85vh;
+  padding: 1em 1em;
+  position: relative;
+}
+.DanceEventBG.open .close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0.3em;
+  right: 0.3em;
+  background-color: #0000;
+  border: 2px solid #999;
+  border-radius: 3em;
+  height: 1.8em;
+  width: 1.8em;
+  color: #fff;
+}
+
+/* I want to disable the hover stuff when the event is focused */
+.DanceEventBG.open .body:hover {
+  background-color: #404245;
+}
+.hidden {
+  all: unset;
+  position: fixed;
+}
+
+@media only screen and (max-width: 800px) {
+  .info-col,
+  .details {
+    font-size: 1.15rem;
+  }
+}

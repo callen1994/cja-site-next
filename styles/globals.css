@@ -1,16 +1,54 @@
-html,
-body {
-  padding: 0;
+/* 
+  Libre Baskerville
+  Roboto Slab (light and regular) because regular is basically bold */
+@import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Roboto+Slab:wght@300;400&display=swap");
+
+html {
+  font-size: 16px;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
 * {
-  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --my-yellow: #ffab40;
+  --my-sky-blue: #b7c2eb;
+  --my-green: #57613b;
+  --my-rust: #a04725;
+  --my-header-font: "Libre Baskerville", serif;
+  --my-general-font: "Roboto Slab", serif;
+  font-family: var(--my-general-font);
+  font-weight: lighter;
+  --bg-color: #21252b;
+  background-color: var(--bg-color);
+  /* because my background is dark, i want deafult white text */
+  color: #fff;
+}
+
+:is(h1, h2, h3, h4) {
+  font-weight: normal;
+  font-family: var(--my-header-font);
+  color: var(--my-yellow);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+/* SMALL MEDIA QUERY */
+/* @media only screen and (max-width: 800px) {
+    html {
+      font-size: 14px;
+    }
+  }
+  
+  @media only screen and (max-width: 500px) {
+    html {
+      font-size: 14px;
+    }
+  } */

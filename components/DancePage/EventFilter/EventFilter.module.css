@@ -1,0 +1,23 @@
+.body-el {
+  background-color: #ffffff40;
+  border-radius: 0.2rem;
+  color: #fff;
+  font-size: 1.2rem;
+  width: 11.5em;
+  padding: 0.25em 0.5em;
+  font-family: "Roboto Slab", serif;
+  display: flex;
+  justify-content: space-between;
+  white-space: nowrap;
+}
+
+.body-el select {
+  background: none;
+  border: none;
+  color: #fff;
+  font-family: "Roboto Slab", serif;
+  padding: 0 0 0 0.5em;
+  font-size: 0.9em;
+  font-weight: lighter;
+  width: 100%;
+}

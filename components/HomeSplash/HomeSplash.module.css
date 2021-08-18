@@ -1,0 +1,161 @@
+.HomeSplash {
+  height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  overflow: hidden;
+  font-family: var(--my-header-font);
+  color: var(--my-yellow);
+  --fade-in-full: fade-in 0.9s both 2.5s;
+}
+
+.name {
+  position: absolute;
+  font-family: var(--my-header-font);
+  color: var(--my-yellow);
+  font-size: 6rem;
+
+  /* for moving everything */
+  --names-left: 0vh;
+  --names-top: -6vh;
+
+  animation: var(--fade-in-full);
+}
+
+.connor {
+  top: calc(22vh + var(--names-top));
+  left: calc(18vw + var(--names-left));
+}
+.james {
+  top: calc(42vh + var(--names-top));
+  left: calc(37vw + var(--names-left));
+}
+.allen {
+  top: calc(62vh + var(--names-top));
+  left: calc(57vw + var(--names-left));
+}
+
+.HomeSplash .welcome {
+  font-size: 3rem;
+  z-index: 10;
+  color: var(--my-sky-blue);
+  position: absolute;
+  bottom: 10vh;
+  animation: var(--fade-in-full);
+  text-align: center;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Paisley Positioning */
+
+.left-paisley,
+.right-paisley {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  height: 100vh;
+  width: 50vw;
+  overflow: visible;
+  /* border: 1px solid red; */
+  box-sizing: border-box;
+}
+
+/* 
+  This: [class*="PaisleySwirl_base-el"]
+  is a kinda hacky way to select the base element in the PaisleySwirl css.
+  The "PaisleySwirl_" (and some abritrary suffix) is attached by the css module system to isolate styles
+  I want the home splash to style the paisley swril element for transforming and positioning
+
+  In the future I might just wrap the children I want to style with a div that I can access, but I wrote this css in a react project where everything was global
+  so this is the right way to translate it.
+*/
+
+.HomeSplash [class*="PaisleySwirl_base-el"],
+.HomeSplash [class*="PaisleySwirl_base-el"] * {
+  overflow: visible;
+}
+
+.HomeSplash [class*="PaisleySwirl_base-el"] {
+  min-height: 100vh;
+  min-width: 50vw;
+  position: absolute;
+}
+
+.left-paisley {
+  /* right: 50vw; */
+  transform: translateX(-25vw);
+}
+.right-paisley {
+  /* left: 50vw; */
+  transform: translateX(25vw);
+}
+
+/*
+.left-paisley [class*="PaisleySwirl_base-el"],
+.left-paisley [class*="PaisleySwirl_base-el"] svg {
+  right: 0;
+}
+.right-paisley [class*="PaisleySwirl_base-el"],
+.right-paisley [class*="PaisleySwirl_base-el"] svg {
+  left: 0;
+} */
+/* *************************************************************** */
+/* .left-paisley {
+  transform: translateX(-25vw);
+}
+.right-paisley {
+  transform: translateX(25vw);
+} */
+/* .left-paisley [class*="PaisleySwirl_base-el"],
+.left-paisley [class*="PaisleySwirl_base-el"] svg {
+  right: 0;
+}
+
+.right-paisley [class*="PaisleySwirl_base-el"],
+.right-paisley [class*="PaisleySwirl_base-el"] svg {
+  left: 0;
+}*/
+
+.left-paisley [class*="PaisleySwirl_base-el"] svg {
+  transform: rotate(-90deg);
+}
+.right-paisley [class*="PaisleySwirl_base-el"] svg {
+  transform: rotate(90deg);
+}
+
+.HomeSplash [class*="PaisleySwirl_base-el"] svg {
+  height: 50vw;
+  width: 100vh;
+  min-height: 100%;
+  min-width: 100%;
+  position: absolute;
+}
+
+@media only screen and (max-width: 800px) {
+  .HomeSplash .name {
+    font-size: 5rem;
+  }
+  .HomeSplash .welcome {
+    font-size: 2.5rem;
+  }
+
+  .HomeSplash .name {
+    position: unset;
+    margin-top: 9vh;
+  }
+  .HomeSplash .name:first-of-type {
+    margin-top: 12vh;
+  }
+}

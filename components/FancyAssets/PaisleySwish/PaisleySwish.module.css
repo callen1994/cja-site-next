@@ -1,0 +1,73 @@
+.body-el {
+  --paisley-fill: black;
+  --animation-speed: 3.5s;
+}
+.body-el [id*="cover"] {
+  /* animation: draw 2s ease forwards; */
+  stroke-dasharray: 110%;
+  stroke: var(--bg-color);
+  stroke-opacity: 1;
+}
+
+.body-el [id*="swish"] {
+  fill: var(--paisley-fill);
+  fill-opacity: 1;
+}
+
+.body-el [id*="paisley-covered-2"] {
+  --base-delay: 1s;
+  --delay: calc((0.2 / 1.5) * var(--animation-speed));
+}
+
+.body-el svg {
+  height: 100%;
+  width: 100%;
+}
+
+.body-el .timing-1 * {
+  animation-delay: calc(0 * var(--delay) + var(--base-delay));
+}
+.body-el .timing-2 * {
+  animation-delay: calc(1 * var(--delay) + var(--base-delay));
+}
+.body-el .timing-3 * {
+  animation-delay: calc(2 * var(--delay) + var(--base-delay));
+}
+.body-el .timing-4 * {
+  animation-delay: calc(3 * var(--delay) + var(--base-delay));
+}
+.body-el .timing-5 * {
+  animation-delay: calc(4 * var(--delay) + var(--base-delay));
+}
+.body-el .timing-6 * {
+  animation-delay: calc(5 * var(--delay) + var(--base-delay));
+}
+.body-el .timing-7 * {
+  animation-delay: calc(6 * var(--delay) + var(--base-delay));
+}
+.body-el .timing-8 * {
+  animation-delay: calc(7 * var(--delay) + var(--base-delay));
+}
+
+.body-el [id*="paisley-covered-2"] [id^="cover"] {
+  display: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .body-el [id*="paisley-covered-2"] [id^="cover"] {
+    display: block;
+    animation-name: swish-draw;
+    animation-duration: var(--animation-speed);
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
+  }
+}
+
+@keyframes swish-draw {
+  from {
+    stroke-dashoffset: 0%;
+  }
+  to {
+    stroke-dashoffset: -110%;
+  }
+}

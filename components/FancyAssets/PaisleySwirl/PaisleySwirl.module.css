@@ -1,0 +1,153 @@
+.base-el {
+  --my-length: 110%;
+  --paisley-fill: #000;
+  /* default for when it's not set */
+  --my-delay: 0s;
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.base-el [id*="cover"] {
+  /* the 100% value isn't 100% of the length, it's some weird nonsense
+  I have to figure out how long each line is in units, then I'll probably attach that as a variable value */
+  stroke-dasharray: var(--my-length);
+  stroke: var(--bg-color);
+  stroke-opacity: 1;
+  /* Don't display the animated cover elements if there's a prefers-reduced motion set */
+  display: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .base-el [id*="cover"] {
+    display: block;
+    animation-name: swirl-draw;
+    animation-duration: var(--my-duration, calc(3.5s * var(--speed-index)));
+    animation-delay: var(--my-delay);
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
+  }
+}
+
+/* I had originally separated out the Brank and dot stylings into their own files, but that wasn't working with the css module system. So it all lives here now */
+
+/************************************************************************************************************************************/
+/* Customized Timings for each branch */
+/* For some reason the usual #{some-id} syntax wasn't working... but the bracket syntax was, so that's what I did */
+/************************************************************************************************************************************/
+
+.base-el [id="branch-main"] {
+  --my-length: 3380px;
+  --my-duration: calc(10s * var(--speed-index));
+  --my-delay: var(--global-delay);
+}
+.base-el [id="branch-main"] [id^="three-dots"] {
+  --dot-delay: calc(5.15s * var(--speed-index));
+}
+.base-el [id="branch-main"] [id="three-dots-2"] {
+  --dot-delay: calc(6.8s * var(--speed-index));
+}
+
+/* I could add custom lengths to the other covers on the branches, but the 110% default is working */
+.base-el [id="branch-1"] {
+  --my-delay: calc(2.8s * var(--speed-index) + var(--global-delay));
+  --dot-delay: calc(1.3s * var(--speed-index));
+}
+.base-el [id="branch-2"] {
+  --my-delay: calc(
+    var(--branch-2-delay) * var(--speed-index) + var(--global-delay)
+  );
+}
+
+.base-el [id="branch-3"] {
+  --my-delay: calc(3.7s * var(--speed-index) + var(--global-delay));
+  --dot-delay: calc(1.8s * var(--speed-index));
+}
+.base-el [id="branch-4"] {
+  --my-delay: calc(
+    var(--branch-4-delay) * var(--speed-index) + var(--global-delay)
+  );
+}
+.base-el [id="branch-5"] {
+  --my-delay: calc(
+    var(--branch-5-delay) * var(--speed-index) + var(--global-delay)
+  );
+  --dot-delay: calc(2.6s * var(--speed-index));
+  --my-length: 1000px;
+}
+.base-el [id="branch-5-1"] {
+  --my-delay: calc(
+    var(--branch-5-1-delay) * var(--speed-index) + var(--global-delay)
+  );
+  --my-length: 110%;
+}
+.base-el [id="branch-6"] {
+  --my-delay: calc(
+    var(--branch-6-delay) * var(--speed-index) + var(--global-delay)
+  );
+}
+.base-el [id="branch-7"] {
+  --my-delay: calc(
+    var(--branch-7-delay) * var(--speed-index) + var(--global-delay)
+  );
+}
+
+@keyframes swirl-draw {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: calc(0px - var(--my-length));
+  }
+}
+
+/************************************************************************************************************************************/
+/* Styling for the dots */
+/************************************************************************************************************************************/
+
+.base-el {
+  --dot-increment: 0.1s;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .base-el [id^="Ellipse"] {
+    --dot-time-increment: 0.2s;
+    --dot-base-size: 13px;
+    --dot-size-increment: 1px;
+    animation-name: pop;
+    /* animation-delay: calc(var(--my-delay) + var(--dot-delay, 0.2s)); */
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease;
+    r: 0;
+  }
+  /* I want the animation delay to be slightly longer for the second and third dots in each group */
+  .base-el [id^="Ellipse"]:nth-child(1) {
+    --final-size: var(--dot-base-size);
+    animation-delay: calc(var(--my-delay) + var(--dot-delay, 0.2s));
+  }
+  .base-el [id^="Ellipse"]:nth-child(2) {
+    --final-size: calc(var(--dot-base-size) + var(--dot-size-increment));
+    animation-delay: calc(
+      var(--my-delay) + var(--dot-delay, 0.2s) + var(--dot-time-increment)
+    );
+  }
+  .base-el [id^="Ellipse"]:nth-child(3) {
+    --final-size: calc(var(--dot-base-size) + var(--dot-size-increment) * 2);
+    animation-delay: calc(
+      var(--my-delay) + var(--dot-delay, 0.2s) + var(--dot-time-increment) * 2
+    );
+  }
+}
+
+@keyframes pop {
+  from {
+    r: 0;
+  }
+  50% {
+    r: calc(var(--final-size) * 1.15);
+  }
+  to {
+    r: var(--final-size);
+  }
+}

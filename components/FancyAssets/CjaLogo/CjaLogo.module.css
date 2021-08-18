@@ -1,0 +1,36 @@
+.CjaLogo {
+  --height: 1.75em;
+  --width: 2.05em;
+  width: var(--width);
+  max-width: var(--width);
+  height: var(--height);
+  max-height: var(--height);
+  font-size: 8rem;
+  --bg-color: #57613b;
+  background-color: var(--bg-color);
+  color: var(--my-yellow);
+  font-family: var(--my-header-font);
+  position: relative;
+}
+.letter {
+  position: absolute;
+  top: -0.08em;
+}
+.c {
+  left: 0.08em;
+}
+.j {
+  left: 0.8em;
+}
+.a {
+  left: 1.13em;
+}
+.CjaLogo .PaisleySwish {
+  top: -0.1em;
+  left: -0.15em;
+  height: 3.2em;
+  width: calc(100% + 0.3em);
+  position: absolute;
+  transform-origin: center;
+  transform: rotate(90deg);
+}

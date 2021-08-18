@@ -1,0 +1,33 @@
+.body-el .loading {
+  height: 4em;
+  font-family: var(--my-header-font);
+}
+
+.body-el {
+  width: 100%;
+}
+
+.body-el section > h2 {
+  font-family: var(--my-header-font);
+  color: #b7c2eb;
+  margin: 0.3em 0.5em;
+}
+
+.body-el .list {
+  color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  --number-of-colums: 3;
+}
+
+@media only screen and (max-width: 1100px) {
+  .body-el .list {
+    --number-of-colums: 2;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .body-el .list {
+    --number-of-colums: 1;
+  }
+}
