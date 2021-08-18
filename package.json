@@ -1,6 +1,6 @@
 {
   "name": "cja-site",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -10,7 +10,9 @@
     "ssh": "ssh connorjamesallen@5.183.9.243"
   },
   "dependencies": {
+    "@types/lodash": "^4.14.172",
     "googleapis": "^84.0.0",
+    "lodash": "^4.17.21",
     "next": "11.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2"
