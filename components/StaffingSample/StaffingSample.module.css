@@ -1,0 +1,112 @@
+.StaffingSample {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+  height: 100vh;
+  position: relative;
+
+  /* Things I want to mess around with and I don't want to look for every time */
+  --header-bg: #41454b;
+  --header-height: 3.2em;
+}
+
+.StaffingSample [class$="Icon"] {
+  fill: #ddd;
+  height: 1.8em;
+  width: 1.8em;
+}
+
+.StaffingSample h1,
+.StaffingSample h2,
+.StaffingSample h3 {
+  text-align: center;
+  padding: 0;
+}
+
+.StaffingSample h1 {
+  text-align: center;
+  padding: 1rem;
+  font-size: 2rem;
+}
+
+.StaffingSample .help-button {
+  all: unset;
+  position: fixed;
+  top: 0.5em;
+  right: 1em;
+  height: 2.5em;
+  width: 2.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2em;
+}
+.StaffingSample .help-button [class*="HelpIcon"] {
+  fill: #ddd;
+  height: 100%;
+  width: 100%;
+}
+.StaffingSample .help-button:focus {
+  background-color: #555;
+}
+
+.body {
+  flex-grow: 1;
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 1em;
+}
+
+.recruits {
+  flex: 1;
+  margin: 0.5em 0 0.5em 0.8em;
+  /* I'm doing this for the scroll bar */
+  padding-right: 0.8em;
+  height: 100%;
+  overflow: scroll;
+  /* position: relative; */
+}
+
+.recruits .empty-group {
+  margin: 2em;
+  text-align: center;
+  /* There is no need to toggle this z-index as the explain overview changes because it would never overlap anything */
+  z-index: 150;
+  position: relative;
+}
+.recruits .empty-group [class$="Icon"] {
+  transform: translate(0, 0.5em) scale(0.8);
+}
+.recruits .empty-group .down [class*="ThumbIcon"] {
+  transform: translate(0, 0.5em) scale(0.8) rotate(180deg);
+}
+
+/* This hacky id stuff lets me style child components */
+.StaffingSample [class*="StaffingChart_StaffingChart"] {
+  flex: 1;
+  margin: 0.5em 0.8em 0.5em 0;
+}
+
+@media only screen and (max-width: 950px) {
+  .body {
+    flex-direction: column-reverse;
+  }
+  .StaffingSample [class*="RecruitsHead_RecruitsHead"] {
+    font-size: 0.9rem;
+  }
+  .StaffingSample h1 {
+    padding: 0.5em 0 0 0;
+  }
+  .StaffingSample [class*="StaffingChart_StaffingChart"] {
+    margin: 0.5em;
+  }
+  .recruits {
+    margin: 0.5em 0;
+    padding: 0;
+  }
+  .StaffingSample [id*="StaffingChart_StaffingChart"] {
+    flex: 0;
+  }
+}

@@ -5,9 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 8000",
     "lint": "next lint",
-    "ssh": "ssh connorjamesallen@5.183.9.243"
+    "ssh": "ssh connorjamesallen@5.183.9.243",
+    "deploy": "bash deploy.sh"
   },
   "dependencies": {
     "@types/lodash": "^4.14.172",

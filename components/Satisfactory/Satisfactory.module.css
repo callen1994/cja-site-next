@@ -1,0 +1,10 @@
+.Satisfactory {
+  display: flex;
+  padding: 1em;
+  box-sizing: border-box;
+}
+
+.Satisfactory > div {
+  height: 100%;
+  overflow: scroll;
+}

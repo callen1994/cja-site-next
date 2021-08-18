@@ -8,7 +8,7 @@ import {
   FilterOptions,
   MT_FITLER_OPTS,
 } from "../components/DancePage/data-types";
-import { fetchData } from "../private/google-sheets-link";
+import { DUMMY_DANCE_DATA, fetchData } from "../private/google-sheets-link";
 import { onlyUnique } from "../components/utils";
 
 type Props = Parameters<typeof DancePage>[0];
@@ -32,7 +32,7 @@ export async function getStaticProps() {
   const danceData = await fetchData("Events!A2:Z");
   const blurbData = await fetchData("Blurb!A:A");
 
-  if (!danceData.values) return { props: DUMMY_DATA };
+  if (!danceData.values) return { props: DUMMY_DANCE_DATA };
 
   const keyRow = danceData.values[0] as FilterField[];
   const body = danceData.values.slice(1);
@@ -57,41 +57,3 @@ export async function getStaticProps() {
     revalidate: 10,
   };
 }
-
-const DUMMY_DATA: Props = {
-  blurbs: ["Couldn't connect to database", "bar", "wiggle"],
-  eventList: [
-    {
-      title: "test",
-      style: "test",
-      inPerson: "Yes",
-      dayOfWeek: "test",
-      repetition: "test",
-      time: "test",
-      city: "test",
-      address: "test",
-      links: "test",
-      blurb: "test",
-      img: "",
-    },
-    {
-      title: "test2",
-      style: "test2",
-      inPerson: "No",
-      dayOfWeek: "test2",
-      repetition: "test2",
-      time: "test2",
-      city: "test2",
-      address: "test2",
-      links: "test2",
-      blurb: "test2",
-      img: "",
-    },
-  ],
-  filterOptions: {
-    dayOfWeek: ["test", "test2"],
-    city: ["test", "test2"],
-    inPerson: ["test", "test2"],
-    style: ["test", "test2"],
-  },
-};

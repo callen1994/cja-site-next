@@ -1,11 +1,10 @@
 import PaisleySwish from "../FancyAssets/PaisleySwish/PaisleySwish";
-import { cloneDeep, filter } from "lodash";
+import { cloneDeep } from "lodash";
 // import { globalService } from "./DataService/service";
 import EventFilter from "./EventFilter/EventFilter";
 import EventsList from "./EventsList/EventsList";
 import {
   DanceEvent,
-  FilterField,
   FilterFig,
   FilterOptions,
   FITLERS,

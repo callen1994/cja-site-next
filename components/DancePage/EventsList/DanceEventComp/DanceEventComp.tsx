@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { condContent } from "../../../utils";
 import { DanceEvent } from "../../data-types";
+import { getStyles } from "../../../utils";
 import styles from "./DanceEventComp.module.css";
 
 interface Props {
@@ -13,8 +14,8 @@ export default function DanceEventComp({ event, index }: Props) {
   const [open, setOpen] = useState(false);
   let linkFocus = false;
   const test = false && event.title === "Lindy in the Park";
-  const getStyles = (classes: string[]) =>
-    classes.map((c) => styles[c] || "").join(" ");
+  // const getStyles = (classes: string[]) =>
+  //   classes.map((c) => styles[c] || "").join(" ");
 
   function getLinks() {
     const links = event.links.split(",");
@@ -46,9 +47,9 @@ export default function DanceEventComp({ event, index }: Props) {
   }
 
   return (
-    <div className={getStyles(["space-saver", open || test ? "open" : ""])}>
+    <div className={getStyles(styles, `space-saver ${open ? "open" : ""}`)}>
       <div
-        className={getStyles(["DanceEventBG", open || test ? "open" : ""])}
+        className={getStyles(styles, `DanceEventBG ${open ? "open" : ""}`)}
         id={`DanceEventComp${index}`}
       >
         <button className={styles["hidden"]} id={"noFocus" + index}></button>
@@ -125,7 +126,7 @@ export default function DanceEventComp({ event, index }: Props) {
             )}
           </div>
           {event.blurb.split("<br />").map((paragraph, i) => (
-            <p key={i} className={getStyles(["blurb", "details"])}>
+            <p key={i} className={getStyles(styles, "blurb details")}>
               {paragraph}
             </p>
           ))}

@@ -1,6 +1,6 @@
 export function httpProm(
   url: string,
-  method: 'GET' | 'POST' | 'PUT' = 'GET'
+  method: "GET" | "POST" | "PUT" = "GET"
 ): Promise<string> {
   const http = new XMLHttpRequest();
   return new Promise((res, rej) => {
@@ -17,7 +17,7 @@ export function httpProm(
 export function condContent(
   test: any,
   conditionalContent: JSX.Element,
-  alt: JSX.Element | '' = ''
+  alt: JSX.Element | "" = ""
 ) {
   // This is just a teeeeeeny bit cleaner than the normal way to do conditional content in jsx
   // {testVal ? (
@@ -30,4 +30,20 @@ export function condContent(
 
 export function onlyUnique<T>(v: T, i: number, arr: T[]): boolean {
   return arr.indexOf(v) === i;
+}
+
+// Slightly utility function for adding multiple css classes from a module
+export function getStyles(
+  styles: { [key: string]: string },
+  // style names split by spaces, becuase that's how classic html does it
+  classes: string
+): string {
+  return (
+    classes
+      .split(" ")
+      // Filter out any empty strings
+      .filter((cssClass) => !!cssClass)
+      .map((c) => styles[c])
+      .join(" ")
+  );
 }

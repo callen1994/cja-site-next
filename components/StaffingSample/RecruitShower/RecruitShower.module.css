@@ -1,0 +1,181 @@
+.RecruitShower {
+  --hl-recruit-bg: #51555b;
+  --hl-recruit-border: #ccc;
+
+  --border-color: #777;
+  --border-width: 1px;
+
+  --space-between: 0.2em;
+  --crew-height: 2.8em;
+
+  --add-color: var(--my-green);
+  --remove-color: var(--my-rust);
+}
+.RecruitShower .recruit-row {
+  border: solid var(--border-width) var(--border-color);
+  display: flex;
+  height: var(--crew-height);
+  margin: 0.2em 0.4em 0;
+  border-radius: 0.2em;
+  align-items: center;
+  overflow: hidden;
+}
+.RecruitShower .recruit-row .name {
+  flex: 1;
+  font-weight: bolder;
+  white-space: nowrap;
+}
+
+/* This pulls the recruit over the explain overlay when the crew display is being explained */
+.RecruitShower[class*="explain-crew"] {
+  position: relative;
+  z-index: 150;
+  --border-color: var(--hl-recruit-border);
+}
+
+/* I don't want the z-indexing applid here because that would look ugly with the stiky header */
+.RecruitShower:focus-within {
+  --border-color: var(--hl-recruit-border);
+}
+
+.RecruitShower[class*="explain-crew"] .recruit-row,
+.RecruitShower:focus-within .recruit-row {
+  outline: none;
+  background-color: var(--hl-recruit-bg);
+}
+
+.RecruitShower[class*="explain-crew"] .details,
+.RecruitShower:focus-within .details {
+  height: 1.5em;
+  padding: 0.5em 0.8rem;
+  /* padding-bottom: 0.2em; */
+  border-bottom: var(--border-width) solid var(--border-color);
+  border-left: var(--border-width) solid var(--border-color);
+  border-right: var(--border-width) solid var(--border-color);
+  border-radius: 0 0 0.3em 0.3em;
+}
+
+.RecruitShower .recruit-row > * {
+  margin: 0 0.8em;
+}
+
+.RecruitShower .details {
+  height: 0;
+  margin: 0 0.8em var(--space-between);
+  padding: 0em 0.8rem;
+  overflow: hidden;
+  transition: height 0.3s, padding-top 0.3s, padding-bottom 0.3s,
+    border-width 0.3s;
+}
+
+.RecruitShower .details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.RecruitShower .details .day-of-week {
+  /* flex: 1; */
+  text-align: center;
+  color: #888;
+  height: min-content;
+}
+.RecruitShower .details .day-of-week.yes {
+  color: #fff;
+  position: relative;
+  border-bottom: 1px solid #fff;
+}
+
+.RecruitShower .details label {
+  text-align: center;
+}
+
+.RecruitShower .recruit-row :is(button, .score) {
+  all: unset;
+  height: calc(100%);
+  width: 2.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-left: var(--border-width) solid var(--border-color);
+}
+
+.RecruitShower .recruit-row .score {
+  width: 3rem;
+  font-weight: bolder;
+  font-size: 1.2rem;
+  background-color: #555;
+}
+
+.RecruitShower[class*="explain-crew"] .recruit-row .score,
+.RecruitShower:focus-within .recruit-row .score {
+  background-color: #888;
+}
+
+.RecruitShower .recruit-row button.looks-good {
+  background-color: var(--add-color);
+}
+
+.RecruitShower .recruit-row button.looks-bad {
+  background-color: var(--remove-color);
+}
+
+.RecruitShower .indicator {
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+}
+.RecruitShower .indicator.false {
+  padding-top: 100%;
+  overflow: hidden;
+}
+.RecruitShower .indicator label {
+  white-space: nowrap;
+  margin-right: 0.4em;
+}
+
+.RecruitShower .recruit-row button [class*="ThumbIcon"] {
+  fill: #efefef;
+  height: 1.2em;
+  width: 1.2em;
+}
+.RecruitShower .looks-bad [class*="ThumbIcon"] {
+  transform: rotate(180deg);
+}
+
+.RecruitShower .recruit-row.Scheduled :is(button, .score) {
+  display: none;
+}
+
+/* Bonus stuff for explain state */
+/* What I highlight for crew-display state */
+.RecruitShower[class*="crew-display"] [class*="StarIcon"],
+.RecruitShower[class*="crew-display"] [class*="CarIcon"],
+.RecruitShower[class*="crew-display"] .details .day-of-week.yes {
+  fill: var(--my-yellow);
+  color: var(--my-yellow);
+  border-color: var(--my-yellow);
+}
+/* what I highlight for crew-buttons state */
+.RecruitShower[class*="crew-buttons"] .looks-bad,
+.RecruitShower[class*="crew-buttons"] .looks-good,
+.RecruitShower[class*="crew-buttons"] .score {
+  position: relative;
+}
+.RecruitShower[class*="crew-buttons"] .looks-bad::after,
+.RecruitShower[class*="crew-buttons"] .looks-good::after,
+.RecruitShower[class*="crew-buttons"] .score::after {
+  content: "";
+  height: 3px;
+  width: 80%;
+  background-color: var(--my-yellow);
+  top: 2.1rem;
+  left: 10%;
+  position: absolute;
+}
+
+/* Media query to remove icon labels on small screens */
+@media only screen and (max-width: 1200px) {
+  .RecruitShower .indicator label {
+    display: none;
+  }
+}

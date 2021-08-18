@@ -1,0 +1,53 @@
+.QuantShower {
+  margin: 0.3em 0.5em;
+}
+
+.QuantShower .row.main {
+  border: 1px solid #aaa;
+  border-radius: 0.3em;
+}
+
+.QuantShower .row {
+  display: flex;
+  width: 20em;
+  height: 1em;
+  padding: 0.5em;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.QuantShower .row label {
+  flex: 1;
+  margin: 0 1em;
+}
+.QuantShower .details {
+  display: none;
+}
+
+.QuantShower:focus-within .row.main {
+  background-color: #555;
+}
+
+.QuantShower:focus-within .details {
+  display: block;
+  padding-left: 1em;
+  margin: 0.5em 0;
+}
+.details .row {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.details label {
+  color: var(--my-yellow);
+}
+
+.QuantShower input {
+  all: unset;
+  background: #fff0;
+  margin: 0 0.5em;
+  font-style: inherit;
+  color: #fff;
+  border-bottom: 1px solid #aaa;
+  width: 3em;
+}

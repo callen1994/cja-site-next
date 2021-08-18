@@ -1,0 +1,98 @@
+/* This class will by dynamically applied to the element I want to highlight when that's the element I'm explaining */
+
+/* Overlay Content */
+.ExplainOverlay {
+  height: 100%;
+  width: 100%;
+  /* padding: 5vh 5vw; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  background-color: #21252baa;
+  z-index: 102;
+  box-sizing: border-box;
+}
+
+.ExplainOverlay .spacer {
+  flex: 1;
+  margin: 5vh 5vw;
+}
+
+.ExplainOverlay .main.spacer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.ExplainOverlay .overlay-content {
+  max-width: 80%;
+  max-height: 80%;
+  overflow: scroll;
+  background-color: var(--bg-color);
+  border-radius: 0.8em;
+  padding: 1em;
+  border: 1px solid #aaa;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ExplainOverlay p {
+  margin-bottom: 1em;
+}
+
+.ExplainOverlay p [class$="Icon"] {
+  transform: translate(0, 0.5em) scale(0.8);
+}
+
+.ExplainOverlay button {
+  border: none;
+  padding: 0.5em 1em;
+  font-family: var(--my-general-font);
+  background-color: #555;
+  color: #fff;
+  font-size: 1rem;
+  border-radius: 0.4em;
+  white-space: nowrap;
+}
+.ExplainOverlay p .rotate {
+  transform: translate(0, 0.5em) scale(0.8) rotate(180deg);
+}
+
+.ExplainOverlay .overlay-content ul {
+  margin: 1em 2em;
+}
+
+.ExplainOverlay .overlay-content ul li {
+  margin: 0.3em 0;
+}
+
+.ExplainOverlay .overlay-content h2 {
+  margin-bottom: 1rem;
+}
+
+.ExplainOverlay[class*="crew"],
+.ExplainOverlay[class*="recruits"] {
+  flex-direction: row-reverse;
+}
+
+.ExplainOverlay .noWrap {
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 950px) {
+  .ExplainOverlay {
+    flex-direction: column-reverse;
+  }
+
+  .ExplainOverlay[class*="chart"] .spacer {
+    flex: 2;
+  }
+
+  .ExplainOverlay[class*="crew"],
+  .ExplainOverlay[class*="recruits"] {
+    flex-direction: column;
+  }
+}

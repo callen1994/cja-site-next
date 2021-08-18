@@ -91,18 +91,18 @@
   min-height: 100vh;
   min-width: 50vw;
   position: absolute;
+  z-index: -1;
 }
 
 .left-paisley {
-  /* right: 50vw; */
-  transform: translateX(-25vw);
+  right: 50vw;
+  /* transform: translateX(-25vw); */
 }
 .right-paisley {
-  /* left: 50vw; */
-  transform: translateX(25vw);
+  left: 50vw;
+  /* transform: translateX(25vw); */
 }
 
-/*
 .left-paisley [class*="PaisleySwirl_base-el"],
 .left-paisley [class*="PaisleySwirl_base-el"] svg {
   right: 0;
@@ -110,15 +110,10 @@
 .right-paisley [class*="PaisleySwirl_base-el"],
 .right-paisley [class*="PaisleySwirl_base-el"] svg {
   left: 0;
-} */
-/* *************************************************************** */
-/* .left-paisley {
-  transform: translateX(-25vw);
 }
-.right-paisley {
-  transform: translateX(25vw);
-} */
-/* .left-paisley [class*="PaisleySwirl_base-el"],
+/* *************************************************************** */
+
+.left-paisley [class*="PaisleySwirl_base-el"],
 .left-paisley [class*="PaisleySwirl_base-el"] svg {
   right: 0;
 }
@@ -126,7 +121,7 @@
 .right-paisley [class*="PaisleySwirl_base-el"],
 .right-paisley [class*="PaisleySwirl_base-el"] svg {
   left: 0;
-}*/
+}
 
 .left-paisley [class*="PaisleySwirl_base-el"] svg {
   transform: rotate(-90deg);
@@ -137,9 +132,13 @@
 
 .HomeSplash [class*="PaisleySwirl_base-el"] svg {
   height: 50vw;
-  width: 100vh;
   min-height: 100%;
+  max-height: 50vw;
+
   min-width: 100%;
+  width: 100vh;
+  max-width: 100vh;
+
   position: absolute;
 }
 

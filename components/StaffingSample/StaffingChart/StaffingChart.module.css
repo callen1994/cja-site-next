@@ -1,0 +1,279 @@
+.StaffingChart[class*="explain-chart"] {
+  z-index: 150;
+  position: relative;
+}
+
+.StaffingChart .header {
+  background-color: var(--header-bg);
+  border-radius: 0.3rem;
+  height: var(--header-height);
+  padding: var(--header-padding);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.StaffingChart label {
+  white-space: nowrap;
+  text-align: center;
+}
+.StaffingChart .slots-indicator {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 0.3em;
+  padding: 0.5em 0.5em;
+}
+.StaffingChart .slots-indicator .CrewIcon {
+  fill: #666;
+}
+.StaffingChart .slots-indicator .CrewIcon.filled {
+  fill: #fff;
+}
+
+.StaffingChart .chart-body {
+  --highlight-color: var(--my-yellow);
+  padding: 0.5em 1.5em 0 0;
+  display: flex;
+  height: 20em;
+  overflow: hidden;
+  transition: height 0.3s;
+}
+.StaffingChart .chart-body > * {
+  display: flex;
+  flex-direction: column;
+}
+.StaffingChart .chart-body > * > * {
+  height: 1.5em;
+  margin: 0.3em 0;
+}
+.StaffingChart .bar-column {
+  flex: 1;
+}
+.StaffingChart .chart-body .day {
+  display: flex;
+  margin: 0.5em 0;
+  align-items: center;
+}
+.StaffingChart .chart-body label {
+  width: 2.1em;
+  font-size: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.StaffingChart .chart-body .icon {
+  width: 4em;
+}
+
+.StaffingChart .icon {
+  text-align: center;
+}
+
+.StaffingChart .hl {
+  color: var(--highlight-color);
+}
+.StaffingChart .icon.hl [class$="Icon"] {
+  fill: var(--highlight-color);
+}
+
+.StaffingChart .bar-holder {
+  display: flex;
+  align-items: flex-end;
+  flex: 1;
+  margin-left: 0.5em;
+}
+
+.StaffingChart .need-bar {
+  border: 1px solid #888;
+  position: relative;
+  overflow: hidden;
+  height: 1.5em;
+}
+
+.StaffingChart .sched-bar,
+.StaffingChart .focus-bar {
+  background-color: #b7c2eb;
+  position: absolute;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+.StaffingChart .focus-bar {
+  background-color: var(--highlight-color);
+}
+
+.tick {
+  flex: 1;
+  text-align: center;
+  border-right: 1px solid #aaa;
+  font-size: 1.1rem;
+}
+.StaffingChart .toggleButton {
+  text-align: center;
+}
+.StaffingChart .hidden {
+  display: none;
+}
+
+.StaffingChart .icons label {
+  text-align: left;
+}
+.StaffingChart .labels,
+.StaffingChart .icons {
+  align-items: center;
+}
+
+/* Explain Stylings */
+
+.StaffingChart.explain-chart-slots .slots-indicator label {
+  color: var(--my-yellow);
+}
+
+.StaffingChart.explain-chart-slots .slots-indicator {
+  border: 2px solid var(--my-yellow);
+  border-radius: 0.3em;
+}
+
+.StaffingChart.explain-chart-day .icons label {
+  transition: 0s;
+  color: var(--my-yellow);
+}
+
+.StaffingChart.explain-chart-day .bar-column > div:nth-child(2) .need-bar {
+  transition: 0s;
+  border-color: var(--my-yellow);
+}
+.StaffingChart.explain-chart-day .bar-column > div:nth-child(2) .sched-bar {
+  /* Important is necessary because I overwrite the property with javascript
+  This is only for the explain overlay */
+  width: 16.66% !important;
+}
+
+/* *************************************************************************** */
+/* ***************************** Transition Stuff***************************** */
+/* *************************************************************************** */
+
+.StaffingChart {
+  --transition-time: 1s;
+}
+
+.StaffingChart button {
+  all: unset;
+  border-radius: 1em;
+  height: 2em;
+  width: 2em;
+  background-color: #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.StaffingChart button .ChevronIcon {
+  height: 100%;
+  width: 100%;
+  transition: transform 0.3s;
+}
+.StaffingChart .collapsed button .ChevronIcon {
+  height: 100%;
+  width: 100%;
+  transform: rotate(90deg);
+}
+
+.StaffingChart .bar-column *,
+.StaffingChart .bar-column * *,
+.StaffingChart .bar-column .sched-bar,
+.StaffingChart .bar-column .focus-bar {
+  /* The transition property lets me set the transition delay differently for each 
+  transition: [property | speed | timing-fun | delay], [property | speed | timing-fun | delay] ...
+  field. Width should have no delay (updates as people are clicked/selected) the other color
+  attributes need to delay their transition back to visible (only when transitioning from closed
+  to not closed) */
+  --return-delay: calc(var(--transition-time) - 0.2s);
+  /* Including the left property as something to transition is important for it looking smooth when a recruit gets scheduled */
+  transition: width 0.3s 0s, left 0.3s 0s, border-color 0.3s var(--return-delay),
+    color 0.3s var(--return-delay), background-color 0.3s var(--return-delay);
+}
+.StaffingChart .collapsed .bar-column * * {
+  color: #0000;
+  border-color: #0000;
+  background-color: #0000;
+  transition-delay: 0s;
+}
+
+.StaffingChart .labels,
+.StaffingChart .icons {
+  transition: var(--transition-time);
+  transition-delay: 0.3s;
+  transform-origin: top;
+  height: 100%;
+  justify-content: space-around;
+}
+.StaffingChart .labels > *,
+.StaffingChart .icons > * {
+  transition: inherit;
+}
+.StaffingChart {
+  --collapsed-down-shift: -3em;
+}
+.StaffingChart .collapsed .labels,
+.StaffingChart .collapsed .icons {
+  transition-delay: 0s;
+  height: 48vw;
+}
+.StaffingChart .collapsed .labels {
+  transform: rotate(-90deg)
+    translate(calc(2em + var(--collapsed-down-shift)), -1.2em);
+}
+.StaffingChart .collapsed .icons.star {
+  transform: rotate(-90deg)
+    translate(calc(-1em + var(--collapsed-down-shift)), -8.5em);
+}
+.StaffingChart .collapsed .icons.car {
+  transform: rotate(-90deg)
+    translate(calc(-3em + var(--collapsed-down-shift)), -4.5em);
+}
+
+.StaffingChart .collapsed .icons > *,
+.StaffingChart .collapsed .labels > * {
+  transform: rotate(90deg);
+}
+
+.StaffingChart .chart-body.collapsed {
+  height: 7em;
+  transition: height 0.3s;
+  transition-delay: calc(var(--transition-time) - 0.3s);
+}
+
+.StaffingChart .alt-count {
+  width: 100%;
+  color: #0000;
+  animation: fadeIn;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+  animation-delay: calc(var(--transition-time) * 1.1);
+}
+
+@keyframes fadeIn {
+  from {
+    color: #0000;
+  }
+  to {
+    color: #ffff;
+  }
+}
+
+@media only screen and (max-width: 950px) {
+  .StaffingChart .slots-indicator label {
+    display: none;
+  }
+  .StaffingChart .header {
+    display: none;
+  }
+  .StaffingChart .chart-body {
+    margin-left: 0.2em;
+  }
+  .StaffingChart .collapsed .labels,
+  .StaffingChart .collapsed .icons {
+    height: 100vw;
+  }
+}
