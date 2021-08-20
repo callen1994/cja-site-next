@@ -47,6 +47,10 @@
   text-align: center;
 }
 
+.HomeSplash .welcome a {
+  color: inherit;
+}
+
 @keyframes fade-in {
   from {
     opacity: 0;

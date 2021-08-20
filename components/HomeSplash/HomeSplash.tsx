@@ -1,4 +1,7 @@
+import Link from "next/link";
+import React from "react";
 import PaisleySwirl from "../FancyAssets/PaisleySwirl/PaisleySwirl";
+import { getStyles } from "../utils";
 import styles from "./HomeSplash.module.css";
 
 export default function HomeSplash() {
@@ -11,10 +14,12 @@ export default function HomeSplash() {
         <PaisleySwirl speedIndex={0.4} globalDelay={1}></PaisleySwirl>
       </div>
       {/* Making these spans helps with my css selectors, don't change it */}
-      <span className={`${styles.name} ${styles.connor}`}>Connor</span>
-      <span className={`${styles.name} ${styles.james}`}>James</span>
-      <span className={`${styles.name} ${styles.allen}`}>Allen</span>
-      <span className={styles["welcome"]}>Welcome to my site!</span>
+      <span className={getStyles(styles, "name connor")}>Connor</span>
+      <span className={getStyles(styles, "name james")}>James</span>
+      <span className={getStyles(styles, "name allen")}>Allen</span>
+      <span className={styles["welcome"]}>
+        For Dance Info, <Link href="/dance">go here</Link>
+      </span>
     </section>
   );
 }
