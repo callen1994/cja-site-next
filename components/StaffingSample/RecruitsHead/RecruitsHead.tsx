@@ -4,7 +4,7 @@ import {
   ExplainState,
   EXPLAIN_SERVICE,
 } from "../ExplainOverlay/ExplainOverlay.service";
-import ChevronIcon from "../Icons/ChevronIcon";
+import ChevronIcon from "../../Icons/ChevronIcon";
 import { nextGroup, Status } from "../staffing-data/staffing.data-types";
 import { SortType } from "../StaffingSample";
 import styles from "./RecruitsHead.module.css";

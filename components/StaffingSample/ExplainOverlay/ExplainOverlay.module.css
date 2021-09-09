@@ -29,10 +29,12 @@
 .ExplainOverlay .overlay-content {
   max-width: 80%;
   max-height: 80%;
-  overflow: scroll;
+  overflow-y: auto;
+  overflow-x: hidden;
   background-color: var(--bg-color);
   border-radius: 0.8em;
   padding: 1em;
+  /* padding-right: 2.5em; */
   border: 1px solid #aaa;
   display: flex;
   flex-direction: column;
@@ -43,7 +45,7 @@
   margin-bottom: 1em;
 }
 
-.ExplainOverlay p [class$="Icon"] {
+.ExplainOverlay [class$="Icon"] {
   transform: translate(0, 0.5em) scale(0.8);
 }
 
@@ -57,7 +59,8 @@
   border-radius: 0.4em;
   white-space: nowrap;
 }
-.ExplainOverlay p .rotate {
+/* when this was written as ".rotate" it gets exported as a modularized css class */
+.ExplainOverlay * [class*="rotate"] {
   transform: translate(0, 0.5em) scale(0.8) rotate(180deg);
 }
 

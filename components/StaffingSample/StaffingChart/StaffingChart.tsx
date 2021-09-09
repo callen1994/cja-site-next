@@ -6,10 +6,10 @@ import {
   Recruit,
   StaffingNeeds,
 } from "../staffing-data/staffing.data-types";
-import CarIcon from "../Icons/CarIcon";
-import StarIcon from "../Icons/StarIcon";
-import CrewIcon from "../Icons/CrewIcon";
-import ChevronIcon from "../Icons/ChevronIcon";
+import CarIcon from "../../Icons/CarIcon";
+import StarIcon from "../../Icons/StarIcon";
+import CrewIcon from "../../Icons/CrewIcon";
+import ChevronIcon from "../../Icons/ChevronIcon";
 import {
   ExplainState,
   EXPLAIN_SERVICE,
@@ -152,17 +152,6 @@ export default class StaffingChart extends React.Component<Props, State> {
         <div className={styles["header"]}>
           <h2>Scheduled Staff</h2>
         </div>
-        <div className={styles["slots-indicator"]}>
-          <label>
-            Crew Slots: {recruited.length} / {MAX_CREW}
-          </label>
-          {range(1, MAX_CREW + 1).map((i) => (
-            <CrewIcon
-              key={i}
-              className={i <= recruited.length ? "filled" : ""}
-            ></CrewIcon>
-          ))}
-        </div>
         {/* I refactored this to be in columns because I want to do some nifty stuff
             with animations to rotate things on the mobile view */}
         <div
@@ -198,6 +187,17 @@ export default class StaffingChart extends React.Component<Props, State> {
             {needs.map(makeBar)}
           </div>
           {/* {needs.map((day, i) => this.renderDay(day, i))} */}
+        </div>
+        <div className={styles["slots-indicator"]}>
+          <label>
+            Crew Slots: {recruited.length} / {MAX_CREW}
+          </label>
+          {range(1, MAX_CREW + 1).map((i) => (
+            <CrewIcon
+              key={i}
+              className={i <= recruited.length ? "filled" : ""}
+            ></CrewIcon>
+          ))}
         </div>
       </div>
     );

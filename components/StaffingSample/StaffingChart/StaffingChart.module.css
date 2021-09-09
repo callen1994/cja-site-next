@@ -20,14 +20,16 @@
   flex: 1;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   margin-top: 0.3em;
   padding: 0.5em 0.5em;
 }
-.StaffingChart .slots-indicator .CrewIcon {
+
+.StaffingChart .slots-indicator [class*="CrewIcon"] {
   fill: #666;
 }
-.StaffingChart .slots-indicator .CrewIcon.filled {
+
+.StaffingChart .slots-indicator [class*="filled CrewIcon"] {
   fill: #fff;
 }
 

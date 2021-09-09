@@ -1,6 +1,9 @@
 .App {
   height: 100vh;
-  overflow: scroll;
+  width: 100vw;
+  overflow-y: scroll;
+  box-sizing: border-box;
+  overflow-x: hidden;
   scroll-snap-type: y mandatory;
 }
 .App section {

@@ -1,9 +1,9 @@
 import React, { Fragment } from "react";
-import CarIcon from "../Icons/CarIcon";
-import ChevronIcon from "../Icons/ChevronIcon";
-import CrewIcon from "../Icons/CrewIcon";
-import StarIcon from "../Icons/StarIcon";
-import ThumbIcon from "../Icons/ThumbIcon";
+import CarIcon from "../../Icons/CarIcon";
+import ChevronIcon from "../../Icons/ChevronIcon";
+import CrewIcon from "../../Icons/CrewIcon";
+import StarIcon from "../../Icons/StarIcon";
+import ThumbIcon from "../../Icons/ThumbIcon";
 import { RealExplainState } from "./ExplainOverlay.service";
 import styles from "./ExplainOverlay.module.css";
 

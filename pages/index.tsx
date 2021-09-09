@@ -9,7 +9,7 @@ const Home: NextPage = () => {
   return (
     <Fragment>
       <Head>
-        <title>Connor James Allen - Portfolio site</title>
+        <title>Connor James Allen ~ Portfolio site</title>
         <meta
           name="description"
           content="Portfolio site for Connor James Allen"

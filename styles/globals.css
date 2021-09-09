@@ -6,11 +6,44 @@
 html {
   font-size: 16px;
   margin: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+body {
+  font-size: 16px;
+  margin: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100vh;
 }
 * {
   margin: 0;
   padding: 0;
+  --thumb-color: #aaa;
+  --scroll-bar-color: #0000;
+  --scroll-bar-width: 0.8em;
+  /* For Firefox */
+  scrollbar-width: var(--scroll-bar-width);
+  scrollbar-color: var(--thumb-color) var(--scroll-bar-color);
 }
+
+*::-webkit-scrollbar {
+  background-color: var(--scroll-bar-color);
+  width: var(--scroll-bar-width);
+}
+*::-webkit-scrollbar-track {
+  background-color: var(--scroll-bar-color);
+}
+*::-webkit-scrollbar-thumb {
+  background-color: var(--thumb-color);
+  box-sizing: border-box;
+  border-radius: 0.3em;
+  width: 0.8em;
+}
+*::-webkit-search-cancel-button {
+  display: none;
+}
+
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;

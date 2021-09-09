@@ -1,0 +1,91 @@
+.InviteOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: #21252baa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.overlay-content {
+  max-width: 80%;
+  max-height: 80%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: var(--bg-color);
+  border-radius: 0.8em;
+  padding: 1em;
+  /* padding-right: 2.5em; */
+  border: 1px solid #aaa;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+.close [class*="CloseIcon"] {
+  fill: #fff;
+  height: 100%;
+  width: 100%;
+}
+
+.InviteOverlay .overlay-content h2 {
+  margin: 0em 2em 0.5em;
+  text-align: center;
+}
+
+button.close {
+  position: absolute;
+  top: 0em;
+  right: 0em;
+  border: 1px solid #fff;
+  padding: 0.2em;
+  border-radius: 2em;
+  height: 1.5em;
+  width: 1.5em;
+}
+
+button.send {
+  background-color: var(--my-sky-blue);
+  color: #000;
+  margin: 0 0 0 1em;
+  padding: 0.3em 0.8em;
+}
+
+.invite {
+  --err-color: #d55;
+  margin: 0.5em;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  position: relative;
+}
+.invite label {
+  width: 8em;
+}
+
+.invite input {
+  all: unset;
+  background-color: #444;
+  border-bottom: 1px solid #aaa;
+  padding: 0.3em;
+  border-radius: 0.3em 0.3em 0 0;
+}
+
+.invite.err input {
+  border-color: var(--err-color);
+  /* color: var(--err-color); */
+  margin-bottom: 1.5em;
+}
+
+.invite.err:after {
+  content: attr(data-err);
+  position: absolute;
+  top: 2.1em;
+  left: 8.3em;
+  color: var(--err-color);
+}

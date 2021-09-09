@@ -8,7 +8,7 @@ import {
   FilterOptions,
   MT_FITLER_OPTS,
 } from "../components/DancePage/data-types";
-import { DUMMY_DANCE_DATA, fetchData } from "../private/google-sheets-link";
+import { DUMMY_DANCE_DATA, fetchSheetData } from "../private/google-link";
 import { onlyUnique } from "../components/utils";
 
 type Props = Parameters<typeof DancePage>[0];
@@ -29,8 +29,8 @@ export default function Dance(props: Props) {
 }
 
 export async function getStaticProps() {
-  const danceData = await fetchData("Events!A2:Z");
-  const blurbData = await fetchData("Blurb!A:A");
+  const danceData = await fetchSheetData("Events!A2:Z");
+  const blurbData = await fetchSheetData("Blurb!A:A");
 
   if (!danceData.values) return { props: DUMMY_DANCE_DATA };
 
@@ -44,16 +44,20 @@ export async function getStaticProps() {
   const filterOptions: FilterOptions = cloneDeep(MT_FITLER_OPTS);
   keyRow.map(
     (key, i) =>
-      (filterOptions[key] = body.map((row) => row[i]).filter(onlyUnique))
+      (filterOptions[key] = body
+        .map((row) => row[i] || null)
+        // Filter so only real values are present
+        .filter((x) => x)
+        .filter(onlyUnique))
   );
 
   return {
     props: {
       // Blurbs are all in column a. The valeus object is a list of row lists
-      blurbs: blurbData.values?.map((row) => row[0]),
+      blurbs: blurbData.values?.map((row) => row[0] || null),
       eventList,
       filterOptions,
     },
-    revalidate: 10,
+    revalidate: 300,
   };
 }

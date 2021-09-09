@@ -5,7 +5,10 @@
   flex-direction: column;
   align-items: center;
   width: 100vw;
-  overflow: hidden;
+  /* Overflow visible with margin bottom keeps the plant svg from getting clipped 
+  This currently works great, but has an issue when the screen is really stupidly wide and short*/
+  overflow: visible;
+  margin-bottom: 10em;
   font-family: var(--my-header-font);
   color: var(--my-yellow);
   --fade-in-full: fade-in 0.9s both 2.5s;

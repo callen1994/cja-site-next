@@ -1,3 +1,7 @@
+// https://stackoverflow.com/questions/48011353/how-to-unwrap-type-of-a-promise
+// Typescript magic for unwrapping the resolve type of a promise
+export type ThenArg<T> = T extends PromiseLike<infer U> ? U : T;
+
 export function httpProm(
   url: string,
   method: "GET" | "POST" | "PUT" = "GET"
@@ -7,9 +11,7 @@ export function httpProm(
     http.open(method, url);
     http.send();
     http.onreadystatechange = () => {
-      if (http.readyState === 4 && http.status < 400) {
-        res(http.responseText);
-      }
+      if (http.readyState === 4 && http.status < 400) res(http.responseText);
     };
   });
 }
@@ -24,7 +26,7 @@ export function condContent(
   //   conditional content
   // ) : (
   //   ''
-  // )}F
+  // )}
   return test ? conditionalContent : alt;
 }
 
@@ -47,3 +49,5 @@ export function getStyles(
       .join(" ")
   );
 }
+
+export type InputChange = React.ChangeEvent<HTMLInputElement>;

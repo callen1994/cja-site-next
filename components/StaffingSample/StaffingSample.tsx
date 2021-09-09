@@ -21,8 +21,8 @@ import {
   EXPLAIN_SERVICE,
   ExplainState,
 } from "./ExplainOverlay/ExplainOverlay.service";
-import ThumbIcon from "./Icons/ThumbIcon";
-import HelpIcon from "./Icons/HelpIcon";
+import ThumbIcon from "../Icons/ThumbIcon";
+import HelpIcon from "../Icons/HelpIcon";
 
 import styles from "./StaffingSample.module.css";
 

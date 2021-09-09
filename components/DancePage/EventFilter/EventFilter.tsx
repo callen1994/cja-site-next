@@ -1,4 +1,5 @@
 import React from "react";
+import { onlyUnique } from "../../utils";
 import { FilterField } from "../data-types";
 import styles from "./EventFilter.module.css";
 
@@ -24,6 +25,19 @@ export default function EventFilter({
   selected,
   filterChange,
 }: Props) {
+  let optionsToShow = options.concat("");
+  if (field === "dayOfWeek")
+    optionsToShow = [
+      "Mondays",
+      "Tuesdays",
+      "Wednesdays",
+      "Thursdays",
+      "Fridays",
+      "Saturdays",
+      "Sundays",
+    ]
+      .concat(optionsToShow)
+      .filter(onlyUnique);
   return (
     <div className={styles["body-el"]}>
       <span>{DISPLAY_FILT_FIELD[field]}</span>
@@ -31,7 +45,7 @@ export default function EventFilter({
         onChange={(e) => filterChange(e.target.value)}
         value={selected || ""}
       >
-        {(options.concat("") || []).map((o, i) => (
+        {(optionsToShow || []).map((o, i) => (
           <option key={i} value={o}>
             {o || "No Filter"}
           </option>

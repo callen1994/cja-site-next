@@ -13,7 +13,7 @@ export function makeErrHandler(
   };
 }
 
-// If I have an async call that might fail, this switches it from failing with an error to failign by returning null
+// If I have an async call that might fail, this switches it from failing with an error to failing by returning null
 // for the main value and an error value as a second value
 export async function promErrWrapper<T>(
   toWrap: () => Promise<T>

@@ -1,0 +1,155 @@
+.Toolbar {
+  margin-left: 2em;
+  display: flex;
+  flex-direction: column;
+  /* min-height: 100%; */
+  /* justify-content: space-around; */
+}
+
+.Toolbar h2 {
+  margin: 0.2em 0;
+}
+
+.tool-list {
+  display: flex;
+  flex-direction: column;
+}
+.tool div {
+  height: 1.5em;
+  width: 1.5em;
+  border-radius: 0.3em;
+  border: 1px solid #aaa;
+}
+button.tool {
+  height: 1em;
+  display: flex;
+  align-items: center;
+  margin: 0.2em 0em;
+  /* padding: 0; */
+  background-color: #444;
+  border: 1px solid #0000;
+}
+button.tool.selected,
+button.tool:active {
+  background-color: #555;
+  border: 1px solid #aaa;
+}
+.tool span {
+  margin-left: 0.5em;
+}
+.spacer {
+  flex: 1;
+}
+
+.Toolbar {
+  width: 13em;
+}
+
+.user-list {
+  margin-top: 1em;
+}
+.user-name {
+  margin: 0.3em 0;
+}
+
+.user-list-little {
+  display: none;
+}
+
+.Toolbar [class*="Icon"] {
+  height: 1.7em;
+  width: 1.7em;
+  fill: #fff;
+}
+/* .Toolbar [class*="CancelIcon"] {
+  height: 1.7em;
+  width: 1.7em;
+  fill: #fff;
+} */
+
+button.invite {
+  background-color: var(--my-sky-blue);
+  color: #000;
+  margin: 0.5em 0;
+  padding: 0.5em 1em;
+  font-weight: bolder;
+}
+
+@media only screen and (max-width: 1000px) {
+  .Toolbar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: clamp(0px, 100vw, 800px);
+    box-sizing: border-box;
+    padding: 0 0.8em;
+    margin: 0 0 0.3em;
+  }
+
+  .tool-list {
+    flex-direction: row;
+  }
+  button.tool {
+    margin: 0.2em 0.3em;
+    padding: 0.5em 0.2em;
+  }
+  .tool span {
+    display: none;
+  }
+  .user-list {
+    display: none;
+  }
+  .spacer {
+    display: none;
+  }
+  .user-list-little {
+    display: block;
+    position: relative;
+    border-radius: 0.2em;
+    border: 1px solid #eee0;
+    height: 2.3em;
+    width: 2.3em;
+    padding: 0 0.1em;
+  }
+  .user-list-little [class*="Icon"] {
+    fill: #eee;
+    height: 100%;
+    width: 100%;
+  }
+  .user-list-little .user-count {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #d00;
+    font-size: 0.8rem;
+    height: 1rem;
+    width: 1rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .user-list-little .full-list {
+    display: none;
+    position: absolute;
+    background-color: var(--bg-color);
+    z-index: 10;
+    padding: 0.2em 0.8em 0.5em 0.5em;
+    border-radius: inherit;
+    right: 0;
+    border: 1px solid #eee;
+  }
+  .user-list-little .full-list * {
+    white-space: nowrap;
+  }
+  .user-list-little .full-list h3 {
+    font-size: 1rem;
+    margin: 0.2em 0;
+  }
+  .user-list-little:focus {
+    border: 1px solid #eee;
+  }
+  .user-list-little:focus .full-list {
+    display: block;
+  }
+}

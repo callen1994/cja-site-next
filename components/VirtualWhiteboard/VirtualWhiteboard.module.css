@@ -1,0 +1,91 @@
+.DrawWithFriends {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.DrawWithFriends button {
+  all: unset;
+  padding: 0.5em;
+  border-radius: 0.3em;
+  margin: 0.5em;
+  text-align: center;
+}
+
+.DrawWithFriends h1 {
+  margin: 1em 0;
+  font-size: min(8vw, 32px);
+}
+
+.body {
+  display: flex;
+  width: 100vw;
+  justify-content: space-between;
+}
+
+.canvas-col {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.canvas-wrapper {
+  position: relative;
+  margin: 0 15px;
+  transform-origin: top;
+}
+
+.DrawWithFriends .stage,
+.DrawWithFriends .canvas-stage {
+  border: 0.2em solid #aaa;
+  background-color: #efefef;
+  box-sizing: border-box;
+}
+
+.DrawWithFriends .canvas-stage {
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+
+.user-indicator,
+.eraser-cursor {
+  position: absolute;
+  z-index: 10;
+  background-color: #333;
+  color: #fff;
+}
+
+.eraser-cursor {
+  background-color: #0000;
+  border-radius: 100%;
+  border: 1px solid #000;
+  pointer-events: none;
+}
+
+input.board-name {
+  all: unset;
+  font-size: 2em;
+  color: var(--my-yellow);
+  border-bottom: 1px solid #0000;
+  text-align: center;
+  padding: 0em;
+  max-width: 10em;
+  margin: 0.3em 0;
+}
+input.board-name:focus {
+  border-bottom: 1px solid var(--my-yellow);
+}
+
+@media only screen and (max-width: 1000px) {
+  .body {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .DrawWithFriends h1 {
+    margin: 0.2em 0;
+  }
+}

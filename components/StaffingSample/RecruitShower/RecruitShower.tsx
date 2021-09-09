@@ -4,9 +4,9 @@ import {
   ExplainState,
   EXPLAIN_SERVICE,
 } from "../ExplainOverlay/ExplainOverlay.service";
-import CarIcon from "../Icons/CarIcon";
-import StarIcon from "../Icons/StarIcon";
-import ThumbIcon from "../Icons/ThumbIcon";
+import CarIcon from "../../Icons/CarIcon";
+import StarIcon from "../../Icons/StarIcon";
+import ThumbIcon from "../../Icons/ThumbIcon";
 import {
   DAY_LU,
   nextGroup,

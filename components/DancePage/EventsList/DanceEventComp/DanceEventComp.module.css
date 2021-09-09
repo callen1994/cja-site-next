@@ -16,9 +16,10 @@ to behave slighly differently when you click on them both inside and outside the
 /* When the element is open, I want the sapce saver to take up the same horizontal size as the original component */
 .space-saver.open,
 .body {
+  /* Had to decrease this by 1em to account for scrollbars  */
   width: calc(
     (
-        100vw - (2 * var(--body-padding)) -
+        100vw - (2 * var(--body-padding)) - 1em -
           ((1vw + 2em) * (var(--number-of-colums)))
       ) / var(--number-of-colums)
   );
@@ -104,7 +105,8 @@ to behave slighly differently when you click on them both inside and outside the
 .blurb {
   margin-top: 1em;
   max-width: 25em;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-s: hidden;
 }
 
 .DanceEventBG.open .body {

@@ -61,11 +61,12 @@
 
 .recruits {
   flex: 1;
-  margin: 0.5em 0 0.5em 0.8em;
+  margin: 0.5em 0.25em 0.5em 0.8em;
   /* I'm doing this for the scroll bar */
-  padding-right: 0.8em;
+  padding-right: 0.3em;
   height: 100%;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
   /* position: relative; */
 }
 
@@ -100,6 +101,7 @@
     padding: 0.5em 0 0 0;
   }
   .StaffingSample [class*="StaffingChart_StaffingChart"] {
+    flex: 0;
     margin: 0.5em;
   }
   .recruits {
