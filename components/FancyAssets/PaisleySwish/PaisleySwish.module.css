@@ -1,60 +1,61 @@
-.body-el {
+.PaisleySwish {
   --paisley-fill: black;
   --animation-speed: 3.5s;
 }
-.body-el [id*="cover"] {
+.PaisleySwish [id*="cover"] {
   /* animation: draw 2s ease forwards; */
-  stroke-dasharray: 110%;
+  --stroke-length: 156%;
+  stroke-dasharray: var(--stroke-length);
   stroke: var(--bg-color);
   stroke-opacity: 1;
 }
 
-.body-el [id*="swish"] {
+.PaisleySwish [id*="swish"] {
   fill: var(--paisley-fill);
   fill-opacity: 1;
 }
 
-.body-el [id*="paisley-covered-2"] {
+.PaisleySwish [id*="PaisleySwish"] {
   --base-delay: 1s;
   --delay: calc((0.2 / 1.5) * var(--animation-speed));
 }
 
-.body-el svg {
+.PaisleySwish svg {
   height: 100%;
   width: 100%;
 }
 
-.body-el .timing-1 * {
+.PaisleySwish [id*="timing-1"] * {
   animation-delay: calc(0 * var(--delay) + var(--base-delay));
 }
-.body-el .timing-2 * {
+.PaisleySwish [id*="timing-2"] * {
   animation-delay: calc(1 * var(--delay) + var(--base-delay));
 }
-.body-el .timing-3 * {
+.PaisleySwish [id*="timing-3"] * {
   animation-delay: calc(2 * var(--delay) + var(--base-delay));
 }
-.body-el .timing-4 * {
+.PaisleySwish [id*="timing-4"] * {
   animation-delay: calc(3 * var(--delay) + var(--base-delay));
 }
-.body-el .timing-5 * {
+.PaisleySwish [id*="timing-5"] * {
   animation-delay: calc(4 * var(--delay) + var(--base-delay));
 }
-.body-el .timing-6 * {
+.PaisleySwish [id*="timing-6"] * {
   animation-delay: calc(5 * var(--delay) + var(--base-delay));
 }
-.body-el .timing-7 * {
+.PaisleySwish [id*="timing-7"] * {
   animation-delay: calc(6 * var(--delay) + var(--base-delay));
 }
-.body-el .timing-8 * {
+.PaisleySwish [id*="timing-8"] * {
   animation-delay: calc(7 * var(--delay) + var(--base-delay));
 }
 
-.body-el [id*="paisley-covered-2"] [id^="cover"] {
+.PaisleySwish [id*="PaisleySwish"] [id^="cover"] {
   display: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .body-el [id*="paisley-covered-2"] [id^="cover"] {
+  .PaisleySwish [id*="PaisleySwish"] [id^="cover"] {
     display: block;
     animation-name: swish-draw;
     animation-duration: var(--animation-speed);
@@ -68,6 +69,6 @@
     stroke-dashoffset: 0%;
   }
   to {
-    stroke-dashoffset: -110%;
+    stroke-dashoffset: calc(-1 * var(--stroke-length));
   }
 }

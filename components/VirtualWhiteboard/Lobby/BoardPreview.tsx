@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Layer, Line, Stage } from "react-konva";
+import { getContentWidth } from "../../utils";
 import { WhiteboardPreview } from "../data-types";
 import stageStyles from "../VirtualWhiteboard.module.css";
 import lobbyStyles from "./Lobby.module.css";
@@ -9,37 +10,52 @@ interface Props {
   goToRoom: (x: string) => void;
 }
 export default function BoardPreview({ board, goToRoom }: Props) {
-  const scale = Math.max(
-    0.2,
-    Math.min(1, (window.innerWidth - 50) / (5 * 800))
-  );
-  const height = 600; // Math.min(600, (width * 6) / 8);
-  const width = 800; // Math.min(800, window.innerWidth - 50);
-  const realHeight = height * scale;
-  const realWidth = width * scale;
+  const containerRef = useRef<HTMLButtonElement>(null);
+  const [boardSizing, setBoardSizing] = useState({
+    height: 0,
+    width: 0,
+    scale: 0,
+  });
+  const baseHeight = 600;
+  const baseWidth = 800;
+  // The board size is figured out based on the width of the containing button
+  // so I can style the button normally
+  useEffect(() => {
+    const contentWidth = getContentWidth(containerRef.current) || 0;
+    // only get as big as 100% of original size
+    const scale = Math.min(1, contentWidth / baseWidth);
+
+    const height = baseHeight * scale;
+    const width = baseWidth * scale;
+    setBoardSizing({ scale, height, width });
+  }, [containerRef]);
+
   return (
     <button
+      ref={containerRef}
       className={lobbyStyles["preview-box"]}
       onClick={(e) => goToRoom(board._id)}
     >
       <h3 title={board._id}>{board.name}</h3>
-      <div className={lobbyStyles["users"]}>Users: {board.userData.length}</div>
+      <div className={lobbyStyles["users"]}>
+        Active Users: {board.userData.length}
+      </div>
       <div
         style={{
-          height: realHeight,
-          width: realWidth,
+          height: boardSizing.height,
+          width: boardSizing.width,
           overflow: "hidden",
         }}
       >
         <Stage
-          height={height}
-          width={width}
+          height={baseHeight}
+          width={baseWidth}
           className={stageStyles["stage"]}
           style={{
-            transform: `scale(${scale})`,
+            transform: `scale(${boardSizing.scale})`,
             transformOrigin: "top left",
-            height,
-            width,
+            height: baseHeight,
+            width: baseWidth,
           }}
         >
           <Layer>

@@ -1,6 +1,17 @@
 .Lobby {
   --error-color: rgb(197, 81, 81);
   width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Lobby h1,
+.Lobby h2 {
+  text-align: center;
 }
 
 .Lobby input {
@@ -34,17 +45,34 @@
 
 .head {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   margin: 0 2em;
+  width: calc(100vw - 4em);
 }
+
 .previews {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 1em;
+  /* --button-margin: 0.3em; */
+  --grid-gap: 1em;
+  --janky-margin: calc(var(--grid-gap) * 2);
+  --grid-width: calc(100vw - var(--janky-margin));
+  --col-width: min(15em, calc((var(--grid-width) - var(--grid-gap)) / 2));
+  width: var(--grid-width);
+  margin: 1em 0;
+  padding: 0 1em;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, var(--col-width));
   justify-content: center;
+  grid-gap: var(--grid-gap);
 }
+
 /* Needed to increase the level of specificity to get it to show up correctly */
 .previews .preview-box {
+  box-sizing: border-box;
+  --button-width: calc(var(--col-width));
+  width: var(--button-width);
+  max-width: var(--button-width);
+  margin: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -52,6 +80,11 @@
   border-radius: 0.3em;
   /* give it an invisible border so it doesn't shift around when hovered */
   border: 1px solid #ddd0;
+}
+
+.previews .preview-box h3 {
+  white-space: nowrap;
+  overflow-x: auto;
 }
 .previews .preview-box:hover,
 .previews .preview-box:focus {
@@ -63,4 +96,10 @@
 }
 .users {
   margin: 0.3em;
+}
+
+@media only screen and (max-width: 800px) {
+  .previews {
+    --grid-gap: 0.5em;
+  }
 }

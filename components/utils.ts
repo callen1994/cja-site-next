@@ -4,12 +4,19 @@ export type ThenArg<T> = T extends PromiseLike<infer U> ? U : T;
 
 export function httpProm(
   url: string,
-  method: "GET" | "POST" | "PUT" = "GET"
+  options?: {
+    method?: "GET" | "POST" | "PUT";
+    body?: any;
+  }
 ): Promise<string> {
   const http = new XMLHttpRequest();
+  const method = options?.method || "GET";
+
   return new Promise((res, rej) => {
     http.open(method, url);
-    http.send();
+    console.log("Body I think Im sending");
+    console.log(options?.body);
+    http.send(JSON.stringify(options?.body));
     http.onreadystatechange = () => {
       if (http.readyState === 4 && http.status < 400) res(http.responseText);
     };
@@ -47,6 +54,16 @@ export function getStyles(
       .filter((cssClass) => !!cssClass)
       .map((c) => styles[c])
       .join(" ")
+  );
+}
+
+export function getContentWidth(el: HTMLElement | null) {
+  if (!el) return;
+  const style = getComputedStyle(el);
+  return (
+    el.clientWidth -
+    parseFloat(style.paddingLeft) -
+    parseFloat(style.paddingRight)
   );
 }
 

@@ -30,8 +30,8 @@ export default function DancePage({ blurbs, filterOptions, eventList }: Props) {
     <div className={styles["body-el"]}>
       <h2 className={styles["header"]}>
         Dance <span className={styles["subtitle"]}>In The Bay</span>
-        <PaisleySwish></PaisleySwish>
       </h2>
+      <PaisleySwish className={styles["my-swish"]}></PaisleySwish>
       <div className={styles["page-body"]}>
         {blurbs.map((b, p) => (
           <p className={styles["intro-blurb"]} key={p}>

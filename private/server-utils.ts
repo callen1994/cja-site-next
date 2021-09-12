@@ -7,7 +7,7 @@ export function makeErrHandler(
   message?: string
 ): (err: any) => void {
   return (err: any) => {
-    message ? console.log(message) : "";
+    if (message) console.log(message);
     console.error(err);
     res.send({ message, err: (err || "").toString() });
   };
@@ -24,4 +24,16 @@ export async function promErrWrapper<T>(
   } catch (err) {
     return [null, err];
   }
+}
+
+export function testThenArgs(res: NextApiResponse, message: string) {
+  return [
+    (suc: any) => {
+      console.log("Success! ");
+      if (message) console.log(message);
+      console.log(suc);
+      res.status(200).send(suc);
+    },
+    makeErrHandler(res, message),
+  ];
 }

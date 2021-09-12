@@ -25,14 +25,20 @@ export default function WorkSamples() {
             </p>
           </a>
         </Link>
-        <Link href="/staffing-sample">
+        <Link href="staffing-sample">
           <a href="">
             <h2>Staffing</h2>
             <p className={styles["link-content"]}>
               To show off what I can do building beautiful and functional
-              web-tools, I&aposve created a staffing tool for an imaginary
+              web-tools, I{"'"}ve created a staffing tool for an imaginary
               summer camp.
             </p>
+          </a>
+        </Link>
+        <Link href="virtual-whiteboard">
+          <a>
+            <h2>Virtual Whiteboard</h2>
+            <p className={styles["link-content"]}>To show off capabilities</p>
           </a>
         </Link>
       </div>

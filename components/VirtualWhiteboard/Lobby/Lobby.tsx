@@ -55,11 +55,13 @@ export default function Lobby({ user, room }: Props) {
           className={styles["enter-room"]}
           onClick={() => goToRoom(uniqueId())}
         >
-          Enter a new room
+          Create New Board
         </button>
       </div>
+      <h2>Edit an Existing Board</h2>
       <div className={styles["previews"]}>
         {boards.map((b, i) => (
+          // <span key={i}>Test</span>
           <BoardPreview key={i} board={b} goToRoom={goToRoom}></BoardPreview>
         ))}
       </div>

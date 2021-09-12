@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useRef, useState } from "react";
 import CloseIcon from "../../Icons/CloseIcon";
-import { InputChange } from "../../utils";
+import { httpProm, InputChange } from "../../utils";
 import styles from "./InviteOverlay.module.css";
 
 export default function InviteOverlay() {
@@ -40,6 +40,19 @@ export default function InviteOverlay() {
         number.current
       }`
     );
+    httpProm(
+      process.env.NODE_ENV === "production"
+        ? "https://connorjamesallen.com/api/text-invite"
+        : "http://localhost:3000/api/text-invite",
+      {
+        method: "PUT",
+        body: {
+          to: "+1" + number.current,
+          room: router.query.room,
+          user: router.query.user,
+        },
+      }
+    ).then(console.log, console.error);
   };
 
   const sendEmail = () => {
