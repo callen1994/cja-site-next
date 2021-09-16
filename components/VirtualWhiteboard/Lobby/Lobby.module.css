@@ -16,10 +16,11 @@
 
 .Lobby input {
   all: unset;
-  border-bottom: 2px solid #aaa;
+  background-color: var(--bg-brighter);
+  border-bottom: 1px solid var(--mid-grey);
   padding: 0.2em 0.3em;
   margin: 0.2em 0;
-  border-radius: 0.2em 0.2em 0 0;
+  border-radius: 0.3em 0.3em 0 0;
 }
 .Lobby .missing-username label {
   color: rgb(255, 154, 154);
@@ -28,14 +29,15 @@
   border-color: rgb(197, 81, 81);
 }
 .Lobby input:focus {
-  background-color: #333;
+  background-color: var(--bg-brighter-2);
 }
 
 .Lobby .enter-room {
   margin: 1em 0 2em;
   padding: 0.5em 1em;
   background-color: var(--my-sky-blue);
-  color: #000;
+  color: var(--opposite-text);
+  font-weight: bolder;
 }
 
 .name-input {
@@ -76,10 +78,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #444;
+  background-color: var(--bg-brighter);
   border-radius: 0.3em;
   /* give it an invisible border so it doesn't shift around when hovered */
-  border: 1px solid #ddd0;
+  border: 1px solid var(--transparent);
 }
 
 .previews .preview-box h3 {
@@ -88,8 +90,8 @@
 }
 .previews .preview-box:hover,
 .previews .preview-box:focus {
-  background-color: #555;
-  border: 1px solid #ddd;
+  background-color: var(--bg-brighter-2);
+  border: 1px solid var(--light-grey);
 }
 .previews .preview-box h3 {
   max-width: 100%;

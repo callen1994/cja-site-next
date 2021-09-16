@@ -39,7 +39,8 @@
 
 .DrawWithFriends .stage,
 .DrawWithFriends .canvas-stage {
-  border: 0.2em solid #aaa;
+  border: 0.2em solid var(--mid-grey);
+  /* Whiteboard is always white */
   background-color: #efefef;
   box-sizing: border-box;
 }
@@ -54,14 +55,15 @@
 .eraser-cursor {
   position: absolute;
   z-index: 10;
+  /* Because the whiteboard is white, these need to be these colors... */
   background-color: #333;
-  color: #fff;
+  color: white;
 }
 
 .eraser-cursor {
-  background-color: #0000;
+  background-color: var(--transparent);
   border-radius: 100%;
-  border: 1px solid #000;
+  border: 1px solid black;
   pointer-events: none;
 }
 
@@ -69,7 +71,7 @@ input.board-name {
   all: unset;
   font-size: 2em;
   color: var(--my-yellow);
-  border-bottom: 1px solid #0000;
+  border-bottom: 1px solid var(--transparent);
   text-align: center;
   padding: 0em;
   max-width: 10em;

@@ -9,12 +9,12 @@
 
 .body-el section > h2 {
   font-family: var(--my-header-font);
-  color: #b7c2eb;
+  color: var(--my-yellow);
   margin: 0.3em 0.5em;
 }
 
 .body-el .list {
-  color: #fff;
+  color: var(--default-text);
   display: flex;
   flex-wrap: wrap;
   --number-of-colums: 3;

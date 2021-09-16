@@ -37,7 +37,7 @@
 }
 
 .body-el .intro-blurb {
-  color: #fff;
+  color: var(--default-text);
   font-weight: lighter;
   font-family: "Roboto Slab", serif;
   width: 60em;

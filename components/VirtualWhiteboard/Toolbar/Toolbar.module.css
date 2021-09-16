@@ -18,7 +18,7 @@
   height: 1.5em;
   width: 1.5em;
   border-radius: 0.3em;
-  border: 1px solid #aaa;
+  border: 1px solid var(--mid-grey);
 }
 button.tool {
   height: 1em;
@@ -26,13 +26,13 @@ button.tool {
   align-items: center;
   margin: 0.2em 0em;
   /* padding: 0; */
-  background-color: #444;
-  border: 1px solid #0000;
+  background-color: var(--bg-brighter);
+  border: 1px solid var(--transparent);
 }
 button.tool.selected,
 button.tool:active {
-  background-color: #555;
-  border: 1px solid #aaa;
+  background-color: var(--bg-brighter-2);
+  border: 1px solid var(--mid-grey);
 }
 .tool span {
   margin-left: 0.5em;
@@ -59,17 +59,12 @@ button.tool:active {
 .Toolbar [class*="Icon"] {
   height: 1.7em;
   width: 1.7em;
-  fill: #fff;
+  fill: var(--default-text);
 }
-/* .Toolbar [class*="CancelIcon"] {
-  height: 1.7em;
-  width: 1.7em;
-  fill: #fff;
-} */
 
 button.invite {
   background-color: var(--my-sky-blue);
-  color: #000;
+  color: var(--opposite-text);
   margin: 0.5em 0;
   padding: 0.5em 1em;
   font-weight: bolder;
@@ -106,13 +101,13 @@ button.invite {
     display: block;
     position: relative;
     border-radius: 0.2em;
-    border: 1px solid #eee0;
+    border: 1px solid var(--transparent);
     height: 2.3em;
     width: 2.3em;
     padding: 0 0.1em;
   }
   .user-list-little [class*="Icon"] {
-    fill: #eee;
+    fill: var(--default-text);
     height: 100%;
     width: 100%;
   }
@@ -120,7 +115,7 @@ button.invite {
     position: absolute;
     top: 0;
     right: 0;
-    background-color: #d00;
+    background-color: var(--notify-color);
     font-size: 0.8rem;
     height: 1rem;
     width: 1rem;
@@ -137,7 +132,7 @@ button.invite {
     padding: 0.2em 0.8em 0.5em 0.5em;
     border-radius: inherit;
     right: 0;
-    border: 1px solid #eee;
+    border: 1px solid var(--light-grey);
   }
   .user-list-little .full-list * {
     white-space: nowrap;
@@ -147,7 +142,7 @@ button.invite {
     margin: 0.2em 0;
   }
   .user-list-little:focus {
-    border: 1px solid #eee;
+    border: 1px solid var(--light-grey);
   }
   .user-list-little:focus .full-list {
     display: block;

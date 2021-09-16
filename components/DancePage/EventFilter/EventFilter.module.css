@@ -1,23 +1,42 @@
-.body-el {
-  background-color: #ffffff40;
-  border-radius: 0.2rem;
-  color: #fff;
-  font-size: 1.2rem;
-  width: 11.5em;
-  padding: 0.25em 0.5em;
-  font-family: "Roboto Slab", serif;
-  display: flex;
-  justify-content: space-between;
-  white-space: nowrap;
+/* Semantic UI has a bunch of very specific class stylings
+This boosts my specificity up so these styles actually show up */
+#EventFilter-Dropdown {
+  width: 30vw;
+  min-width: 16em;
+  --mybg: hsl(
+    var(--bg-hue),
+    var(--bg-sat),
+    calc(var(--bg-light) + calc(15% * var(--cs)))
+  );
+  --illuminated: hsl(
+    var(--bg-hue),
+    var(--bg-sat),
+    calc(var(--bg-light) + calc(25% * var(--cs)))
+  );
+}
+#EventFilter-Dropdown,
+#EventFilter-Dropdown [class*="menu"] {
+  background-color: var(--mybg);
+  border-color: var(--transparent);
+  color: var(--default-text);
+}
+/* Targets the default text of the dropdown */
+#EventFilter-Dropdown [class*="divider"],
+#EventFilter-Dropdown [class*="text"] {
+  color: var(--default-text);
+}
+#EventFilter-Dropdown [class*="label"] {
+  color: var(--default-text);
+  font-weight: lighter;
+  background-color: var(--illuminated);
 }
 
-.body-el select {
-  background: none;
-  border: none;
-  color: #fff;
-  font-family: "Roboto Slab", serif;
-  padding: 0 0 0 0.5em;
-  font-size: 0.9em;
-  font-weight: lighter;
-  width: 100%;
+#EventFilter-Dropdown [class*="selected"],
+#EventFilter-Dropdown [class*="item"]:hover {
+  background-color: var(--illuminated);
+}
+
+#EventFilter-Dropdown:focus-within,
+#EventFilter-Dropdown [class*="menu"] {
+  border-color: var(--default-text);
 }

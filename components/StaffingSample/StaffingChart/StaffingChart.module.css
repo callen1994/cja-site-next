@@ -26,11 +26,11 @@
 }
 
 .StaffingChart .slots-indicator [class*="CrewIcon"] {
-  fill: #666;
+  fill: var(--bg-brighter-3);
 }
 
 .StaffingChart .slots-indicator [class*="filled CrewIcon"] {
-  fill: #fff;
+  fill: var(--default-text);
 }
 
 .StaffingChart .chart-body {
@@ -87,7 +87,7 @@
 }
 
 .StaffingChart .need-bar {
-  border: 1px solid #888;
+  border: 1px solid var(--low-grey);
   position: relative;
   overflow: hidden;
   height: 1.5em;
@@ -95,7 +95,7 @@
 
 .StaffingChart .sched-bar,
 .StaffingChart .focus-bar {
-  background-color: #b7c2eb;
+  background-color: var(--my-sky-blue);
   position: absolute;
   height: 100%;
   left: 0;
@@ -108,7 +108,7 @@
 .tick {
   flex: 1;
   text-align: center;
-  border-right: 1px solid #aaa;
+  border-right: 1px solid var(--mid-grey);
   font-size: 1.1rem;
 }
 .StaffingChart .toggleButton {
@@ -165,7 +165,7 @@
   border-radius: 1em;
   height: 2em;
   width: 2em;
-  background-color: #555;
+  background-color: var(--bg-brighter-2);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -196,9 +196,9 @@
     color 0.3s var(--return-delay), background-color 0.3s var(--return-delay);
 }
 .StaffingChart .collapsed .bar-column * * {
-  color: #0000;
-  border-color: #0000;
-  background-color: #0000;
+  color: var(--transparent);
+  border-color: var(--transparent);
+  background-color: var(--transparent);
   transition-delay: 0s;
 }
 
@@ -248,7 +248,7 @@
 
 .StaffingChart .alt-count {
   width: 100%;
-  color: #0000;
+  color: var(--transparent);
   animation: fadeIn;
   animation-duration: 0.3s;
   animation-fill-mode: forwards;
@@ -257,10 +257,10 @@
 
 @keyframes fadeIn {
   from {
-    color: #0000;
+    color: var(--transparent);
   }
   to {
-    color: #ffff;
+    color: var(--default-text);
   }
 }
 

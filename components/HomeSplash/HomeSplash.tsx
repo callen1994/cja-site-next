@@ -13,13 +13,17 @@ export default function HomeSplash() {
       <div className={styles["right-paisley"]}>
         <PaisleySwirl speedIndex={0.4} globalDelay={1}></PaisleySwirl>
       </div>
-      {/* Making these spans helps with my css selectors, don't change it */}
-      <span className={getStyles(styles, "name connor")}>Connor</span>
-      <span className={getStyles(styles, "name james")}>James</span>
-      <span className={getStyles(styles, "name allen")}>Allen</span>
-      <span className={styles["welcome"]}>
-        For Dance Info, <Link href="/dance">go here</Link>
-      </span>
+      <div className={`${styles["center-box"]} ${styles["flex-center"]}`}>
+        <div className={styles["contrast-cover-bar"]}></div>
+      </div>
+      <div className={styles["center-box"]}>
+        <span className={getStyles(styles, "name connor")}>Connor</span>
+        <span className={getStyles(styles, "name james")}>James</span>
+        <span className={getStyles(styles, "name allen")}>Allen</span>
+        <span className={styles["welcome"]}>
+          For Dance Info, <Link href="/dance">go here</Link>
+        </span>
+      </div>
     </section>
   );
 }

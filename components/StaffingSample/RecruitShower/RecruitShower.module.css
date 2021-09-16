@@ -1,8 +1,8 @@
 .RecruitShower {
-  --hl-recruit-bg: #51555b;
-  --hl-recruit-border: #ccc;
+  --hl-recruit-bg: var(--bg-brighter-2);
+  --hl-recruit-border: var(--mid-grey);
 
-  --border-color: #777;
+  --border-color: var(--low-grey);
   --border-width: 1px;
 
   --space-between: 0.2em;
@@ -46,7 +46,7 @@
 
 .RecruitShower[class*="explain-crew"] .details,
 .RecruitShower:focus-within .details {
-  height: 1.5em;
+  height: 2.5em;
   padding: 0.5em 0.8rem;
   /* padding-bottom: 0.2em; */
   border-bottom: var(--border-width) solid var(--border-color);
@@ -76,13 +76,15 @@
 .RecruitShower .details .day-of-week {
   /* flex: 1; */
   text-align: center;
-  color: #888;
+  /* Essentially it's the same as the bg color, but a little shifted (mimiking transparency)
+  which I could do, but I'd have to refactor my font color... */
+  color: var(--bg-brighter-4);
   height: min-content;
 }
 .RecruitShower .details .day-of-week.yes {
-  color: #fff;
+  color: var(--default-text);
   position: relative;
-  border-bottom: 1px solid #fff;
+  border-bottom: 1px solid var(--default-text);
 }
 
 .RecruitShower .details label {
@@ -103,12 +105,12 @@
   width: 3rem;
   font-weight: bolder;
   font-size: 1.2rem;
-  background-color: #555;
+  background-color: var(--bg-brighter-2);
 }
 
 .RecruitShower[class*="explain-crew"] .recruit-row .score,
 .RecruitShower:focus-within .recruit-row .score {
-  background-color: #888;
+  background-color: var(--bg-brighter-3);
 }
 
 .RecruitShower .recruit-row button.looks-good {
@@ -134,7 +136,8 @@
 }
 
 .RecruitShower .recruit-row button [class*="ThumbIcon"] {
-  fill: #efefef;
+  /* Because I'm not swapping my green and red when I swap the color scheme, these want to be white */
+  fill: #fff;
   height: 1.2em;
   width: 1.2em;
 }

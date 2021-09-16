@@ -23,10 +23,10 @@ export interface DanceEvent {
 }
 
 export interface FilterFig {
-  dayOfWeek: string;
-  city: string;
-  inPerson: string;
-  style: string;
+  dayOfWeek: string[];
+  city: string[];
+  inPerson: string[];
+  style: string[];
 }
 
 export interface FilterOptions {
@@ -44,10 +44,10 @@ export const FITLERS: FilterField[] = [
 ];
 
 export const MT_FITLER_FIG: FilterFig = {
-  dayOfWeek: "",
-  city: "",
-  inPerson: "",
-  style: "",
+  dayOfWeek: [],
+  city: [],
+  inPerson: [],
+  style: [],
 };
 
 export const MT_FITLER_OPTS: FilterOptions = {

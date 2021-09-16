@@ -19,18 +19,18 @@
 /* For github link */
 .WorkSamples a {
   text-decoration: none;
-  color: #ddd;
+  color: var(--light-grey);
   position: relative;
 }
 .WorkSamples p a:hover {
-  color: #fff;
+  color: var(--default-color);
 }
 .WorkSamples p a:hover::after {
   content: "";
   position: absolute;
   width: 100%;
   height: 1px;
-  background-color: #fff;
+  background-color: var(--default-text);
   bottom: -2px;
   left: 0;
 }
@@ -65,7 +65,7 @@
 }
 
 .WorkSamples .sample-links a:hover {
-  background-color: #555;
+  background-color: var(--bg-brighter-2);
   border-radius: 0.3em;
 }
 

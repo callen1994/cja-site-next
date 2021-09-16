@@ -1,11 +1,21 @@
 .base-el {
   --my-length: 110%;
-  --paisley-fill: #000;
+  /* This is a default that pretty much always gets overwritten */
+  --paisley-fill: black;
   /* default for when it's not set */
   --my-delay: 0s;
   display: flex;
   height: 100%;
   width: 100%;
+}
+.base-el [id*="leaf"] {
+  fill: var(--my-green);
+}
+.base-el [id*="swish"] {
+  fill: hsl(var(--green-hue), var(--green-sat), calc(var(--green-lit) - 10%));
+}
+.base-el [id*="dot"] {
+  fill: hsl(var(--green-hue), var(--green-sat), calc(var(--green-lit) + 15%));
 }
 
 .base-el [id*="cover"] {
@@ -33,7 +43,7 @@
 
 /************************************************************************************************************************************/
 /* Customized Timings for each branch */
-/* For some reason the usual #{some-id} syntax wasn't working... but the bracket syntax was, so that's what I did */
+/* For some reason the usual {some-id} syntax wasn't working... but the bracket syntax was, so that's what I did */
 /************************************************************************************************************************************/
 
 .base-el [id="branch-main"] {

@@ -16,14 +16,15 @@ export default function EventsList({ events, filters }: Props) {
     0;
     const filts = filters;
     // If every value is blank
-    return Object.values(filts).every((v) =>
-      !v
-        ? true
-        : (Object.keys(filts) as FilterField[]).every(
-            // The filter is blank or the event has the matching value
-            (k) => !filts[k] || event[k] === filts[k]
-          )
+    return (Object.keys(filts) as FilterField[]).every(
+      // The filter is empty or the event has the matching value
+      (k) => !filts[k].length || filts[k].includes(event[k])
     );
+    // Object.values(filts).every((v) =>
+    //   !v
+    //     ? true
+    //     :
+    // );
   };
   const inPerson = events.filter((e) => e.inPerson === "Yes" && applyFilter(e));
   const notInPerson = events.filter(

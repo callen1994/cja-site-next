@@ -16,6 +16,8 @@ body {
   overflow-y: auto;
   height: 100vh;
 }
+
+/* For scrollbar stuff */
 * {
   margin: 0;
   padding: 0;
@@ -48,19 +50,94 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  --my-yellow: #ffab40;
-  --my-sky-blue: #b7c2eb;
-  --my-green: #57613b;
-  --my-rust: #a04725;
   --my-header-font: "Libre Baskerville", serif;
   --my-general-font: "Roboto Slab", serif;
-  font-family: var(--my-general-font);
+
+  --my-yellow: #ffab40;
+  --my-sky-blue: #b7c2eb;
+  --my-dark-blue: #252b42;
+  --green-hue: 76;
+  --green-sat: 24%;
+  --green-lit: 29%;
+  --my-green: hsl(var(--green-hue), var(--green-sat), var(--green-lit));
+  --my-rust: #a04725;
   font-weight: lighter;
-  --bg-color: #21252b;
-  background-color: var(--bg-color);
+  --bg-hue: 216;
+  --bg-sat: 13%;
+  --bg-light: 15%;
+  --bg-color: hsl(var(--bg-hue), var(--bg-sat), var(--bg-light));
+  /* Putting the last f makes the work with transitions that include transparency */
+  --default-text: #ffff;
+  --opposite-text: #000;
+  --light-grey: #ddd;
+  --mid-grey: #aaa;
+  --low-grey: #777;
+  /* To allow for light mode and dark mode, I'm creating this global var
+  A lot of elements take the background color and modulate the lightness to create difference
+  This allows me to say the modulation is down in light mode (dark cards on light bg)
+  and up in dark mode (lighter cards on dark background */
+  --cs: 1;
   /* because my background is dark, i want deafult white text */
-  color: #fff;
+  --bg-brighter: hsl(
+    var(--bg-hue),
+    var(--bg-sat),
+    calc(var(--bg-light) + calc(10% * var(--cs)))
+  );
+  --bg-brighter-2: hsl(
+    var(--bg-hue),
+    var(--bg-sat),
+    calc(var(--bg-light) + calc(20% * var(--cs)))
+  );
+  --bg-brighter-3: hsl(
+    var(--bg-hue),
+    var(--bg-sat),
+    calc(var(--bg-light) + calc(30% * var(--cs)))
+  );
+  --bg-brighter-4: hsl(
+    var(--bg-hue),
+    var(--bg-sat),
+    calc(var(--bg-light) + calc(40% * var(--cs)))
+  );
+  --bg-brighter-5: hsl(
+    var(--bg-hue),
+    var(--bg-sat),
+    calc(var(--bg-light) + calc(50% * var(--cs)))
+  );
+  /* I'm gonna pretty much replace all hex codes with variables. This one isn't necessary, but
+  it makes the find and replace easier */
+  --transparent: #0000;
+  --light-box-color: #0008;
+  --error-color: #d55;
+  --notify-color: #d00;
+
+  background-color: var(--bg-color);
+  color: var(--default-text);
+  font-family: var(--my-general-font);
 }
+
+/* body {
+  --my-yellow: #291b00;
+  --my-sky-blue: #252b42;
+  --my-dark-blue: #b7c2eb;
+
+  --green-hue: 76;
+  --green-sat: 24%;
+  --green-lit: 62%;
+  --my-green: hsl(var(--green-hue), var(--green-sat), var(--green-lit));
+
+  --my-rust: #a04725;
+  font-weight: lighter;
+  --bg-hue: 50;
+  --bg-sat: 10%;
+  --bg-light: 100%;
+  --bg-color: hsl(var(--bg-hue), var(--bg-sat), var(--bg-light));
+  --default-text: #000f;
+  --opposite-text: #fff;
+  --light-grey: #333;
+  --mid-grey: #555;
+  --low-grey: #888;
+  --cs: -1;
+} */
 
 :is(h1, h2, h3, h4) {
   font-weight: normal;

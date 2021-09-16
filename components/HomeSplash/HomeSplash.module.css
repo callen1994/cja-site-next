@@ -12,46 +12,102 @@
   font-family: var(--my-header-font);
   color: var(--my-yellow);
   --fade-in-full: fade-in 0.9s both 2.5s;
+
+  /* These need to be defined here so the cover bar can use them */
+  --names-left: 0vh;
+  --names-top-start: 16vh;
+  --names-top-step: 20vh;
+  --names-left-start: 18vh;
+  --names-left-step: 18vh;
+
+  --contrast-bar-transform: skew(48deg) scaleX(1.4);
 }
 
 .name {
-  position: absolute;
   font-family: var(--my-header-font);
   color: var(--my-yellow);
   font-size: 6rem;
-
-  /* for moving everything */
-  --names-left: 0vh;
-  --names-top: -6vh;
+  line-height: 1.5em;
 
   animation: var(--fade-in-full);
+  z-index: 10;
+  --skew: 3em;
+}
+
+@media only screen and (min-aspect-ratio: 7/5) {
+  .name {
+    --skew: 5em;
+  }
+  .HomeSplash {
+    --contrast-bar-transform: skew(55deg) scaleX(1.5) translateX(-1em);
+  }
 }
 
 .connor {
-  top: calc(22vh + var(--names-top));
-  left: calc(18vw + var(--names-left));
+  margin-left: calc(-1 * var(--skew));
 }
 .james {
-  top: calc(42vh + var(--names-top));
-  left: calc(37vw + var(--names-left));
 }
 .allen {
-  top: calc(62vh + var(--names-top));
-  left: calc(57vw + var(--names-left));
+  margin-left: var(--skew);
 }
 
 .HomeSplash .welcome {
-  font-size: 3rem;
+  font-size: 2rem;
+  border-radius: 0.3em 0.3em 0 0;
   z-index: 10;
   color: var(--my-sky-blue);
   position: absolute;
-  bottom: 10vh;
+  bottom: 0rem;
+  line-height: 2em;
+  padding: 0 0.8em;
+  background-color: var(--my-dark-blue);
   animation: var(--fade-in-full);
   text-align: center;
 }
 
 .HomeSplash .welcome a {
   color: inherit;
+  text-decoration: underline;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.center-box {
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  /* overflow: hidden; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.contrast-cover-bar {
+  background-color: var(--bg-color);
+  width: 24em;
+  height: 800vh;
+  transform: var(--contrast-bar-transform);
+
+  --border: 1em solid
+    hsl(var(--green-hue), var(--green-sat), calc(var(--green-lit) - 10%));
+  border-left: var(--border);
+  border-right: var(--border);
+}
+
+.middle-marker {
+  height: 1em;
+  width: 1em;
+  border-radius: 1em;
+  background-color: red;
 }
 
 @keyframes fade-in {
@@ -150,18 +206,21 @@
 }
 
 @media only screen and (max-width: 800px) {
+  .HomeSplash {
+    --contrast-bar-transform: none;
+  }
+  .contrast-cover-bar {
+    height: 100vh;
+    width: 100vw;
+    background-color: hsl(var(--bg-hue), var(--bg-sat), var(--bg-light), 0.4);
+    border: none;
+  }
   .HomeSplash .name {
-    font-size: 5rem;
+    font-size: 4.5rem;
+    line-height: 2em;
+    --skew: 0;
   }
   .HomeSplash .welcome {
-    font-size: 2.5rem;
-  }
-
-  .HomeSplash .name {
-    position: unset;
-    margin-top: 9vh;
-  }
-  .HomeSplash .name:first-of-type {
-    margin-top: 12vh;
+    font-size: 1.5rem;
   }
 }

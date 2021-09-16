@@ -6,7 +6,7 @@
   height: var(--height);
   max-height: var(--height);
   font-size: 8rem;
-  --bg-color: #57613b;
+  --bg-color: var(--my-green);
   background-color: var(--bg-color);
   color: var(--my-yellow);
   font-family: var(--my-header-font);
