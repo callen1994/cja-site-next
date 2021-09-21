@@ -12,28 +12,25 @@
 .Lobby h1,
 .Lobby h2 {
   text-align: center;
+  margin-bottom: 0.4em;
 }
 
 .Lobby input {
   all: unset;
+  cursor: pointer;
   background-color: var(--bg-brighter);
   border-bottom: 1px solid var(--mid-grey);
   padding: 0.2em 0.3em;
   margin: 0.2em 0;
   border-radius: 0.3em 0.3em 0 0;
 }
-.Lobby .missing-username label {
-  color: rgb(255, 154, 154);
-}
-.Lobby .missing-username input {
-  border-color: rgb(197, 81, 81);
-}
+
 .Lobby input:focus {
   background-color: var(--bg-brighter-2);
 }
 
 .Lobby .enter-room {
-  margin: 1em 0 2em;
+  margin: 1em 0 0em;
   padding: 0.5em 1em;
   background-color: var(--my-sky-blue);
   color: var(--opposite-text);
@@ -61,7 +58,7 @@
   --col-width: min(15em, calc((var(--grid-width) - var(--grid-gap)) / 2));
   width: var(--grid-width);
   margin: 1em 0;
-  padding: 0 1em;
+  /* padding: 0 1em; */
   display: grid;
   grid-template-columns: repeat(auto-fill, var(--col-width));
   justify-content: center;
@@ -87,17 +84,30 @@
 .previews .preview-box h3 {
   white-space: nowrap;
   overflow-x: auto;
+  max-width: 100%;
+  margin-bottom: 0;
 }
+
 .previews .preview-box:hover,
 .previews .preview-box:focus {
   background-color: var(--bg-brighter-2);
   border: 1px solid var(--light-grey);
 }
-.previews .preview-box h3 {
-  max-width: 100%;
-}
+
 .users {
   margin: 0.3em;
+}
+
+/* ERROR STYLING */
+.Lobby .missing-username label {
+  color: rgb(255, 154, 154);
+}
+.Lobby .missing-username input {
+  border-color: rgb(197, 81, 81);
+}
+.missing-username .name-input:after {
+  content: "Missing User Name";
+  color: rgb(255, 154, 154);
 }
 
 @media only screen and (max-width: 800px) {

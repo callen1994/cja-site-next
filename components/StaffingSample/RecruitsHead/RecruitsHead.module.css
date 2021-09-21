@@ -27,6 +27,7 @@
 /* I want the buttons to fill their alotted space, but only the body part should display */
 .RecruitsHead .group button {
   all: unset;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -81,6 +82,7 @@
 }
 .RecruitsHead .sort select {
   all: unset;
+  cursor: pointer;
   text-align: center;
   flex: 1;
   height: 100%;

@@ -34,7 +34,7 @@ export default function Toolbar({
   setTool,
   clearCanvas,
 }: Props) {
-  const [invite, toggleInvite] = useState(false);
+  const [invite, setInvite] = useState(false);
   const drawTool = (t: Tool, i: number) => (
     <button
       className={styles["tool"] + (tool === t ? " " + styles["selected"] : "")}
@@ -58,10 +58,7 @@ export default function Toolbar({
   );
 
   const inviteButton = (
-    <button
-      className={styles["invite"]}
-      onClick={() => toggleInvite((i) => true)}
-    >
+    <button className={styles["invite"]} onClick={() => setInvite((i) => true)}>
       Invite
     </button>
   );
@@ -91,7 +88,7 @@ export default function Toolbar({
           {inviteButton}
         </div>
       </div>
-      {condContent(invite, <InviteOverlay />)}
+      {condContent(invite, <InviteOverlay close={() => setInvite(false)} />)}
     </div>
   );
 }

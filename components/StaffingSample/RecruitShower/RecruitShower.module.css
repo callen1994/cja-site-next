@@ -93,6 +93,7 @@
 
 .RecruitShower .recruit-row :is(button, .score) {
   all: unset;
+  cursor: pointer;
   height: calc(100%);
   width: 2.2em;
   display: flex;

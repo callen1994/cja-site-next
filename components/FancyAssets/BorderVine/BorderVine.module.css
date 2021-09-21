@@ -1,0 +1,61 @@
+.BorderVine {
+  --animation-delay: 1.5s;
+  --animation-speed: 1s;
+}
+
+.BorderVine [id*="cover"] {
+  /* animation: draw 2s ease forwards; */
+  --stroke-length: 175%;
+  stroke-dasharray: var(--stroke-length);
+  stroke: var(--bg-color);
+  stroke-opacity: 1;
+}
+
+.BorderVine [id*="cover"] {
+  display: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .BorderVine [id*="cover"] {
+    display: block;
+    animation-delay: var(--animation-delay);
+    animation-name: swish-draw;
+    animation-duration: var(--animation-speed);
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
+  }
+  .BorderVine [id^="dot"] {
+    --dot-time-increment: 0.2s;
+    --final-size: 11px;
+    animation-name: pop;
+    /* animation-delay: calc(var(--my-delay) + var(--dot-delay, 0.2s)); */
+    animation-delay: calc(
+      var(--animation-delay) + var(--animation-speed) - 0.5s
+    );
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease;
+    r: 0;
+  }
+}
+
+@keyframes swish-draw {
+  from {
+    stroke-dashoffset: 0%;
+  }
+  to {
+    stroke-dashoffset: calc(-1 * var(--stroke-length));
+  }
+}
+
+@keyframes pop {
+  from {
+    r: 0;
+  }
+  50% {
+    r: calc(var(--final-size) * 1.15);
+  }
+  to {
+    r: var(--final-size);
+  }
+}

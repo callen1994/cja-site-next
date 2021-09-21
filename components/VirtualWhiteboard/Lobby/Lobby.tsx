@@ -48,7 +48,10 @@ export default function Lobby({ user, room }: Props) {
             id="name"
             value={newUser}
             className={styles["required"]}
-            onChange={(e) => setNewUser(e.target.value)}
+            onChange={(e) => {
+              setError("");
+              setNewUser(e.target.value);
+            }}
           />
         </div>
         <button

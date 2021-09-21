@@ -7,12 +7,12 @@
     "start-local-mongo": "mongod --config /usr/local/etc/mongod.conf --fork",
     "dev": "rm -rf ./dist && tsc && concurrently \"tsc -w\" \"nodemon ./dist/socket-server/src/socket-server.js\"",
     "build": "rm -rf ./dist && tsc",
-    "start": "node ./dist/socket-server/src/socket-server.js > /dev/null 2>&1 &",
+    "start": "node ./dist/socket-server/src/socket-server.js >> ./socket-logs.txt 2>&1 & disown",
     "deploy": "bash sockets-deploy.sh",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start-vps-mongo": "sudo systemctl start mongod",
-    "kill-vsp-mongo": "sudo systemctl stop mongod",
-    "restart-vsp-mongo": "sudo systemctl restart mongod"
+    "kill-vps-mongo": "sudo systemctl stop mongod",
+    "restart-vps-mongo": "sudo systemctl restart mongod"
   },
   "keywords": [],
   "author": "",

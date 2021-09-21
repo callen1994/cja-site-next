@@ -79,7 +79,7 @@ export default function QuantShower({ toShow, fullProdLine }: Props) {
       <div className={styles["details"]}>
         {condContent(
           details.from.inputs.length,
-          <Fragment>
+          <>
             <label>Made By:</label>
             {details.from.inputs.map((input, i) => (
               <div className={styles["row"]} key={i}>
@@ -88,11 +88,11 @@ export default function QuantShower({ toShow, fullProdLine }: Props) {
             ))}
             {/* <div className="row">Machines {round(details.from.machines)}</div> */}
             <MachineShower totalMachs={details.from.machines} />
-          </Fragment>
+          </>
         )}
         {condContent(
           details.to.length,
-          <Fragment>
+          <>
             <label>Uses:</label>
             {details.to.map((use, i) => (
               <Fragment key={i}>
@@ -103,7 +103,7 @@ export default function QuantShower({ toShow, fullProdLine }: Props) {
                 <MachineShower totalMachs={use.machines} />
               </Fragment>
             ))}
-          </Fragment>
+          </>
         )}
       </div>
     </div>

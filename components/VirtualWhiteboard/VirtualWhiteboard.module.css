@@ -8,6 +8,7 @@
 
 .DrawWithFriends button {
   all: unset;
+  cursor: pointer;
   padding: 0.5em;
   border-radius: 0.3em;
   margin: 0.5em;
@@ -22,53 +23,13 @@
 .body {
   display: flex;
   width: 100vw;
+  height: 100%;
   justify-content: space-between;
-}
-
-.canvas-col {
-  flex: 1;
-  display: flex;
-  align-items: center;
-}
-
-.canvas-wrapper {
-  position: relative;
-  margin: 0 15px;
-  transform-origin: top;
-}
-
-.DrawWithFriends .stage,
-.DrawWithFriends .canvas-stage {
-  border: 0.2em solid var(--mid-grey);
-  /* Whiteboard is always white */
-  background-color: #efefef;
-  box-sizing: border-box;
-}
-
-.DrawWithFriends .canvas-stage {
-  top: 0;
-  left: 0;
-  position: absolute;
-}
-
-.user-indicator,
-.eraser-cursor {
-  position: absolute;
-  z-index: 10;
-  /* Because the whiteboard is white, these need to be these colors... */
-  background-color: #333;
-  color: white;
-}
-
-.eraser-cursor {
-  background-color: var(--transparent);
-  border-radius: 100%;
-  border: 1px solid black;
-  pointer-events: none;
 }
 
 input.board-name {
   all: unset;
+  cursor: pointer;
   font-size: 2em;
   color: var(--my-yellow);
   border-bottom: 1px solid var(--transparent);

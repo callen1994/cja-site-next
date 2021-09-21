@@ -11,7 +11,7 @@
   position: absolute;
   /* THe modified BG makes more sense here because I'm moving the content around
   and I'm bringing stuff back and forth over this bg layer */
-  background-color: hsl(var(--bg-hue), var(--bg-sat), var(--bg-light), 0.5);
+  background-color: hsl(var(--bg-hue), var(--bg-sat), var(--bg-light), 0.7);
   /* var(--light-box-color); */
   z-index: 102;
   box-sizing: border-box;

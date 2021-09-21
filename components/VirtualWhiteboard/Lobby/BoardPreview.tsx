@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Layer, Line, Stage } from "react-konva";
 import { getContentWidth } from "../../utils";
 import { WhiteboardPreview } from "../data-types";
-import stageStyles from "../VirtualWhiteboard.module.css";
+import stageStyles from "../Whiteboard/Whiteboard.module.css";
 import lobbyStyles from "./Lobby.module.css";
 
 interface Props {
@@ -50,7 +50,7 @@ export default function BoardPreview({ board, goToRoom }: Props) {
         <Stage
           height={baseHeight}
           width={baseWidth}
-          className={stageStyles["stage"]}
+          className={stageStyles["preview-stage"]}
           style={{
             transform: `scale(${boardSizing.scale})`,
             transformOrigin: "top left",

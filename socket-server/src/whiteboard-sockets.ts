@@ -8,9 +8,8 @@ import {
   WhiteboardI,
   DrawTracker,
 } from "../../components/VirtualWhiteboard/data-types";
-import { onlyUnique } from "./utils";
+import { nowString, onlyUnique } from "./utils";
 import Whiteboard from "./Whiteboard";
-import { SocketReservedEventsMap } from "socket.io/dist/socket";
 
 // I'm exporting this guy so I can use it in my test function
 export async function fetchOrCreateBoard(
@@ -18,7 +17,15 @@ export async function fetchOrCreateBoard(
   defaultName: string = "New Whiteboard"
 ) {
   const found = await Whiteboard.findById(_id);
-  return found || Whiteboard.create({ _id, name: defaultName, lines: [] });
+  return (
+    found ||
+    Whiteboard.create({
+      _id,
+      name: defaultName,
+      lines: [],
+      updatedAt: nowString(),
+    })
+  );
 }
 
 // Exporting this as a funciton so I know when it's being run
@@ -38,7 +45,7 @@ export function whiteboardSockets(httpServer: HTTPServer) {
 
   async function saveActiveRooms_clearEmptyRooms() {
     const allSockets = await io.fetchSockets();
-    console.log("allSockets:");
+    console.log("Saving Boards:");
     const activeBoards = allSockets
       .map((s) => s.data.whiteboardRoom)
       .filter(onlyUnique);
@@ -49,6 +56,7 @@ export function whiteboardSockets(httpServer: HTTPServer) {
       .filter((roomId) => !activeBoards.includes(roomId));
     deadRooms.map((roomId) => delete rooms[roomId]);
     deadRooms.map((roomId) => delete drawTracker[roomId]);
+    // TODO kill boards older than a certain age... (but no less than 5?)
   }
 
   // Saving with a lot of frequency shouldn't be necessary because I save after every finished line.
@@ -57,7 +65,10 @@ export function whiteboardSockets(httpServer: HTTPServer) {
   setInterval(saveActiveRooms_clearEmptyRooms, 20000);
 
   function saveRoom(_id: string) {
-    Whiteboard.findByIdAndUpdate(_id, rooms[_id]).then(
+    Whiteboard.findByIdAndUpdate(_id, {
+      ...rooms[_id],
+      updatedAt: nowString(),
+    }).then(
       (suc) => console.log(`Successfully saved ${_id}`),
       (err) => console.log(`Error saving ${_id}`)
     );
@@ -126,20 +137,21 @@ export function whiteboardSockets(httpServer: HTTPServer) {
           drawing: true,
           name,
         };
+
         toRoom().emit("take-line-start", { x, y }, socket.id, name, lineFig);
       });
 
       socket.on("line-move", ({ x, y }) => {
         const lineId = drawTracker[roomId][socket.id]?.index;
-        // update my local store (this will be transmitted to new users when the log in)
-        // TODO: Add an error handler if this breads at any point...
-        if (lineId) rooms[roomId].lines[lineId].points?.push(x, y);
-
+        // update my local store (this will be transmitted to new users when the log in
+        if (lineId || lineId === 0)
+          rooms[roomId].lines[lineId].points?.push(x, y);
         toRoom().emit("take-line-move", { x, y }, socket.id, name);
       });
 
       socket.on("line-end", () => {
         console.log(`server line end in room ${roomId}`);
+        rooms[roomId].lines.map((l) => console.log(l));
         // Doesn't really matter, but seems good to clean this up.
         delete drawTracker[roomId][socket.id];
         toRoom().emit("take-line-end", socket.id);

@@ -8,5 +8,6 @@ export default model<WhiteboardI>(
     name: { type: String, required: true },
     // The javascript value is Object, since the LineConfig is jut an interface
     lines: { type: [], required: true },
+    updatedAt: { type: String, required: true },
   })
 );

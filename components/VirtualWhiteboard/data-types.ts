@@ -73,6 +73,7 @@ export interface WhiteboardI {
   _id: string;
   name: string;
   lines: LineConfig[];
+  updatedAt: string;
 }
 
 export interface WhiteboardPreview extends WhiteboardI {

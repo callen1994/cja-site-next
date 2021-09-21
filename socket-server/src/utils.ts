@@ -12,3 +12,8 @@ export function logError(err: any) {
   console.log("");
   console.log("");
 }
+
+export function nowString() {
+  const date = new Date();
+  return date.toLocaleDateString() + date.toLocaleTimeString();
+}

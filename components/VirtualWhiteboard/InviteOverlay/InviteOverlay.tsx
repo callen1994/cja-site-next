@@ -4,7 +4,11 @@ import CloseIcon from "../../Icons/CloseIcon";
 import { httpProm, InputChange } from "../../utils";
 import styles from "./InviteOverlay.module.css";
 
-export default function InviteOverlay() {
+interface Props {
+  close: () => void;
+}
+
+export default function InviteOverlay({ close }: Props) {
   const [phoneErr, setPhoneErr] = useState(false);
   const [emailErr, setEmailErr] = useState(false);
   const router = useRouter();
@@ -61,10 +65,13 @@ export default function InviteOverlay() {
     console.log(`Sending ${router.query} to this email: ${email.current}`);
   };
 
+  const noBubble: React.MouseEventHandler<HTMLDivElement> = (e) => {
+    e.stopPropagation();
+  };
   return (
-    <div className={styles["InviteOverlay"]}>
-      <div className={styles["overlay-content"]}>
-        <button className={styles["close"]}>
+    <div className={styles["InviteOverlay"]} onClick={close}>
+      <div className={styles["overlay-content"]} onClick={noBubble}>
+        <button className={styles["close"]} onClick={close}>
           <CloseIcon />
         </button>
         <h2>Invite Someone</h2>
@@ -73,33 +80,37 @@ export default function InviteOverlay() {
           data-err="Invalid Phone"
         >
           <label htmlFor="phone">Invite By Text</label>
-          <input
-            type="text"
-            id="phone"
-            placeholder="(xxx) xxx-xxxx"
-            onChange={numberMask}
-          />
-          <button className={styles["send"]} onClick={sendPhone}>
-            Send
-          </button>
+          <div>
+            <input
+              type="text"
+              id="phone"
+              placeholder="(xxx) xxx-xxxx"
+              onChange={numberMask}
+            />
+            <button className={styles["send"]} onClick={sendPhone}>
+              Send
+            </button>
+          </div>
         </div>
         <div
           className={styles["invite"] + (emailErr ? " " + styles["err"] : "")}
           data-err="Invalid Email"
         >
           <label htmlFor="email">Invite By Email</label>
-          <input
-            type="text"
-            id="email"
-            placeholder="user@example.com"
-            onChange={(e) => {
-              setEmailErr(false);
-              email.current = e.target.value;
-            }}
-          />
-          <button className={styles["send"]} onClick={sendEmail}>
-            Send
-          </button>
+          <div>
+            <input
+              type="text"
+              id="email"
+              placeholder="user@example.com"
+              onChange={(e) => {
+                setEmailErr(false);
+                email.current = e.target.value;
+              }}
+            />
+            <button className={styles["send"]} onClick={sendEmail}>
+              Send
+            </button>
+          </div>
         </div>
       </div>
     </div>

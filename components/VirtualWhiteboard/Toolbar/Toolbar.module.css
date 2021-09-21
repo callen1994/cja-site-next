@@ -141,10 +141,10 @@ button.invite {
     font-size: 1rem;
     margin: 0.2em 0;
   }
-  .user-list-little:focus {
+  .user-list-little:focus-within {
     border: 1px solid var(--light-grey);
   }
-  .user-list-little:focus .full-list {
+  .user-list-little:focus-within .full-list {
     display: block;
   }
 }

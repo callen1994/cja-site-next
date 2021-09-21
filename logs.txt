@@ -1,0 +1,22 @@
+ready - started server on 0.0.0.0:8000, url: http://localhost:8000
+info  - Loaded env from /Users/foobarwiggle/Documents/GitHub/cja-site/.env.local
+ready - started server on 0.0.0.0:8000, url: http://localhost:8000
+info  - Loaded env from /Users/foobarwiggle/Documents/GitHub/cja-site/.env.local
+
+
+************ Stating Up Google Connection ************n
+
+Fetching Dance Data
+Running Dance Page Function
+Fetching Dance Data
+Running Dance Page Function
+ready - started server on 0.0.0.0:8000, url: http://localhost:8000
+info  - Loaded env from /Users/foobarwiggle/Documents/GitHub/cja-site/.env.local
+
+
+************ Stating Up Google Connection ************n
+
+Fetching Dance Data
+Running Dance Page Function
+Fetching Dance Data
+Running Dance Page Function

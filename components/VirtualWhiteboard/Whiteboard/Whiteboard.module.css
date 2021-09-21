@@ -1,0 +1,43 @@
+.canvas-col {
+  flex: 1;
+  margin: 1em;
+  overflow: show;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.canvas-wrapper {
+  position: relative;
+  transform-origin: top left;
+}
+
+.preview-stage,
+.canvas-stage {
+  border: 0.2em solid var(--mid-grey);
+  /* Whiteboard is always white */
+  background-color: #efefef;
+  box-sizing: border-box;
+}
+
+.canvas-stage {
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+
+.user-indicator,
+.eraser-cursor {
+  position: absolute;
+  z-index: 10;
+  /* Because the whiteboard is white, these need to be these colors... */
+  background-color: #333;
+  color: white;
+}
+
+.eraser-cursor {
+  background-color: var(--transparent);
+  border-radius: 100%;
+  border: 1px solid black;
+  pointer-events: none;
+}

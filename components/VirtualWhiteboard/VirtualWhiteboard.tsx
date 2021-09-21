@@ -19,7 +19,7 @@ import {
 import styles from "./VirtualWhiteboard.module.css";
 import { condContent, InputChange } from "../utils";
 import Lobby from "./Lobby/Lobby";
-import Whiteboard from "./Whiteboard";
+import Whiteboard from "./Whiteboard/Whiteboard";
 import Toolbar, { ERASER_SIZE, Tool } from "./Toolbar/Toolbar";
 import { cloneDeep } from "lodash";
 

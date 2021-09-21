@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "socket-dev": "cd socket-server && npm run dev",
+    "get-pid": "lsof -i tcp:8000",
+    "get-pid-dev": "lsof -i tcp:3000",
     "dev": "concurrently \"next dev\" \"npm run socket-dev\" ",
     "build": "next build",
-    "start": "next start -p 8000",
+    "start": "next start -p 8000 >> ./logs.txt 2>&1 & disown",
     "lint": "next lint",
     "ssh": "ssh connorjamesallen@5.183.9.243",
     "deploy": "bash next-deploy.sh"

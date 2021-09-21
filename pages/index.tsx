@@ -5,14 +5,18 @@ import HomeSplash from "../components/HomeSplash/HomeSplash";
 import WorkSamples from "../components/WorkSamples/WorkSamples";
 import styles from "../styles/Home.module.css";
 
-const Home: NextPage = () => {
+export default function Home() {
   return (
     <Fragment>
       <Head>
-        <title>Connor James Allen ~ Portfolio site</title>
+        <title>Connor James Allen - Portfolio site</title>
         <meta
           name="description"
           content="Portfolio site for Connor James Allen"
+        />
+        <meta
+          name="keywords"
+          content="developer san francisco frontend fullstack front end full stack"
         />
         <link rel="icon" href="/CJA-ico.png" />
       </Head>
@@ -22,6 +26,4 @@ const Home: NextPage = () => {
       </main>
     </Fragment>
   );
-};
-
-export default Home;
+}

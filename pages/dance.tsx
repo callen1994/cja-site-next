@@ -14,21 +14,26 @@ import { onlyUnique } from "../components/utils";
 type Props = Parameters<typeof DancePage>[0];
 
 export default function Dance(props: Props) {
+  console.log("Running Dance Page Function");
   return (
     <Fragment>
       <Head>
         <title>Dance In the Bay!</title>
         <meta name="description" content="Dance events in the Bay Area" />
+        <meta
+          name="keywords"
+          content="partner dance bay bayarea events local info"
+        />
         <link rel="icon" href="/CJA-ico.png" />
       </Head>
       {/* This lets me pass props in all at once instead of enumerating them in the html style */}
       {DancePage(props)}
     </Fragment>
-    // <DancePage></DancePage>
   );
 }
 
 export async function getStaticProps() {
+  console.log("Fetching Dance Data");
   const danceData = await fetchSheetData("Events!A2:Z");
   const blurbData = await fetchSheetData("Blurb!A:A");
 
@@ -58,6 +63,7 @@ export async function getStaticProps() {
       eventList,
       filterOptions,
     },
-    revalidate: 300,
+    // This is in seconds
+    revalidate: 30,
   };
 }

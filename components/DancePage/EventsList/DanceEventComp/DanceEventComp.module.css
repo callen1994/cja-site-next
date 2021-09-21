@@ -7,11 +7,16 @@ to behave slighly differently when you click on them both inside and outside the
 
 .body {
   all: unset;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   border-radius: 0.3em;
   --body-color: var(--bg-brighter);
   background-color: var(--body-color);
+}
+
+.noWrap {
+  white-space: nowrap;
 }
 
 /* When the element is open, I want the sapce saver to take up the same horizontal size as the original component */
@@ -50,35 +55,51 @@ to behave slighly differently when you click on them both inside and outside the
   display: flex;
 }
 
-/* With multiple links I want them to show up stacked as an indented list */
-.event-body .links {
-  display: block;
-  margin-left: 0.5em;
-}
-.event-body .link,
-.event-body .links {
-  color: var(--default-text);
-  text-decoration: none;
-}
-.event-body .link:hover,
-.event-body .links:hover {
-  text-decoration: underline;
-}
-.info-col {
-  flex: 2;
-  margin-right: 0.5em;
-}
-.info-col > div {
-  margin: 0.3em 0;
-}
-.image {
-  margin: 0.5em;
+.event-body {
+  flex-wrap: wrap-reverse;
+  justify-content: center;
 }
 
+.info-col {
+  flex: 2 0 16ch;
+  margin-right: 0.5em;
+}
+.info-col > .info-row {
+  margin: 0.3em 0;
+}
+.info-col > .info-row > .info-text {
+  white-space: nowrap;
+}
+.info-col > .info-row > .info-text > .details {
+  white-space: normal;
+}
 .info-col label {
   font-weight: normal;
 }
+/* With multiple links I want them to show up stacked as an indented list */
+.info-col .link,
+.info-col .links {
+  color: var(--default-text);
+  text-decoration: none;
+}
+.info-col .links {
+  display: block;
+}
+.info-col .link:hover,
+.info-col .links:hover {
+  text-decoration: underline;
+}
 
+.event-body .image {
+  flex: 1;
+  margin-bottom: 0.5em;
+  min-width: 180px;
+  max-width: 280px;
+}
+
+.DanceEventBG .close [class*="Icon"] {
+  fill: var(--default-text);
+}
 .DanceEventBG .close,
 /* All detials will be hidden until focused  */
 .DanceEventBG .details {
@@ -110,8 +131,8 @@ to behave slighly differently when you click on them both inside and outside the
 .blurb {
   margin-top: 1em;
   max-width: 25em;
-  overflow-y: scroll;
-  overflow-s: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .DanceEventBG.open .body {

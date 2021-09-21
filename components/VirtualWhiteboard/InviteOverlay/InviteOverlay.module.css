@@ -47,6 +47,9 @@ button.close {
   border-radius: 2em;
   height: 1.5em;
   width: 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 button.send {
@@ -60,16 +63,19 @@ button.send {
   --err-color: var(--err-color);
   margin: 0.5em;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: baseline;
   position: relative;
 }
 .invite label {
   width: 8em;
+  margin-bottom: 0.8em;
 }
 
 .invite input {
   all: unset;
+  cursor: pointer;
   background-color: var(--bg-brighter);
   border-bottom: 1px solid var(--mid-grey);
   padding: 0.3em;

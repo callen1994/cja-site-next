@@ -32,6 +32,7 @@
 
 .StaffingSample .help-button {
   all: unset;
+  cursor: pointer;
   position: fixed;
   top: 0.5em;
   right: 1em;

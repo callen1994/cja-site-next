@@ -27,7 +27,6 @@ export function fetchSheetData(
   range: string
 ): Promise<sheets_v4.Schema$ValueRange> {
   const spreadsheetId = process.env.SHEET_ID;
-  console.log(`Fetching Data range ${range}`);
   return sheets$.then(
     (sheets) =>
       sheets.spreadsheets.values

@@ -162,6 +162,7 @@
 
 .StaffingChart button {
   all: unset;
+  cursor: pointer;
   border-radius: 1em;
   height: 2em;
   width: 2em;

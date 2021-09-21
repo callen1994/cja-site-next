@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Layer, Line, Stage } from "react-konva";
-import { condContent } from "../utils";
-import { KMouse, Point, WhiteboardI } from "./data-types";
-import { ERASER_SIZE } from "./Toolbar/Toolbar";
-import { VirtualWhiteboardCLASS, WhiteboardState } from "./VirtualWhiteboard";
-import styles from "./VirtualWhiteboard.module.css";
+import { condContent } from "../../utils";
+import { KMouse, Point, WhiteboardI } from "../data-types";
+import { ERASER_SIZE } from "../Toolbar/Toolbar";
+import { VirtualWhiteboardCLASS, WhiteboardState } from "../VirtualWhiteboard";
+import styles from "./Whiteboard.module.css";
 
 interface Props extends WhiteboardState {
   startLine: (...args: Parameters<VirtualWhiteboardCLASS["startLine"]>) => void;
@@ -117,7 +117,11 @@ export default function Whiteboard({
   };
 
   return whiteBoard ? (
-    <div className={styles["canvas-col"]} ref={canvasCol}>
+    <div
+      className={styles["canvas-col"]}
+      style={{ height: height * scale, width: width * scale }}
+      ref={canvasCol}
+    >
       <div
         className={styles["canvas-wrapper"]}
         style={{ height, width, transform: `scale(${scale})` }}

@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { Fragment, useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { condContent } from "../../../utils";
 import { DanceEvent } from "../../data-types";
 import { getStyles } from "../../../utils";
 import styles from "./DanceEventComp.module.css";
+import CloseIcon from "../../../Icons/CloseIcon";
 
 interface Props {
   event: DanceEvent;
@@ -12,16 +13,25 @@ interface Props {
 
 export default function DanceEventComp({ event, index }: Props) {
   const [open, setOpen] = useState(false);
+  // I can some lines by using the && here
+  const unfocusMe = useCallback(
+    () => document.getElementById("noFocus" + index)?.focus() && setOpen(false),
+    [index]
+  );
+
+  useEffect(() => {
+    window.addEventListener("focus", unfocusMe);
+    return () => window.removeEventListener("focus", unfocusMe);
+  }, [unfocusMe]);
+
   let linkFocus = false;
-  const test = false && event.title === "Lindy in the Park";
-  // const getStyles = (classes: string[]) =>
-  //   classes.map((c) => styles[c] || "").join(" ");
 
   function getLinks() {
     const links = event.links.split(",");
     return links.map((l, i) => {
       const segs =
         l
+          // Everything after :// and before any other /'s
           .split("/")[2]
           ?.split(".")
           // all the segments that aren't the 'www' part
@@ -46,6 +56,23 @@ export default function DanceEventComp({ event, index }: Props) {
     });
   }
 
+  // Take a lit of details (that may or may not be defined) and show them in a span
+  // with the correct styling (better than repeating myself down below)
+  const showDetails = (deets: (string | undefined)[]) => (
+    <>
+      {deets.map((d, i) =>
+        condContent(
+          d,
+          // Putting the whitespace outside the nowrap is needed to get the wrapping to work right
+          <Fragment key={i}>
+            {" "}
+            <span className={styles["noWrap"]}>{`- ${d}`}</span>
+          </Fragment>
+        )
+      )}
+    </>
+  );
+
   return (
     <div className={getStyles(styles, `space-saver ${open ? "open" : ""}`)}>
       <div
@@ -55,15 +82,13 @@ export default function DanceEventComp({ event, index }: Props) {
         <button className={styles["hidden"]} id={"noFocus" + index}></button>
         <button
           className={styles["body"]}
-          // If the event is open, I can cancel the propegation with the
-          onKeyUp={(e) => {
-            e.key === "Escape" ? setOpen(false) : setOpen(true);
-          }}
+          onKeyUp={(e) => (e.key === "Escape" ? unfocusMe() : setOpen(true))}
           onFocus={() => setOpen(true)}
           // If i'm clicking the link inside the overlay view, that normally triggers this thing's
           // blur function, but if it is the link that's being focused, that will be identified here
           // and I won't trigger the next blur execution.
-          // I can't just use onFocusCaptur for opening , becuause if I do then the user can't
+          // I can't just use onFocusCapture for opening, because if I do then the user can't click the link
+          // on the un-focused view
           onFocusCapture={() => (linkFocus = true)}
           onBlurCapture={() =>
             // I'm setting this as a timeout to ensure that it executes after the onFocusCapture
@@ -77,43 +102,40 @@ export default function DanceEventComp({ event, index }: Props) {
           <h2>{event.title}</h2>
           <div
             className={styles["close"]}
-            onClick={() => document.getElementById("noFocus" + index)?.focus()}
+            onClick={unfocusMe}
             id={"DanceEventCompButton" + index}
           >
-            X
+            <CloseIcon></CloseIcon>
           </div>
           <div className={styles["event-body"]}>
             <div className={styles["info-col"]}>
-              <div>
+              <div className={styles["info-row"]}>
                 <label>Style:</label>{" "}
                 <span className={styles["info-text"]}>{event.style}</span>
               </div>
-              <div>
+              <div className={styles["info-row"]}>
                 <label>When:</label>{" "}
                 <span className={styles["info-text"]}>
                   {event.dayOfWeek || "N/A"}
                   <span className={styles["details"]}>
-                    {event.repetition ? ` - ${event.repetition}` : ""}{" "}
-                    {event.time ? ` - ${event.time}` : ""}
+                    {showDetails([event.repetition, event.time])}
                   </span>
                 </span>
               </div>
-              <div>
+              <div className={styles["info-row"]}>
                 <label>Where:</label> {event.city || "N/A"}
                 <span className={styles["info-text"]}>
                   <span className={styles["details"]}>
-                    {" "}
-                    - {event.address || ""}
+                    {showDetails([event.address])}
                   </span>
                 </span>
               </div>
-              <div>
+              <div className={styles["info-row"]}>
                 <label>Info:</label> {getLinks()}
               </div>
             </div>
             {condContent(
               event.img,
-
               <div className={styles["image"]}>
                 <Image
                   src={event.img}
@@ -121,15 +143,16 @@ export default function DanceEventComp({ event, index }: Props) {
                   height="150"
                   width="200"
                   objectFit="cover"
+                  layout="responsive"
                 />
               </div>
             )}
           </div>
-          {event.blurb.split("<br />").map((paragraph, i) => (
-            <p key={i} className={getStyles(styles, "blurb details")}>
-              {paragraph}
-            </p>
-          ))}
+          <div className={getStyles(styles, "blurb details")}>
+            {event.blurb.split("<br />").map((paragraph, i) => (
+              <p key={i}>{paragraph}</p>
+            ))}
+          </div>
         </button>
       </div>
     </div>
