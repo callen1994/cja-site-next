@@ -2,6 +2,11 @@ import type { NextApiResponse } from "next";
 
 export const PORT = process.env.PORT || 5000;
 
+export function timeStamp() {
+  const now = new Date();
+  return now.toLocaleString("en-us", { timeZone: "" });
+}
+
 export function makeErrHandler(
   res: NextApiResponse,
   message?: string
