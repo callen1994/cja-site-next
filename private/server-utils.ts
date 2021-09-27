@@ -7,17 +7,6 @@ export function timeStamp() {
   return now.toLocaleString("en-us", { timeZone: "" });
 }
 
-export function makeErrHandler(
-  res: NextApiResponse,
-  message?: string
-): (err: any) => void {
-  return (err: any) => {
-    if (message) console.log(message);
-    console.error(err);
-    res.send({ message, err: (err || "").toString() });
-  };
-}
-
 // If I have an async call that might fail, this switches it from failing with an error to failing by returning null
 // for the main value and an error value as a second value
 export async function promErrWrapper<T>(
@@ -31,14 +20,25 @@ export async function promErrWrapper<T>(
   }
 }
 
-export function testThenArgs(res: NextApiResponse, message: string) {
+// Service should explain what service is being called here
+export function thenArgs(res: NextApiResponse, service: string) {
   return [
     (suc: any) => {
-      console.log("Success! ");
-      if (message) console.log(message);
-      console.log(suc);
-      res.status(200).send(suc);
+      const ret = { service, message: `Successfully reached ${service}`, suc };
+      console.log(ret);
+      res.status(200).send(ret);
     },
-    makeErrHandler(res, message),
+    makeErrHandler(res, service),
   ];
+}
+
+export function makeErrHandler(
+  res: NextApiResponse,
+  service?: string
+): (err: any) => void {
+  return (err: any) => {
+    const ret = { service, message: `Error with ${service}`, err };
+    console.error(ret);
+    res.status(500).send(err);
+  };
 }

@@ -14,12 +14,13 @@ export function httpProm(
 
   return new Promise((res, rej) => {
     http.open(method, url);
-    console.log("Body I think Im sending");
-    console.log(options?.body);
     http.send(JSON.stringify(options?.body));
-    http.onreadystatechange = () => {
-      if (http.readyState === 4 && http.status < 400) res(http.responseText);
-    };
+    http.onreadystatechange = () =>
+      http.readyState === 4
+        ? http.status < 400
+          ? res(http.responseText)
+          : rej(http.responseText)
+        : "";
   });
 }
 
@@ -41,7 +42,7 @@ export function onlyUnique<T>(v: T, i: number, arr: T[]): boolean {
   return arr.indexOf(v) === i;
 }
 
-// Slightly utility function for adding multiple css classes from a module
+// Utility function for adding multiple css classes from a module
 export function getStyles(
   styles: { [key: string]: string },
   // style names split by spaces, becuase that's how classic html does it

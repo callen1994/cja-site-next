@@ -1,22 +1,32 @@
 import { useRouter } from "next/router";
 import React, { useRef, useState } from "react";
-import CloseIcon from "../../Icons/CloseIcon";
-import { httpProm, InputChange } from "../../utils";
+import CloseIcon from "../../Utilities/Icons/CloseIcon";
+import { httpProm, InputChange } from "../../Utilities/utils";
 import styles from "./InviteOverlay.module.css";
 
 interface Props {
   close: () => void;
 }
 
+type ChangeHandler = React.ChangeEventHandler<HTMLInputElement>;
+
+const hostEndpoint =
+  process.env.NODE_ENV === "production"
+    ? "https://connorjamesallen.com/api/"
+    : "http://localhost:3000/api/";
+
+const condStyle = (cond: any, val: string) => (cond ? styles[val] : "");
+
 export default function InviteOverlay({ close }: Props) {
-  const [phoneErr, setPhoneErr] = useState(false);
-  const [emailErr, setEmailErr] = useState(false);
+  const [phoneNot, setPhoneNot] = useState("");
+  const [emailNot, setEmailNot] = useState("");
   const router = useRouter();
   const number = useRef("");
   const email = useRef("");
+
   // Site your source! https://stackoverflow.com/questions/17651207/mask-us-phone-number-string-with-javascript
-  const numberMask = (e: InputChange) => {
-    setPhoneErr(false);
+  const numberChange: ChangeHandler = (e) => {
+    setPhoneNot("");
     var x = e.target.value
       .replace(/\D/g, "")
       .match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
@@ -25,6 +35,11 @@ export default function InviteOverlay({ close }: Props) {
         ? x[1]
         : "(" + x[1] + ") " + x[2] + (x[3] ? "-" + x[3] : "");
     number.current = e.target.value.replace(/\D/g, "");
+  };
+
+  const emailChange: ChangeHandler = (e) => {
+    setEmailNot("");
+    email.current = e.target.value;
   };
 
   const validateEmail = (email: string) => {
@@ -37,79 +52,104 @@ export default function InviteOverlay({ close }: Props) {
     // There are 10 characters, there are 10 digits, and the first character insn't 1 (no areacodes start with 1)
     phone.length === 10 && phone.match(/\d/g)?.length === 10 && phone[0] != "1";
 
+  const getInviteBody = (to: string) => {
+    const { room, user } = router.query;
+    return { to, room, user: decodeURIComponent(user as string) };
+  };
+
+  const makeHandlers = (setNot: (x: string) => void) => {
+    const timeoutReset = () => setTimeout(() => setNot(""), 1800);
+    return [
+      (suc: any) => {
+        console.log(suc);
+        setNot("Successfully Sent");
+        timeoutReset();
+      },
+      (err: any) => {
+        console.error(err);
+        setNot("Error Sending...");
+        timeoutReset();
+      },
+    ];
+  };
+
   const sendPhone = () => {
-    if (!validateNumber(number.current)) return setPhoneErr(true);
-    console.log(
-      `Sending ${JSON.stringify(router.query)} to this number: ${
-        number.current
-      }`
+    if (!validateNumber(number.current)) return setPhoneNot("Invalid Phone");
+    setPhoneNot("Sending...");
+    const to = "+1" + number.current;
+    const body = getInviteBody(to);
+    const [suc, err] = makeHandlers(setPhoneNot);
+    httpProm(hostEndpoint + "text-wb-invite", { method: "PUT", body }).then(
+      suc,
+      err
     );
-    httpProm(
-      process.env.NODE_ENV === "production"
-        ? "https://connorjamesallen.com/api/text-invite"
-        : "http://localhost:3000/api/text-invite",
-      {
-        method: "PUT",
-        body: {
-          to: "+1" + number.current,
-          room: router.query.room,
-          user: router.query.user,
-        },
-      }
-    ).then(console.log, console.error);
   };
 
   const sendEmail = () => {
-    console.log(email.current);
-    if (!validateEmail(email.current)) return setEmailErr(true);
-    console.log(`Sending ${router.query} to this email: ${email.current}`);
+    if (!validateEmail(email.current)) return setEmailNot("Invalid Email");
+    setEmailNot("Sending...");
+    const to = email.current;
+    const body = getInviteBody(to);
+    const [suc, err] = makeHandlers(setEmailNot);
+    httpProm(hostEndpoint + "email-wb-invite", { method: "PUT", body }).then(
+      suc,
+      err
+    );
   };
 
   const noBubble: React.MouseEventHandler<HTMLDivElement> = (e) => {
     e.stopPropagation();
   };
+
+  const inviteForm = (
+    send: () => void,
+    onChagne: ChangeHandler,
+    notify: string,
+    placeholder: string
+  ) => (
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        send();
+      }}
+      className={[
+        styles["invite"],
+        condStyle(notify, "notify"),
+        condStyle(
+          notify.includes("Invalid") || notify.includes("Error"),
+          "err"
+        ),
+        condStyle(notify.includes("Success"), "suc"),
+      ].join(" ")}
+    >
+      <label>Invite By Text</label>
+      <div data-notify={notify}>
+        <input type="text" placeholder={placeholder} onChange={onChagne} />
+        <button className={styles["send"] + " btn-clr"} type="submit">
+          Send
+        </button>
+      </div>
+    </form>
+  );
+
   return (
-    <div className={styles["InviteOverlay"]} onClick={close}>
+    <div
+      className={styles["InviteOverlay"]}
+      onClick={close}
+      onKeyUp={(e) => (e.key === "Escape" ? close() : "")}
+    >
       <div className={styles["overlay-content"]} onClick={noBubble}>
         <button className={styles["close"]} onClick={close}>
           <CloseIcon />
         </button>
         <h2>Invite Someone</h2>
-        <div
-          className={styles["invite"] + (phoneErr ? " " + styles["err"] : "")}
-          data-err="Invalid Phone"
-        >
-          <label htmlFor="phone">Invite By Text</label>
-          <div>
-            <input
-              type="text"
-              id="phone"
-              placeholder="(xxx) xxx-xxxx"
-              onChange={numberMask}
-            />
-            <button className={styles["send"]} onClick={sendPhone}>
-              Send
-            </button>
-          </div>
-        </div>
-        <div
-          className={styles["invite"] + (emailErr ? " " + styles["err"] : "")}
-          data-err="Invalid Email"
-        >
-          <label htmlFor="email">Invite By Email</label>
-          <div>
-            <input
-              type="text"
-              id="email"
-              placeholder="user@example.com"
-              onChange={(e) => {
-                setEmailErr(false);
-                email.current = e.target.value;
-              }}
-            />
-            <button className={styles["send"]} onClick={sendEmail}>
-              Send
-            </button>
+        {inviteForm(sendPhone, numberChange, phoneNot, "(xxx) xxx-xxxx")}
+        {inviteForm(sendEmail, emailChange, emailNot, "user@example.com")}
+        <div>
+          <div>Invite Link:</div>
+          <div className={styles["invite-link"]}>
+            https://connorjamesallen.com/virtual-whiteboard?room=
+            {router.query.room}
           </div>
         </div>
       </div>

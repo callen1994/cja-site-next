@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getStyles } from "../../utils";
+import { getStyles } from "../../Utilities/utils";
 import styles from "./QuantShower.module.css";
 
 interface Props {

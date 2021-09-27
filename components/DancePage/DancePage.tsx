@@ -1,4 +1,4 @@
-import PaisleySwish from "../FancyAssets/PaisleySwish/PaisleySwish";
+import PaisleySwish from "../Utilities/FancyAssets/PaisleySwish/PaisleySwish";
 import { cloneDeep } from "lodash";
 // import { globalService } from "./DataService/service";
 import EventFilter from "./EventFilter/EventFilter";

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import CrewIcon from "../../Icons/CrewIcon";
-import { condContent } from "../../utils";
+import CrewIcon from "../../Utilities/Icons/CrewIcon";
+import { condContent } from "../../Utilities/utils";
 import InviteOverlay from "../InviteOverlay/InviteOverlay";
-import CancelIcon from "../../Icons/CancelIcon";
+import CancelIcon from "../../Utilities/Icons/CancelIcon";
 import styles from "./Toolbar.module.css";
-import EraserIcon from "../../Icons/EraserIcon";
+import EraserIcon from "../../Utilities/Icons/EraserIcon";
 
 interface Props {
   users: { id: string; name: string }[];
@@ -58,7 +58,11 @@ export default function Toolbar({
   );
 
   const inviteButton = (
-    <button className={styles["invite"]} onClick={() => setInvite((i) => true)}>
+    <button
+      className={styles["invite"] + " btn-clr"}
+      onClick={() => setInvite(true)}
+      onKeyUp={(e) => (e.key === "Escape" ? setInvite(false) : "")}
+    >
       Invite
     </button>
   );

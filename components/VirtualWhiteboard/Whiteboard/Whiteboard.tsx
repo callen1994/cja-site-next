@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import { Stage as StageType } from "konva/lib/Stage";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { Layer, Line, Stage } from "react-konva";
-import { condContent } from "../../utils";
 import { KMouse, Point, WhiteboardI } from "../data-types";
 import { ERASER_SIZE } from "../Toolbar/Toolbar";
 import { VirtualWhiteboardCLASS, WhiteboardState } from "../VirtualWhiteboard";
@@ -34,6 +34,7 @@ export default function Whiteboard({
   const [mouseIn, setMouseIn] = useState(false);
   const [x, forceUpdate] = useState(0);
   const canvasCol = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<StageType>(null);
 
   /* When I'm testing different screen sizes, this causes it to automatically update*/
   useEffect(
@@ -116,52 +117,62 @@ export default function Whiteboard({
     );
   };
 
+  const test = () => {
+    console.log(whiteBoard);
+    console.log(stageRef.current?.toDataURL());
+  };
+
   return whiteBoard ? (
-    <div
-      className={styles["canvas-col"]}
-      style={{ height: height * scale, width: width * scale }}
-      ref={canvasCol}
-    >
+    <Fragment>
+      <button onClick={test}>test</button>
       <div
-        className={styles["canvas-wrapper"]}
-        style={{ height, width, transform: `scale(${scale})` }}
+        className={styles["canvas-col"]}
+        style={{ height: height * scale, width: width * scale }}
+        ref={canvasCol}
       >
-        {eraserCursor()}
-        {Object.keys(drawTracker).map(makeUserIndicator)}
-        <Stage
-          height={height}
-          width={width}
-          onMouseDown={mouseDn}
-          onMousemove={mouseMv}
-          onMouseup={mouseUp}
-          onTouchStart={mouseDn}
-          onTouchMove={(e) => {
-            // Prevent the default action of scrolling on mobile
-            e.evt.preventDefault();
-            mouseMv(e);
-          }}
-          onTouchEnd={mouseUp}
-          onMouseLeave={mouseLeave}
-          className={styles["canvas-stage"]}
+        <div
+          className={styles["canvas-wrapper"]}
+          style={{ height, width, transform: `scale(${scale})` }}
         >
-          <Layer>
-            {(whiteBoard?.lines || []).map((line, i) => (
-              <Line
-                key={i}
-                points={line.points}
-                stroke={line.fill}
-                strokeWidth={line.width}
-                tension={line.tension}
-                lineCap="round"
-                globalCompositeOperation={
-                  line.globalCompositeOperation || "source-over"
-                }
-              />
-            ))}
-          </Layer>
-        </Stage>
+          {eraserCursor()}
+          {Object.keys(drawTracker).map(makeUserIndicator)}
+          <Stage
+            ref={stageRef}
+            height={height}
+            width={width}
+            onMouseDown={mouseDn}
+            onMousemove={mouseMv}
+            onMouseup={mouseUp}
+            onTouchStart={mouseDn}
+            onTouchMove={(e) => {
+              // Prevent the default action of scrolling on mobile
+              e.evt.preventDefault();
+              mouseMv(e);
+            }}
+            onTouchEnd={mouseUp}
+            onMouseLeave={mouseLeave}
+            className={styles["canvas-stage"]}
+          >
+            <Layer>
+              {(whiteBoard?.lines || []).map((line, i) => (
+                <Line
+                  key={i}
+                  points={line.points}
+                  stroke={line.stroke}
+                  strokeWidth={line.strokeWidth}
+                  bezier={true}
+                  lineCap="round"
+                  lineJoin="round"
+                  globalCompositeOperation={
+                    line.globalCompositeOperation || "source-over"
+                  }
+                />
+              ))}
+            </Layer>
+          </Stage>
+        </div>
       </div>
-    </div>
+    </Fragment>
   ) : (
     <div className={styles["loading"]}>Loading...</div>
   );

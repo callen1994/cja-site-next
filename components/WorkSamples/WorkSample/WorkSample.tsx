@@ -1,10 +1,11 @@
 import React, { CSSProperties, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import BorderVine from "../../FancyAssets/BorderVine/BorderVine";
+import BorderVine from "../../Utilities/FancyAssets/BorderVine/BorderVine";
 import styles from "./WorkSample.module.css";
 import { SampleFig } from "../WorkSamples";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { getStyles } from "../../Utilities/utils";
 
 export default function WorkSample({
   title,
@@ -22,23 +23,26 @@ export default function WorkSample({
       console.log("Scaling Border");
       // On larger screens I want the border to go above by some number of pixels
       // to include the header a little better. On smaller screens that isn't what I want
-      const headerAllowance = window.innerWidth > 800 ? 80 : 50;
+      // const headerAllowance = window.innerWidth > 800 ? 80 : 50;
       setBorderStyle({
         // scale up to cover lore
         transform: `
-          scaleY(${(loreComp.current.clientHeight + headerAllowance) / 271})
+          scaleY(${(loreComp.current.clientHeight + 50) / 271})
         `,
       });
     }
     return () => {};
   }, [loreComp]);
+  // classes separated by commas
   return (
     <div className={styles["WorkSample"]}>
       <h2 onClick={goToPage}>{title}</h2>
       <div className={styles["content"]}>
         <div className={styles["lore"]} ref={loreComp}>
+        <h2 onClick={goToPage}>{title}</h2>
           <BorderVine style={borderStyle}></BorderVine>
           <p>{blurb}</p>
+          <div>
           <h3>Features</h3>
           <div className={styles["lore-inner"]}>
             <ul>
@@ -46,13 +50,13 @@ export default function WorkSample({
                 <li key={i}>{f}</li>
               ))}
             </ul>
-            <Link href={link}>View Sample</Link>
+            <button className='btn-clr' onClick={() => router.push(link)}>View Sample</button>
           </div>
+          </div>          
         </div>
-        {/*  */}
         <div
           onClick={goToPage}
-          className={styles["image"]}
+          className={getStyles(styles, 'image')}
           // The image should get as small as 1/3.2 it's size before it wraps
           // If the viewport (minus padding) is smaller than that, go to to that size
           // This should help it behave nicely with different aspect ratios...

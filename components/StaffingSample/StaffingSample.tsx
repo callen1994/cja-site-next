@@ -15,14 +15,14 @@ import {
 import RecruitShower from "./RecruitShower/RecruitShower";
 import StaffingChart from "./StaffingChart/StaffingChart";
 import RecruitsHead from "./RecruitsHead/RecruitsHead";
-import { condContent } from "../utils";
+import { condContent } from "../Utilities/utils";
 import ExplainOverlay from "./ExplainOverlay/ExplainOverlay";
 import {
   EXPLAIN_SERVICE,
   ExplainState,
 } from "./ExplainOverlay/ExplainOverlay.service";
-import ThumbIcon from "../Icons/ThumbIcon";
-import HelpIcon from "../Icons/HelpIcon";
+import ThumbIcon from "../Utilities/Icons/ThumbIcon";
+import HelpIcon from "../Utilities/Icons/HelpIcon";
 
 import styles from "./StaffingSample.module.css";
 
@@ -174,6 +174,7 @@ export default class StaffingSample extends React.Component<Props, State> {
                   moveRecruit={moveRecruit}
                   key={i}
                   r={r}
+                  listIndex={i}
                 ></RecruitShower>
               ))
             ) : group === "Not Interested" ? (

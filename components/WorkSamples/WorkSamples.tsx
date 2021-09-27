@@ -1,5 +1,5 @@
 import Link from "next/link";
-import BorderVine from "../FancyAssets/BorderVine/BorderVine";
+import BorderVine from "../Utilities/FancyAssets/BorderVine/BorderVine";
 import WorkSample from "./WorkSample/WorkSample";
 import styles from "./WorkSamples.module.css";
 
@@ -10,26 +10,6 @@ export interface SampleFig {
   features: string[];
   image: { src: string; height: number; width: number };
 }
-
-const WorkSampleFigs: SampleFig[] = [
-  {
-    title: "Dance In The Bay",
-    link: "dance",
-    blurb:
-      "I am an avid swing dancer, so I created a place where I can keep track of partner dance events happening in the area, and share them with my friends.",
-    features: [
-      "Responsive Layout",
-      "Elegant Design",
-      "Easy CMS",
-      "Next.js for SEO and high performance rendering",
-    ],
-    image: {
-      src: "/DanceScreenShot.png",
-      width: 1000,
-      height: 560,
-    },
-  },
-];
 
 export default function WorkSamples() {
   return (
@@ -53,36 +33,59 @@ export default function WorkSamples() {
           key={i}
         ></WorkSample>
       ))}
-
-      {/* <div className={styles["sample-links"]}>
-        <Link href="/dance">
-          <a>
-            <h2>Dance</h2>
-            <p className={styles["link-content"]}>
-              Info about dance events in the bay area. I created this so I can
-              easily track and share that info. The front end is React with a
-              server fetching data from a google sheets which is my super simple
-              CMS
-            </p>
-          </a>
-        </Link>
-        <Link href="/staffing-sample">
-          <a href="">
-            <h2>Staffing</h2>
-            <p className={styles["link-content"]}>
-              To show off what I can do building beautiful and functional
-              web-tools, I{"'"}ve created a staffing tool for an imaginary
-              summer camp.
-            </p>
-          </a>
-        </Link>
-        <Link href="/virtual-whiteboard">
-          <a>
-            <h2>Virtual Whiteboard</h2>
-            <p className={styles["link-content"]}>To show off capabilities</p>
-          </a>
-        </Link>
-      </div> */}
     </section>
   );
 }
+
+const WorkSampleFigs: SampleFig[] = [
+  {
+    title: "Dance In The Bay",
+    link: "dance",
+    blurb:
+      "I am an avid swing dancer, so I created a place where I can keep track of partner dance events happening in the area, and share them with my friends.",
+    features: [
+      "Responsive Layout",
+      "Elegant Design",
+      "Easy CMS",
+      "Next.js for SEO and high performance rendering",
+    ],
+    image: {
+      src: "/DanceScreenShot.png",
+      width: 1000,
+      height: 560,
+    },
+  },
+  {
+    title: 'Staffing Software',
+    link: 'staffing-sample',
+    blurb: "To show off what I can do building beautiful and functional web-tools, I've created a staffing tool for an imaginary summer camp.",
+    features: [
+      "Intuitive interface",
+      "Elegant design",
+      "Data Visualization",
+      "Fun to Use",
+    ],
+    image: {
+      src: "/staffing-shot.png",
+      width: 1000,
+      height: 610
+    }
+  },
+  {
+    title: "Virtual Whiteboards",
+    link: "virtual-whiteboard",
+    blurb:
+      "This virtual whiteboard sample primarily showcases back-end functionality. Invite users via text or email. Users are connected through live sockets into a collaborative space.",
+    features: [
+      "Live Web-sockets (data transfered between users in real time)",
+      "Text and Email Integration",
+      "Persistent Mongo Database",
+      "Custom Node.js Server",
+    ],
+    image: {
+      src: "/whiteboards-shot.png",
+      width: 1000,
+      height: 576,
+    },
+  }
+];

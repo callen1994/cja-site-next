@@ -29,12 +29,13 @@
   background-color: var(--bg-brighter-2);
 }
 
-.Lobby .enter-room {
+/* This needs this level of specificity, probablyu because of semantic */
+.Lobby button {
   margin: 1em 0 0em;
-  padding: 0.5em 1em;
-  background-color: var(--my-sky-blue);
+  padding: 0.8em 1em;
+  /* background-color: var(--my-sky-blue);
   color: var(--opposite-text);
-  font-weight: bolder;
+  font-weight: bolder; */
 }
 
 .name-input {
@@ -48,6 +49,7 @@
   justify-content: space-between;
   margin: 0 2em;
   width: calc(100vw - 4em);
+  align-items: flex-start;
 }
 
 .previews {
@@ -64,9 +66,13 @@
   justify-content: center;
   grid-gap: var(--grid-gap);
 }
-
+.invite-col .enter-room {
+  margin-bottom: 1em;
+}
 /* Needed to increase the level of specificity to get it to show up correctly */
-.previews .preview-box {
+.previews .preview-box,
+.invite-col .preview-box {
+  color: var(--default-text);
   box-sizing: border-box;
   --button-width: calc(var(--col-width));
   width: var(--button-width);
@@ -81,7 +87,12 @@
   border: 1px solid var(--transparent);
 }
 
-.previews .preview-box h3 {
+.invite-col .preview-box {
+  --button-width: min(80vw, 40em)
+}
+
+.previews .preview-box h3,
+.invite-col .preview-box h3 {
   white-space: nowrap;
   overflow-x: auto;
   max-width: 100%;
@@ -89,13 +100,22 @@
 }
 
 .previews .preview-box:hover,
-.previews .preview-box:focus {
+.previews .preview-box:focus,
+.invite-col .preview-box:hover,
+.invite-col .preview-box:focus {
   background-color: var(--bg-brighter-2);
   border: 1px solid var(--light-grey);
 }
 
 .users {
   margin: 0.3em;
+}
+.invite-col {
+  margin-top: 1.5em;
+}
+.invite-blurb {
+  margin: 0em 0 0.5em 0;
+  width: min(80vw, 60ch);
 }
 
 /* ERROR STYLING */
@@ -113,5 +133,11 @@
 @media only screen and (max-width: 800px) {
   .previews {
     --grid-gap: 0.5em;
+  }
+  /* Move this to the bottom of the screen*/
+  .Lobby .see-all {
+    position: fixed;
+    bottom: 0.5em;
+    right: 0.5em;
   }
 }

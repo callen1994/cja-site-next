@@ -12,7 +12,6 @@
   /* THe modified BG makes more sense here because I'm moving the content around
   and I'm bringing stuff back and forth over this bg layer */
   background-color: hsl(var(--bg-hue), var(--bg-sat), var(--bg-light), 0.7);
-  /* var(--light-box-color); */
   z-index: 102;
   box-sizing: border-box;
 }
@@ -61,7 +60,13 @@
   font-size: 1rem;
   border-radius: 0.4em;
   white-space: nowrap;
+  cursor: pointer;
 }
+
+.ExplainOverlay button:active {
+  background-color: var(--bg-brighter-3);
+}
+
 /* when this was written as ".rotate" it gets exported as a modularized css class */
 .ExplainOverlay * [class*="rotate"] {
   transform: translate(0, 0.5em) scale(0.8) rotate(180deg);

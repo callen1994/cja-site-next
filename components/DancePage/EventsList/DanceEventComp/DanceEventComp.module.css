@@ -81,6 +81,7 @@ to behave slighly differently when you click on them both inside and outside the
 .info-col .links {
   color: var(--default-text);
   text-decoration: none;
+  width: min-content;
 }
 .info-col .links {
   display: block;

@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { getStyles } from "../../utils";
+import { getStyles } from "../../Utilities/utils";
 import {
   ExplainState,
   EXPLAIN_SERVICE,
 } from "../ExplainOverlay/ExplainOverlay.service";
-import ChevronIcon from "../../Icons/ChevronIcon";
+import ChevronIcon from "../../Utilities/Icons/ChevronIcon";
 import { nextGroup, Status } from "../staffing-data/staffing.data-types";
 import { SortType } from "../StaffingSample";
 import styles from "./RecruitsHead.module.css";
+import { Dropdown } from "semantic-ui-react";
 
 interface Props {
   group: Status;
@@ -68,15 +69,23 @@ export default function RecruitsHead({
       </div>
       <div className={getStyles(styles, "sort " + explainState)}>
         <label htmlFor="sort">Sort by:</label>
-        <select
-          id="sort"
+        <Dropdown
+          id={styles["myDropdown"]}
+          placeholder=''
+          fluid
+          selection
+          // After getting all the values, mung it to the type that the dropdown value wants
+          options={[
+            {value:'id', text: 'ID'},
+            {value:'name', text: 'Name'},
+            {value:'score', text: 'Score'}
+          ]}
           value={sort}
-          onChange={(e) => updateSort(e.target.value as SortType)}
-        >
-          <option value="id">ID</option>
-          <option value="name">Name</option>
-          <option value="score">Score</option>
-        </select>
+          onChange={(event, data) => {
+            console.log(data.value);
+            updateSort(data.value as SortType);
+          }}
+        ></Dropdown>
       </div>
     </div>
   );

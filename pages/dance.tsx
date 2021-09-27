@@ -9,7 +9,7 @@ import {
   MT_FITLER_OPTS,
 } from "../components/DancePage/data-types";
 import { DUMMY_DANCE_DATA, fetchSheetData } from "../private/google-link";
-import { onlyUnique } from "../components/utils";
+import { onlyUnique } from "../components/Utilities/utils";
 
 type Props = Parameters<typeof DancePage>[0];
 

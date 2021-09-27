@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Layer, Line, Stage } from "react-konva";
-import { getContentWidth } from "../../utils";
+import { getContentWidth } from "../../Utilities/utils";
 import { WhiteboardPreview } from "../data-types";
 import stageStyles from "../Whiteboard/Whiteboard.module.css";
 import lobbyStyles from "./Lobby.module.css";
@@ -63,8 +63,8 @@ export default function BoardPreview({ board, goToRoom }: Props) {
               <Line
                 key={i}
                 points={line.points}
-                stroke={line.fill}
-                strokeWidth={line.width}
+                stroke={line.stroke}
+                strokeWidth={line.strokeWidth}
                 tension={line.tension}
                 lineCap="round"
                 globalCompositeOperation={

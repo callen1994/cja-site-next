@@ -38,11 +38,16 @@
   text-align: center;
 }
 
+.InviteOverlay .overlay-content > * {
+  margin: 0.5em;
+}
+
 button.close {
   position: absolute;
   top: 0em;
   right: 0em;
   border: 1px solid var(--default-text);
+  background-color: var(--transparent);
   padding: 0.2em;
   border-radius: 2em;
   height: 1.5em;
@@ -53,15 +58,12 @@ button.close {
 }
 
 button.send {
-  background-color: var(--my-sky-blue);
-  color: var(--opposite-text);
   margin: 0 0 0 1em;
-  padding: 0.3em 0.8em;
+  padding: 0.5em 0.8em;
 }
 
 .invite {
-  --err-color: var(--err-color);
-  margin: 0.5em;
+  --err-color: var(--error-color);
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -82,16 +84,36 @@ button.send {
   border-radius: 0.3em 0.3em 0 0;
 }
 
-.invite.err input {
-  border-color: var(--err-color);
-  /* color: var(--err-color); */
+.invite.notify {
   margin-bottom: 1.5em;
 }
 
-.invite.err:after {
-  content: attr(data-err);
+/* need this so the after element stays inside */
+.invite.notify > div {
+  position: relative;
+}
+
+.invite.notify > div:after {
+  content: attr(data-notify);
   position: absolute;
-  top: 2.1em;
-  left: 8.3em;
+  top: 2.2em;
+  left: 0;
+}
+
+.invite.err > div:after {
   color: var(--err-color);
+}
+.invite.suc > div:after {
+  color: hsl(var(--green-hue), 50%, 50%);
+}
+
+.invite.err input {
+  border-color: var(--err-color);
+}
+
+.invite-link {
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: auto;
+  display: inline-block;
 }

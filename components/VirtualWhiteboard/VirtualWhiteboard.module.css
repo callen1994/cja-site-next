@@ -7,8 +7,7 @@
 }
 
 .DrawWithFriends button {
-  all: unset;
-  cursor: pointer;
+  /* all: unset; */
   padding: 0.5em;
   border-radius: 0.3em;
   margin: 0.5em;

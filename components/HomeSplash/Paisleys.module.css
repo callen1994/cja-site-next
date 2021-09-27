@@ -1,0 +1,97 @@
+/* Paisley Positioning */
+.left-paisley,
+.right-paisley {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  height: 100vh;
+  width: 50vw;
+  overflow: visible;
+  /* border: 1px solid red; */
+  box-sizing: border-box;
+}
+
+/* 
+  This: [class*="PaisleySwirl_base-el"]
+  is a kinda hacky way to select the base element in the PaisleySwirl css.
+  The "PaisleySwirl_" (and some abritrary suffix) is attached by the css module system to isolate styles
+  I want the home splash to style the paisley swril element for transforming and positioning
+
+  In the future I might just wrap the children I want to style with a div that I can access, but I wrote this css in a react project where everything was global
+  so this is the right way to translate it.
+*/
+
+.PaisleyContainer [class*="PaisleySwirl_base-el"],
+.PaisleyContainer [class*="PaisleySwirl_base-el"] * {
+  overflow: visible;
+}
+
+.PaisleyContainer [class*="PaisleySwirl_base-el"] {
+  min-height: 100vh;
+  min-width: 50vw;
+  position: absolute;
+  z-index: -1;
+}
+
+.left-paisley {
+  right: 50vw;
+}
+.right-paisley {
+  left: 50vw;
+}
+
+.left-paisley [class*="PaisleySwirl_base-el"],
+.left-paisley [class*="PaisleySwirl_base-el"] svg {
+  right: 0;
+}
+.right-paisley [class*="PaisleySwirl_base-el"],
+.right-paisley [class*="PaisleySwirl_base-el"] svg {
+  left: 0;
+}
+
+.left-paisley [class*="PaisleySwirl_base-el"],
+.left-paisley [class*="PaisleySwirl_base-el"] svg {
+  right: 0;
+}
+
+.right-paisley [class*="PaisleySwirl_base-el"],
+.right-paisley [class*="PaisleySwirl_base-el"] svg {
+  left: 0;
+}
+
+.left-paisley [class*="PaisleySwirl_base-el"] svg {
+  transform: rotate(-90deg);
+}
+.right-paisley [class*="PaisleySwirl_base-el"] svg {
+  transform: rotate(90deg);
+}
+
+.PaisleyContainer [class*="PaisleySwirl_base-el"] svg {
+  height: 50vw;
+  min-height: 100%;
+  max-height: 50vw;
+
+  min-width: 100%;
+  width: 100vh;
+  max-width: 100vh;
+  position: absolute;
+}
+
+/* On tall Screens turn the contrast bar into a 40% bg-color wash
+and shift the paisleys around to fit the screen a little better */
+@media only screen and (max-aspect-ratio: 5/7) {
+    .left-paisley,
+    .right-paisley {
+      height: 110vh;
+    }
+    .left-paisley {
+      right: 40vw;
+      top: -10vh;
+    }
+    .right-paisley {
+      left: 40vw;
+    }
+  }
+  

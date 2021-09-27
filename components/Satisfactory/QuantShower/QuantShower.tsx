@@ -1,6 +1,6 @@
 import { startCase } from "lodash";
 import { Fragment } from "react";
-import { condContent, getStyles } from "../../utils";
+import { condContent, getStyles } from "../../Utilities/utils";
 import {
   FactoryProduct,
   getInputs,

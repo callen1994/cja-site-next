@@ -6,15 +6,15 @@ import {
   Recruit,
   StaffingNeeds,
 } from "../staffing-data/staffing.data-types";
-import CarIcon from "../../Icons/CarIcon";
-import StarIcon from "../../Icons/StarIcon";
-import CrewIcon from "../../Icons/CrewIcon";
-import ChevronIcon from "../../Icons/ChevronIcon";
+import CarIcon from "../../Utilities/Icons/CarIcon";
+import StarIcon from "../../Utilities/Icons/StarIcon";
+import CrewIcon from "../../Utilities/Icons/CrewIcon";
+import ChevronIcon from "../../Utilities/Icons/ChevronIcon";
 import {
   ExplainState,
   EXPLAIN_SERVICE,
 } from "../ExplainOverlay/ExplainOverlay.service";
-import { condContent, getStyles } from "../../utils";
+import { condContent, getStyles } from "../../Utilities/utils";
 import styles from "./StaffingChart.module.css";
 
 interface Props {

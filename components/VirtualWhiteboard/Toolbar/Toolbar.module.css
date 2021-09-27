@@ -21,11 +21,13 @@
   border: 1px solid var(--mid-grey);
 }
 button.tool {
-  height: 1em;
+  color: var(--default-text);
+  height: 2em;
+  font-weight: lighter;
+  padding: 0.5em;
   display: flex;
   align-items: center;
   margin: 0.2em 0em;
-  /* padding: 0; */
   background-color: var(--bg-brighter);
   border: 1px solid var(--transparent);
 }
@@ -63,8 +65,6 @@ button.tool:active {
 }
 
 button.invite {
-  background-color: var(--my-sky-blue);
-  color: var(--opposite-text);
   margin: 0.5em 0;
   padding: 0.5em 1em;
   font-weight: bolder;

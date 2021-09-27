@@ -27,7 +27,7 @@ export class ExplainService {
   // A list of functions to call when the explain state changes
   // This is how I notify subscribers of an event (this avoids installing Rxjs)
   toNotify: ((x: ExplainState) => void)[] = [];
-  explainState: ExplainState = 'start';
+  explainState: ExplainState = undefined; //'start';
   nextState() {
     // the notify state will be undefined when I next past the end of the list at which point everything that was wondering about the state should forget about it
     if (!this.explainState) return;

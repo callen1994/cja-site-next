@@ -54,7 +54,10 @@ body {
   --my-general-font: "Roboto Slab", serif;
 
   --my-yellow: #ffab40;
-  --my-sky-blue: #b7c2eb;
+  --blue-hue: 227;
+  --blue-sat: 57%;
+  --blue-lit: 82%;
+  --my-sky-blue: hsl(var(--blue-hue), var(--blue-sat), var(--blue-lit));
   --my-dark-blue: #252b42;
   --green-hue: 76;
   --green-sat: 24%;
@@ -110,6 +113,12 @@ body {
   --error-color: #d55;
   --notify-color: #d00;
 
+  --active-button: hsl(
+    var(--blue-hue),
+    var(--blue-sat),
+    calc(var(--blue-lit) - 5%)
+  );
+
   background-color: var(--bg-color);
   color: var(--default-text);
   font-family: var(--my-general-font);
@@ -127,8 +136,8 @@ body {
 
   --my-rust: #a04725;
   font-weight: lighter;
-  --bg-hue: 50;
-  --bg-sat: 10%;
+  --bg-hue: 216;
+  --bg-sat: 30%;
   --bg-light: 100%;
   --bg-color: hsl(var(--bg-hue), var(--bg-sat), var(--bg-light));
   --default-text: #000f;
@@ -138,6 +147,43 @@ body {
   --low-grey: #888;
   --cs: -1;
 } */
+
+/* undoing some of the semantic js css stuff */
+button {
+  border: none;
+  font-family: var(--my-general-font);
+  line-height: 1em;
+}
+
+a:focus-visible,
+button:focus-visible {
+  border: 1px solid var(--low-grey);
+  outline: 1px solid var(--light-grey);
+}
+
+a:focus-visible:active,
+button::focus-visible:active {
+  border: 1px solid var(--light-grey);
+  outline: 1px solid var(--low-grey);
+}
+.btn-clr {
+  color: var(--opposite-text);
+  background-color: var(--my-sky-blue);
+  font-weight: bolder;
+  cursor: pointer;
+  border-radius: 0.3em;
+}
+.btn-clr:active {
+  background-color: var(--active-button);
+}
+.no-wrap {
+  white-space: nowrap;
+}
+
+::selection {
+  background-color: var(--bg-brighter-5) !important;
+  color: var(--default-text) !important;
+}
 
 :is(h1, h2, h3, h4) {
   font-weight: normal;

@@ -1,5 +1,5 @@
 import { flatten, sum } from 'lodash';
-import { onlyUnique } from '../utils';
+import { onlyUnique } from '../Utilities/utils';
 import { RECIPES } from './Recipes';
 
 // An enum type for all the components that can be made or used in Satisfactory

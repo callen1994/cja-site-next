@@ -1,16 +1,20 @@
 .WorkSample {
-  margin: 2em 0;
+  margin: 4em 0;
   /* In the SVG there's  */
   --vine-padding: 10px;
   /* The width of the upper part of the border-vine svg */
   --vine-border-width: calc(var(--vine-padding) + 65px);
 }
 .WorkSample h2 {
-  margin-left: var(--vine-border-width);
+  /* margin-left: var(--vine-border-width); */
   width: min-content;
   white-space: nowrap;
   cursor: pointer;
   position: relative;
+}
+
+.WorkSample > h2 {
+  display: none;
 }
 
 .WorkSample h2::after {
@@ -30,14 +34,6 @@
   padding-right: 1em;
 }
 
-.lore > [class*="BorderVine"] {
-  position: absolute;
-  transform-origin: top left;
-  top: -30px;
-  /* This makes it so at 0 padding the content of the svg is touching the screen border (ish)
-  i.e. the svg has a little bit of natural padding in it */
-  left: calc(-10px + var(--vine-padding));
-}
 
 .lore {
   flex: 1;
@@ -46,16 +42,23 @@
   padding-left: var(--vine-border-width);
   margin-right: 0.5em;
   margin-bottom: 1.8em;
-}
-.lore h3 {
-  margin: 0.4em 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  max-width: 80ch;
 }
 
-.image {
-  flex: 1;
-  margin: 0em 0em 1em 1em;
-  max-width: calc(100vw - 2em);
-  cursor: pointer;
+.lore > [class*="BorderVine"] {
+  position: absolute;
+  transform-origin: top left;
+  top: 0px;
+  /* This makes it so at 0 padding the content of the svg is touching the screen border (ish)
+  i.e. the svg has a little bit of natural padding in it */
+  left: calc(-10px + var(--vine-padding));
+}
+
+.lore h3 {
+  margin: 0.4em 0;
 }
 
 .lore-inner {
@@ -67,7 +70,17 @@
   flex: 1;
 }
 
-.WorkSample .lore-inner a {
+
+.WorkSample .lore-inner button {
+  padding: 0.7em 1em;
+  border-radius: 0.3em;
+  margin: 0.5em 0 0 1em;
+  white-space: nowrap;
+  max-width: 9.5em;
+}
+
+/* Copying all the button stuff, but I can't  */
+/* .WorkSample .lore-inner a {
   all: unset;
   cursor: pointer;
   color: var(--opposite-text);
@@ -78,22 +91,40 @@
   margin: 0.5em 0 0 1em;
   font-weight: bolder;
 }
+.WorkSample .lore-inner a:active {
+  background-color: var(--active-button);
+} */
 
 .lore-inner ul {
   padding-left: 1.2em;
   min-width: 20ch;
 }
 
+.image {
+  flex: 1;
+  margin: 1em 0em 1em 1em;
+  max-width: calc(100vw - 2em);
+  cursor: pointer;
+}
+
 @media only screen and (max-width: 800px) {
   .WorkSample {
     --vine-padding: 0px;
   }
-  .WorkSample h2 {
+
+  .lore > h2 {
+    display: none;
+  }
+  .WorkSample > h2 {
+    display: block;
     padding-left: 0;
     margin: 0 auto 1em;
     text-align: center;
   }
   .lore > [class*="BorderVine"] {
     top: 0;
+  }
+  .image {
+    margin: -0.5em 0 1.5em 1em;
   }
 }

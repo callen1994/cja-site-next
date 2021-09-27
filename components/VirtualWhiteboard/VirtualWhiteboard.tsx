@@ -1,13 +1,10 @@
 import React, { Fragment } from "react";
 import { withRouter, NextRouter } from "next/router";
-import { LineConfig } from "konva/lib/shapes/Line";
 import { io, Socket } from "socket.io-client";
 
 import {
   CONN_HOST,
   DEFAULT_LINE,
-  DrawEmits,
-  DrawListens,
   DrawState,
   DrawTracker,
   LISTEN_EVENTS,
@@ -15,19 +12,20 @@ import {
   WhiteboardI,
   continueLine as continueLineOnBoard,
   addLine as addLineOnBoard,
+  DrawListens,
+  DrawEmits,
+  LineFig,
 } from "./data-types";
 import styles from "./VirtualWhiteboard.module.css";
-import { condContent, InputChange } from "../utils";
 import Lobby from "./Lobby/Lobby";
 import Whiteboard from "./Whiteboard/Whiteboard";
 import Toolbar, { ERASER_SIZE, Tool } from "./Toolbar/Toolbar";
-import { cloneDeep } from "lodash";
-
-type DrawSocket = Socket<DrawListens, DrawEmits>;
 
 interface Props {
   router: NextRouter;
 }
+
+type DrawSocket = Socket<DrawListens, DrawEmits>;
 
 export interface WhiteboardState {
   socket?: DrawSocket;
@@ -58,21 +56,13 @@ export class VirtualWhiteboardCLASS extends React.Component<
   // Destructuring syntax for accessing the query values was giving me the wrong types
   // They're always strings, and this lets me access them easily
   getQueryParams(
-    router?: NextRouter
+    // This is always the props router, except when called in didUpdate where I pass the past props.router
+    router: NextRouter = this.props.router
   ): [string | undefined, string | undefined] {
-    const toAccess = router?.query || this.props.router.query;
+    const toAccess = router.query;
     const user = toAccess.user as string | undefined;
     const room = toAccess.room as string | undefined;
-    const ALIAS_KEY = "virtual-whiteboard-alias";
-    // When a user successfully has  a name (navigates to a route with a user param). Remember that so it can pre-fill
-    if (user) localStorage.setItem(ALIAS_KEY, user);
 
-    // If the user is navigating to a room ID without a routerID, but with a local ID, put the local ID in the router
-    const localAlias = localStorage.getItem(ALIAS_KEY);
-    if (!user && localAlias) {
-      console.log("Pushing local alias into query");
-      (router || this.props.router).push({ query: { user: localAlias, room } });
-    }
     return [
       user ? decodeURIComponent(user) : undefined,
       room ? decodeURIComponent(room) : undefined,
@@ -89,6 +79,15 @@ export class VirtualWhiteboardCLASS extends React.Component<
   }
 
   componentDidMount() {
+    // If the user has a local ID, put the local ID in the router
+    const localAlias = localStorage.getItem("virtual-whiteboard-alias");
+    const propsQuery = this.props.router.query;
+    if (!propsQuery.user && localAlias) {
+      console.log("Pushing local alias into query");
+      this.props.router.push({
+        query: { ...this.props.router.query, user: localAlias },
+      });
+    }
     this.initializeSocket();
   }
 
@@ -146,24 +145,25 @@ export class VirtualWhiteboardCLASS extends React.Component<
     if (!user || !room) return this.killSocket();
     // I know there is a current value for both of these
     // if they're different from their past values, I want to disconnect before I do anything else
-    if (user !== pastUser || room !== pastRoom) this.killSocket();
-
-    this.initializeSocket();
+    if (user !== pastUser || room !== pastRoom) {
+      this.killSocket();
+      this.initializeSocket();
+    }
   }
 
   startLine = (
     { x, y }: Point,
     id: string,
     name: string,
-    lineOptions: Partial<LineConfig> = {}
+    lineOptions: Partial<LineFig> = {}
   ) => {
     const lineFig = { ...DEFAULT_LINE, ...lineOptions, points: [x, y] };
 
     if (this.state.tool === "Eraser") {
       lineFig.globalCompositeOperation = "destination-out";
-      lineFig.width = ERASER_SIZE;
+      lineFig.strokeWidth = ERASER_SIZE;
     } else {
-      lineFig.fill = this.state.tool;
+      lineFig.stroke = this.state.tool;
     }
 
     if (!this.state.whiteBoard) return;
@@ -226,7 +226,6 @@ export class VirtualWhiteboardCLASS extends React.Component<
   };
 
   render() {
-    // const drawTracker = drawTracker;
     const { roomUsers, whiteBoard, drawTracker, myId, tool } = this.state;
     const [user, room] = this.getQueryParams();
 

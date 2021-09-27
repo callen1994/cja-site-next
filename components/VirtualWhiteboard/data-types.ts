@@ -1,5 +1,12 @@
 import { KonvaEventObject } from "konva/lib/Node";
 import { LineConfig } from "konva/lib/shapes/Line";
+
+// I was running into issues with the server having a different import
+// path for the same "LineFig" type, so I'm creating this alias that everything
+// should point to so it's all the same. Importing types from the front end in my
+// server hasn't been an issue at all (I think because it all gets ignored when compiled)
+export type LineFig = LineConfig;
+
 export type KMouse =
   | KonvaEventObject<MouseEvent>
   | KonvaEventObject<TouchEvent>;
@@ -27,7 +34,7 @@ export const CONN_HOST =
 
 export interface DrawEmits {
   "join-room": (room: string, user: string) => void;
-  "line-start": (point: Point, lineFig: LineConfig, user?: string) => void;
+  "line-start": (point: Point, lineFig: LineFig, user?: string) => void;
   "line-move": (point: Point, user?: string) => void;
   "line-end": (user?: string) => void;
   "name-change": (newName: string) => void;
@@ -41,7 +48,7 @@ export interface DrawListens {
     point: Point,
     id: string,
     name: string,
-    lineFig: LineConfig
+    lineFig: LineFig
   ) => void;
   "take-line-move": (point: Point, id: string, name: string) => void;
   "take-line-end": (id: string) => void;
@@ -72,7 +79,7 @@ export const LISTEN_EVENTS: (keyof DrawListens)[] = [
 export interface WhiteboardI {
   _id: string;
   name: string;
-  lines: LineConfig[];
+  lines: LineFig[];
   updatedAt: string;
 }
 
@@ -82,17 +89,14 @@ export interface WhiteboardPreview extends WhiteboardI {
   userData: { name: string; whiteboardRoom: string }[];
 }
 
-export const DEFAULT_LINE: LineConfig = {
-  fill: "#000",
-  width: 8,
+export const DEFAULT_LINE: LineFig = {
+  stroke: "#000",
+  strokeWidth: 8,
   tension: 0.5,
   globalCompositeOperation: "source-over",
 };
 
-export const addLine = (
-  board: WhiteboardI,
-  newLine: LineConfig
-): WhiteboardI => {
+export const addLine = (board: WhiteboardI, newLine: LineFig): WhiteboardI => {
   board.lines.push(newLine);
   return board;
 };

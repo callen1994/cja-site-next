@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import { getStyles } from "../../utils";
+import { getStyles } from "../../Utilities/utils";
 import {
   ExplainState,
   EXPLAIN_SERVICE,
 } from "../ExplainOverlay/ExplainOverlay.service";
-import CarIcon from "../../Icons/CarIcon";
-import StarIcon from "../../Icons/StarIcon";
-import ThumbIcon from "../../Icons/ThumbIcon";
+import CarIcon from "../../Utilities/Icons/CarIcon";
+import StarIcon from "../../Utilities/Icons/StarIcon";
+import ThumbIcon from "../../Utilities/Icons/ThumbIcon";
 import {
   DAY_LU,
   nextGroup,
@@ -17,11 +17,12 @@ import { RecruitWithScore } from "../StaffingSample";
 import styles from "./RecruitShower.module.css";
 
 interface Props {
-  r: RecruitWithScore;
+  r: RecruitWithScore; 
+  listIndex: number;
   moveRecruit: (id: number, newStatus: Status) => void;
 }
 
-export default function RecruitShower({ r, moveRecruit }: Props) {
+export default function RecruitShower({ r, moveRecruit, listIndex }: Props) {
   const myBody = useRef<HTMLDivElement>(null);
   const [explainState, setExplainState] = useState<ExplainState>(
     EXPLAIN_SERVICE.explainState
@@ -37,9 +38,9 @@ export default function RecruitShower({ r, moveRecruit }: Props) {
   // and from an acessibility standpoint I don't know what's best...
   const keyHandler = (key: React.KeyboardEvent) => {
     if (key.key === "ArrowUp")
-      document.getElementById(`CrewShower${r.id - 1}`)?.focus();
+      document.getElementById(`CrewShower${listIndex - 1}`)?.focus();
     if (key.key === "ArrowDown")
-      document.getElementById(`CrewShower${r.id + 1}`)?.focus();
+      document.getElementById(`CrewShower${listIndex + 1}`)?.focus();
   };
 
   const highlighttMe = () => {
@@ -64,7 +65,7 @@ export default function RecruitShower({ r, moveRecruit }: Props) {
       onBlurCapture={() => SET_HIGHLIGHT(null)}
     >
       <div
-        id={`CrewShower${r.id}`}
+        id={`CrewShower${listIndex}`}
         className={getStyles(styles, "recruit-row " + r.status)}
         tabIndex={0}
         ref={myBody}

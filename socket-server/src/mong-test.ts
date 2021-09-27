@@ -1,3 +1,6 @@
+import { Response } from "express";
+import { fetchOrCreateBoard } from "./wb-socklets/Whiteboard";
+
 export const MONGO_TEST_HTML = `
 <!DOCTYPE html>
 <html lang="en">
@@ -31,3 +34,19 @@ export const MONGO_TEST_HTML = `
   </body>
 </html>
 `;
+
+export function mongoTest(res: Response, mongoErr: string) {
+  const makePage = (message: string, data: string) =>
+    res.send(
+      MONGO_TEST_HTML.split("MESSAGE")
+        .join(message)
+        .split("TEST_DOCUMENT")
+        .join(data)
+    );
+  if (mongoErr) return makePage("Mongo Server not Connected", mongoErr);
+
+  fetchOrCreateBoard("test", "Test Whiteboard").then(
+    (testDoc) => makePage("Mongo Is running", JSON.stringify(testDoc, null, 2)),
+    (err) => makePage("Error fetching from MongoDB :/", err.toString())
+  );
+}

@@ -1,10 +1,10 @@
 import React, { Fragment, useCallback, useEffect, useState } from "react";
 import Image from "next/image";
-import { condContent } from "../../../utils";
+import { condContent } from "../../../Utilities/utils";
 import { DanceEvent } from "../../data-types";
-import { getStyles } from "../../../utils";
+import { getStyles } from "../../../Utilities/utils";
 import styles from "./DanceEventComp.module.css";
-import CloseIcon from "../../../Icons/CloseIcon";
+import CloseIcon from "../../../Utilities/Icons/CloseIcon";
 
 interface Props {
   event: DanceEvent;

@@ -1,0 +1,44 @@
+
+.name {
+    font-family: var(--my-header-font);
+    color: var(--my-yellow);
+    font-size: 6rem;
+    line-height: 1.5em;
+  
+    animation: fade-in 0.9s both 2.5s;
+    z-index: 10;
+    --name-pos-skew: 3em;
+  }
+
+.connor {
+    margin-left: calc(-1 * var(--name-pos-skew));
+}
+
+.james {}
+
+.allen {
+    margin-left: var(--name-pos-skew);
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* It'd be best not to change these aspect ratios... */
+@media only screen and (min-aspect-ratio: 7/5) {
+    .name {
+      --name-pos-skew: 5em;
+    }
+}
+@media only screen and (max-aspect-ratio: 5/7) {
+    .name {
+        font-size: 4.5rem;
+        line-height: 2em;
+        --name-pos-skew: 0;
+      }
+}

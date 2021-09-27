@@ -1,6 +1,6 @@
 import React from "react";
 import { Dropdown } from "semantic-ui-react";
-import { onlyUnique } from "../../utils";
+import { onlyUnique } from "../../Utilities/utils";
 import { FilterField } from "../data-types";
 import styles from "./EventFilter.module.css";
 
