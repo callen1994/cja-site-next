@@ -20,6 +20,7 @@ import styles from "./VirtualWhiteboard.module.css";
 import Lobby from "./Lobby/Lobby";
 import Whiteboard from "./Whiteboard/Whiteboard";
 import Toolbar, { ERASER_SIZE, Tool } from "./Toolbar/Toolbar";
+import { cloneDeep } from "lodash";
 
 interface Props {
   router: NextRouter;
@@ -111,13 +112,19 @@ export class VirtualWhiteboardCLASS extends React.Component<
       })
     );
     socket.on("take-id", (id) => this.setState({ myId: id }));
-    socket.on("take-line-start", this.startLine);
-    socket.on("take-line-move", this.continueLine);
-    socket.on("take-line-end", (id) => {
-      this.setDrawTracker(id, { drawing: false });
+    socket.on("take-line-start", (...args) => {
+      console.log("Taking line start from server");
+      console.log(args);
+      this.startLine(...args);
     });
+    socket.on("take-line-move", this.continueLine);
+    socket.on("take-line-end", (id) =>
+      this.setDrawTracker(id, { drawing: false })
+    );
 
     socket.on("take-load-board", (whiteBoard) => {
+      console.log("%c\n\nWhiteboard Loaded\n\n", "color: yellow");
+      console.log(whiteBoard.lines);
       this.setState({ whiteBoard });
     });
     socket.on("take-name-change", this.changeBoardName);
@@ -128,8 +135,11 @@ export class VirtualWhiteboardCLASS extends React.Component<
   }
 
   killSocket() {
-    this.state.socket?.disconnect();
-    LISTEN_EVENTS.map((e) => this.state.socket?.off(e));
+    const { socket } = this.state;
+    if (socket) {
+      socket.disconnect();
+      LISTEN_EVENTS.map((e) => socket.off(e));
+    }
   }
 
   componentWillUnmount() {
@@ -178,7 +188,6 @@ export class VirtualWhiteboardCLASS extends React.Component<
       drawing: true,
       index: this.state.whiteBoard?.lines.length - 1,
     });
-
     // If The line I'm starting is me, then emit to the room
     if (id === "me") this.state.socket?.emit("line-start", { x, y }, lineFig);
   };
@@ -188,7 +197,6 @@ export class VirtualWhiteboardCLASS extends React.Component<
     const index = tracker.index;
     // If this source isn't drawing right now
     if (!tracker.drawing || typeof index === "undefined") return;
-
     this.setState((prevState) => ({
       whiteBoard: prevState.whiteBoard
         ? continueLineOnBoard(prevState.whiteBoard, { x, y }, index)

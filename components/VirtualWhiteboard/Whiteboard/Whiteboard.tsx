@@ -1,7 +1,8 @@
 import { Stage as StageType } from "konva/lib/Stage";
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import { Layer, Line, Stage } from "react-konva";
-import { KMouse, Point, WhiteboardI } from "../data-types";
+import { forceUpdateResizeEffect, httpProm } from "../../Utilities/utils";
+import { CONN_HOST, KMouse, Point, WhiteboardI } from "../data-types";
 import { ERASER_SIZE } from "../Toolbar/Toolbar";
 import { VirtualWhiteboardCLASS, WhiteboardState } from "../VirtualWhiteboard";
 import styles from "./Whiteboard.module.css";
@@ -37,10 +38,7 @@ export default function Whiteboard({
   const stageRef = useRef<StageType>(null);
 
   /* When I'm testing different screen sizes, this causes it to automatically update*/
-  useEffect(
-    () => window.addEventListener("resize", () => forceUpdate((x) => x + 1)),
-    []
-  );
+  useEffect(() => forceUpdateResizeEffect(() => forceUpdate((x) => x + 1)), []);
 
   const mouseDn = (e: KMouse) => {
     const pos = e.target.getStage()?.getPointerPosition();
@@ -118,8 +116,12 @@ export default function Whiteboard({
   };
 
   const test = () => {
-    console.log(whiteBoard);
-    console.log(stageRef.current?.toDataURL());
+    // httpProm(`${CONN_HOST}/wb-test`, {
+    //   method: "POST",
+    //   body: { room: whiteBoard?._id },
+    // }).then(console.log);
+    // // console.log(stageRef.current?.toCanvas()?.toDataURL());
+    console.log(whiteBoard?.lines);
   };
 
   return whiteBoard ? (

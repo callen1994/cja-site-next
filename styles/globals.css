@@ -157,15 +157,10 @@ button {
 
 a:focus-visible,
 button:focus-visible {
-  border: 1px solid var(--low-grey);
-  outline: 1px solid var(--light-grey);
+  outline: 2px solid var(--default-text) !important;
+  outline-offset: 1px;
 }
 
-a:focus-visible:active,
-button::focus-visible:active {
-  border: 1px solid var(--light-grey);
-  outline: 1px solid var(--low-grey);
-}
 .btn-clr {
   color: var(--opposite-text);
   background-color: var(--my-sky-blue);

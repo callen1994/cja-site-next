@@ -14,6 +14,9 @@ export function httpProm(
 
   return new Promise((res, rej) => {
     http.open(method, url);
+    // This seems like the simplest option, a
+    http.setRequestHeader("Content-Type", "text/plain");
+    // IGNORED IF THE REQUEST IS GET
     http.send(JSON.stringify(options?.body));
     http.onreadystatechange = () =>
       http.readyState === 4
@@ -66,6 +69,15 @@ export function getContentWidth(el: HTMLElement | null) {
     parseFloat(style.paddingLeft) -
     parseFloat(style.paddingRight)
   );
+}
+
+// I use this in a couple places to get components to re-render as I change screen size
+// To review how event listener options work. This is a good way to do disconnection
+// https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener
+export function forceUpdateResizeEffect(forceUpdate: () => void) {
+  const disconnector = new AbortController();
+  window.addEventListener("resize", forceUpdate, disconnector);
+  return () => disconnector.abort();
 }
 
 export type InputChange = React.ChangeEvent<HTMLInputElement>;

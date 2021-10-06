@@ -11,8 +11,9 @@ import { Server as Io, Socket } from "socket.io";
 import { Server as HTTPServer } from "http";
 import { onlyUnique } from "../utils";
 import { connectSocket } from "./connect-socket";
-import { fetchOrCreateBoard, saveBoard } from "./Whiteboard";
-import { updateWB } from "./server-konva";
+import { fetchOrCreateBoard, saveBoard, updateWB } from "./Whiteboard";
+import { cleanUpBoard } from "./cleanup-room";
+import { doTests } from "./cleanup-tests";
 
 export class WhiteboardService {
   constructor(httpServer: HTTPServer) {
@@ -24,7 +25,10 @@ export class WhiteboardService {
     // Saving with a lot of frequency shouldn't be necessary because I save after every finished line.
     // It also doesn't hurt to save frequently because the mongo server is on the same machine
     // Cleaning up realistically only needs to happen every once in a while.
+    // I also cant rely on a disconnect even from the sockets because closing a window
+    // doesn't run the cleanup events on the client side
     setInterval(() => this.saveAndDump(), 20000);
+    // doTests();
   }
 
   // for each room keep track of the index of the line that a user is drawing (when they're drawing)
@@ -40,7 +44,7 @@ export class WhiteboardService {
     // ensure there's an object to write on
     this.drawTracker[roomId] = this.drawTracker[roomId] || {};
     // Just for good measure although I think this shouldn't be necessary...
-    this.rooms[roomId].lines = this.rooms[roomId].lines || [];
+    this.rooms[roomId].lines = this.rooms[roomId]?.lines || [];
     this.rooms[roomId].lines.push(lineFig);
 
     // the id of the line that this user is drawing (I'll reference it when this uer emits a move event)
@@ -105,9 +109,8 @@ export class WhiteboardService {
 
   saveAndDump = async () => {
     const allSockets = await this.io.fetchSockets();
-    console.log("Saving Boards:");
     const activeBoards = allSockets
-      .map((s) => s.data.whiteboardRoom)
+      .map((s) => s.data.roomId)
       .filter(onlyUnique);
     // Cleanup empty rooms. (there's no leave room event, and I don't want the room and drawTracker lists to accumulate crud)
     const deadRooms = [
@@ -117,16 +120,20 @@ export class WhiteboardService {
       .filter(onlyUnique)
       .filter((roomId) => !activeBoards.includes(roomId));
 
-    // Acvite rooms are saved after every line is created, dead rooms are worth running one more save operation before saying goodbye
+    // Active rooms are saved after every line is created, dead rooms are worth running one more save operation before saying goodbye
     // This is also where I'll get rid of everything that has been fully erased
-    deadRooms.map((rId) => saveBoard(this.rooms[rId]));
+    deadRooms.map((rId) => cleanUpBoard(this.rooms[rId]));
     deadRooms.map((roomId) => delete this.rooms[roomId]);
     deadRooms.map((roomId) => delete this.drawTracker[roomId]);
     // TODO kill boards older than a certain age... (but no less than 5?)
   };
+
+  test(rId: string) {
+    return cleanUpBoard(this.rooms[rId]);
+  }
 }
 
-// Exporting this as a funciton so I know when it's being run
+// Exporting this as a function so I know when it's being run
 export function startUpWBSockets(httpServer: HTTPServer) {
   console.log("Spinning up Whiteboard Sockets");
   // I'm returning the server instance so the express app can deliver info from this through the HTTP

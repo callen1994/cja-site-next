@@ -31,7 +31,11 @@ export function fetchSheetData(
     (sheets) =>
       sheets.spreadsheets.values
         .get({ spreadsheetId, range })
-        .then((sheetResult) => sheetResult.data),
+        .then((sheetResult) => {
+          console.log("Fetched Data from Sheet");
+          console.log(sheetResult.data);
+          return sheetResult.data;
+        }),
     () => new Promise((res, rej) => rej(errData))
   );
 }

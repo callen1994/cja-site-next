@@ -6,10 +6,11 @@ import {
   DanceEvent,
   FilterField,
   FilterOptions,
-  MT_FITLER_OPTS,
+  MT_FILTER_OPTS,
 } from "../components/DancePage/data-types";
 import { DUMMY_DANCE_DATA, fetchSheetData } from "../private/google-link";
 import { onlyUnique } from "../components/Utilities/utils";
+import { nowString } from "../socket-server/src/utils";
 
 type Props = Parameters<typeof DancePage>[0];
 
@@ -33,6 +34,7 @@ export default function Dance(props: Props) {
 }
 
 export async function getStaticProps() {
+  console.log(nowString());
   console.log("Fetching Dance Data");
   const danceData = await fetchSheetData("Events!A2:Z");
   const blurbData = await fetchSheetData("Blurb!A:A");
@@ -46,7 +48,7 @@ export async function getStaticProps() {
     (row) => mapKeys(row, (v, index) => keyRow[index]) as DanceEvent
   );
   // const filterOptions =
-  const filterOptions: FilterOptions = cloneDeep(MT_FITLER_OPTS);
+  const filterOptions: FilterOptions = cloneDeep(MT_FILTER_OPTS);
   keyRow.map(
     (key, i) =>
       (filterOptions[key] = body

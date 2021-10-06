@@ -1,19 +1,24 @@
 import express from "express";
 import { createServer } from "http";
 import { connect } from "mongoose";
-import { mongoTest, MONGO_TEST_HTML } from "./mong-test";
-import { logError, apiTest } from "./utils";
-import Whiteboard from "./wb-socklets/Whiteboard";
+import { mongoTest } from "./mong-test";
+import { logError, apiTest, BIG_Log } from "./utils";
+import Whiteboard, { updateWB } from "./WhiteboardService/Whiteboard";
 import cors from "cors";
-import { serverKonvaTest, updateWB } from "./wb-socklets/server-konva";
-import { startUpWBSockets, WhiteboardService } from "./wb-socklets/io-service";
+import {
+  startUpWBSockets,
+  WhiteboardService,
+} from "./WhiteboardService/WhiteboardService";
+import { linesToDataURL } from "./WhiteboardService/cleanup-room";
+import { case1 } from "./WhiteboardService/cleanup-tests";
 
 const DATABASE_NAME = "whiteboard";
 const PORT = 8001;
 
 const app = express();
 app.use(cors({ origin: "*" }));
-
+// adds ta body parser so is actually reads the request body
+app.use(express.text({ type: "text/plain" }));
 const httpServer = createServer(app);
 
 app.get("/", apiTest);
@@ -24,8 +29,17 @@ let mongoErr = "";
 let wbServer: WhiteboardService;
 
 app.get("/mongo-test", (req, res) => mongoTest(res, mongoErr));
-
-app.get("/server-konva-test", serverKonvaTest);
+app.get("/show-me", (req, res) => {
+  const sample = linesToDataURL(case1);
+  res.send(
+    `<style> img {border: 5px solid #000; margin: 20px;} </style> <div><img src=${sample} /></div>`
+  );
+});
+app.post("/wb-test", (req, res) => {
+  BIG_Log("Request Body");
+  console.log(req.body);
+  wbServer.test(JSON.parse(req.body).room).then((suc) => res.send(suc));
+});
 
 app.get("/get-whiteboards", async (req, res) => {
   console.log("Getting Whiteboards");
@@ -37,7 +51,7 @@ app.get("/get-whiteboards", async (req, res) => {
   // I want the info about active users on each board
   const userData = await wbServer.getUserData();
   const body = boards.map((b) => ({
-    ...updateWB(b.toObject()),
+    ...updateWB(b),
     userData: userData.filter((u) => u.whiteboardRoom === b.id),
   }));
   res.send(JSON.stringify(body));

@@ -7,8 +7,8 @@ import {
   DanceEvent,
   FilterFig,
   FilterOptions,
-  FITLERS,
-  MT_FITLER_FIG,
+  FILTERS,
+  MT_FILTER_FIG,
 } from "./data-types";
 
 import styles from "./DancePage.module.css";
@@ -23,7 +23,7 @@ interface Props {
 
 export default function DancePage({ blurbs, filterOptions, eventList }: Props) {
   const [filterState, setFilter] = useState<FilterFig>(
-    cloneDeep(MT_FITLER_FIG)
+    cloneDeep(MT_FILTER_FIG)
   );
 
   return (
@@ -44,7 +44,7 @@ export default function DancePage({ blurbs, filterOptions, eventList }: Props) {
           </p>
         ))}
         <div className={styles["filters"]}>
-          {FITLERS.map((f, i) => (
+          {FILTERS.map((f, i) => (
             <EventFilter
               key={i}
               field={f}

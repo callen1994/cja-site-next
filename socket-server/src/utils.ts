@@ -4,12 +4,18 @@ export function onlyUnique<T>(v: T, i: number, arr: T[]): boolean {
   return arr.indexOf(v) === i;
 }
 
+export function BIG_Log(msg: string) {
+  console.log("");
+  console.log("");
+  console.log("");
+  console.log(`********************** ${msg} **********************`);
+  console.log("");
+  console.log("");
+  console.log("");
+}
+
 export function logError(err: any) {
-  console.log("");
-  console.log("");
-  console.log("********************** MONGO ERROR **********************");
-  console.log("");
-  console.log("");
+  BIG_Log("MONGO ERROR");
   console.log(err.message || err);
   console.log("");
   console.log("");

@@ -92,14 +92,17 @@ export interface WhiteboardPreview extends WhiteboardI {
 export const DEFAULT_LINE: LineFig = {
   stroke: "#000",
   strokeWidth: 8,
-  tension: 0.5,
   globalCompositeOperation: "source-over",
+  bezier: true,
+  lineCap: "round",
+  lineJoin: "round",
 };
-
-export const addLine = (board: WhiteboardI, newLine: LineFig): WhiteboardI => {
-  board.lines.push(newLine);
-  return board;
-};
+// I don't know why I was using push before, but it was weirdly adding an extra one-point line to the list
+// this was only showing up client side, but it was still mysterious and not what I wanted
+export const addLine = (board: WhiteboardI, newLine: LineFig): WhiteboardI => ({
+  ...board,
+  lines: [...board.lines, newLine],
+});
 
 export const continueLine = (
   board: WhiteboardI,

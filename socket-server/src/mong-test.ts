@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { fetchOrCreateBoard } from "./wb-socklets/Whiteboard";
+import { fetchOrCreateBoard } from "./WhiteboardService/Whiteboard";
 
 export const MONGO_TEST_HTML = `
 <!DOCTYPE html>

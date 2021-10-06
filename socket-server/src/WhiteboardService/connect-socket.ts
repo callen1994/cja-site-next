@@ -3,7 +3,7 @@ import {
   DrawEmits,
   DrawListens,
 } from "../../../components/VirtualWhiteboard/data-types";
-import { WhiteboardService } from "./io-service";
+import { WhiteboardService } from "./WhiteboardService";
 import { fetchOrCreateBoard, saveBoard } from "./Whiteboard";
 
 export function connectSocket(
@@ -28,7 +28,7 @@ export function connectSocket(
 
     wbService.emitUsersInRoom(roomId);
 
-    // Alias I use becuase I write this a lot in the stuff below
+    // Alias I use because I write this a lot in the stuff below
     const toRoom = () => socket.broadcast.to(roomId);
 
     socket.on("line-start", ({ x, y }, lineFig) => {
@@ -60,6 +60,11 @@ export function connectSocket(
       wbService.clearRoom(roomId);
       toRoom().emit("take-clear");
       wbService.saveBoard(roomId);
+    });
+
+    socket.on("disconnect", () => {
+      console.log("Socket Disconnected");
+      wbService.saveAndDump();
     });
   });
 }

@@ -65,8 +65,9 @@ export default function BoardPreview({ board, goToRoom }: Props) {
                 points={line.points}
                 stroke={line.stroke}
                 strokeWidth={line.strokeWidth}
-                tension={line.tension}
+                bezier={true}
                 lineCap="round"
+                lineJoin="round"
                 globalCompositeOperation={
                   line.globalCompositeOperation || "source-over"
                 }

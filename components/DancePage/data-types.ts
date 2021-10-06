@@ -36,21 +36,21 @@ export interface FilterOptions {
   style: string[];
 }
 
-export const FITLERS: FilterField[] = [
+export const FILTERS: FilterField[] = [
   "city",
   "dayOfWeek",
   // 'inPerson',
   "style",
 ];
 
-export const MT_FITLER_FIG: FilterFig = {
+export const MT_FILTER_FIG: FilterFig = {
   dayOfWeek: [],
   city: [],
   inPerson: [],
   style: [],
 };
 
-export const MT_FITLER_OPTS: FilterOptions = {
+export const MT_FILTER_OPTS: FilterOptions = {
   dayOfWeek: [],
   city: [],
   inPerson: [],
