@@ -1,5 +1,5 @@
 import { google, sheets_v4 } from "googleapis";
-import DancePage from "../components/DancePage/DancePage";
+import { testWrapper } from "./server-utils";
 
 const SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"];
 
@@ -31,50 +31,7 @@ export function fetchSheetData(
     (sheets) =>
       sheets.spreadsheets.values
         .get({ spreadsheetId, range })
-        .then((sheetResult) => {
-          console.log("Fetched Data from Sheet");
-          console.log(sheetResult.data);
-          return sheetResult.data;
-        }),
+        .then((sheetResult) => sheetResult.data),
     () => new Promise((res, rej) => rej(errData))
   );
 }
-
-// Data That matches the props that dance page will take
-export const DUMMY_DANCE_DATA: Parameters<typeof DancePage>[0] = {
-  blurbs: ["Couldn't connect to database", "bar", "wiggle"],
-  eventList: [
-    {
-      title: "test",
-      style: "test",
-      inPerson: "Yes",
-      dayOfWeek: "test",
-      repetition: "test",
-      time: "test",
-      city: "test",
-      address: "test",
-      links: "test",
-      blurb: "test",
-      img: "",
-    },
-    {
-      title: "test2",
-      style: "test2",
-      inPerson: "No",
-      dayOfWeek: "test2",
-      repetition: "test2",
-      time: "test2",
-      city: "test2",
-      address: "test2",
-      links: "test2",
-      blurb: "test2",
-      img: "",
-    },
-  ],
-  filterOptions: {
-    dayOfWeek: ["test", "test2"],
-    city: ["test", "test2"],
-    inPerson: ["test", "test2"],
-    style: ["test", "test2"],
-  },
-};

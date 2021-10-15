@@ -15,13 +15,17 @@ import styles from "./DancePage.module.css";
 import { useState } from "react";
 
 // The data fetched from my google sheet is now going to be provided as props
-interface Props {
+export interface DancePageProps {
   blurbs: string[];
   filterOptions: FilterOptions;
   eventList: DanceEvent[];
 }
 
-export default function DancePage({ blurbs, filterOptions, eventList }: Props) {
+export default function DancePage({
+  blurbs,
+  filterOptions,
+  eventList,
+}: DancePageProps) {
   const [filterState, setFilter] = useState<FilterFig>(
     cloneDeep(MT_FILTER_FIG)
   );

@@ -76,7 +76,8 @@ export function getContentWidth(el: HTMLElement | null) {
 // https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener
 export function forceUpdateResizeEffect(forceUpdate: () => void) {
   const disconnector = new AbortController();
-  window.addEventListener("resize", forceUpdate, disconnector);
+  const { signal } = disconnector;
+  window.addEventListener("resize", forceUpdate, { signal } as any);
   return () => disconnector.abort();
 }
 

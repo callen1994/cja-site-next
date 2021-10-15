@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start-local-mongo": "mongod --config /usr/local/etc/mongod.conf --fork",
+    "kill-process": "kill $(lsof -i tcp:8001 | awk '/node/ {print $2}')",
     "dev": "rm -rf ./dist && tsc && concurrently \"tsc -w\" \"nodemon ./dist/socket-server/src/socket-server.js\"",
     "build": "rm -rf ./dist && tsc",
-    "start": "node ./dist/socket-server/src/socket-server.js >> ./socket-logs.txt 2>&1 & disown",
+    "start": "mkdir -p ../../logs/cja-site/socket-server && node ./dist/socket-server/src/socket-server.js > ../../logs/cja-site/socket-server/$(date +%F)-$(date +%T)-logs.txt 2>&1",
     "deploy": "bash sockets-deploy.sh",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start-vps-mongo": "sudo systemctl start mongod",

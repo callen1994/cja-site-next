@@ -1,0 +1,24 @@
+node:events:371
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE/Users/foobarwiggle/Documents/GitHub/cja-site/socket-server/
+dle [as _listen2] (node:net:1315:16)
+    at listenInCluster (node:net:1363:12)
+    at Server.listen (node:net:1450:7)
+    at Object.<anonymous> (/Users/foobarwiggle/Documents/GitHub/cja-site/socket-server/dist/socket-server/src/socket-server.js:135:12)
+    at Module._compile (node:internal/modules/cjs/loader:1095:14)
+    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1124:10)
+    at Module.load (node:internal/modules/cjs/loader:975:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:816:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:79:12)
+    at node:internal/main/run_main_module:17:47
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1342:8)
+    at processTicksAndRejections (node:internal/process/task_queues:83:21) {
+  code: 'EADDRINUSE',
+  errno: -48,
+  syscall: 'listen',
+  address: '::',
+  port: 8001
+}

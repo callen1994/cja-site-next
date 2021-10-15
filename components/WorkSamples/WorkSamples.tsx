@@ -50,15 +50,16 @@ const WorkSampleFigs: SampleFig[] = [
       "Next.js for SEO and high performance rendering",
     ],
     image: {
-      src: "/DanceScreenShot.png",
+      src: "https://i.imgur.com/oagfaW3.png",
       width: 1000,
       height: 560,
     },
   },
   {
-    title: 'Staffing Software',
-    link: 'staffing-sample',
-    blurb: "To show off what I can do building beautiful and functional web-tools, I've created a staffing tool for an imaginary summer camp.",
+    title: "Staffing Software",
+    link: "staffing-sample",
+    blurb:
+      "To show off what I can do building beautiful and functional web-tools, I've created a staffing tool for an imaginary summer camp.",
     features: [
       "Intuitive interface",
       "Elegant design",
@@ -66,10 +67,10 @@ const WorkSampleFigs: SampleFig[] = [
       "Fun to Use",
     ],
     image: {
-      src: "/staffing-shot.png",
+      src: "https://i.imgur.com/wjpyZm5.png",
       width: 1000,
-      height: 610
-    }
+      height: 610,
+    },
   },
   {
     title: "Virtual Whiteboards",
@@ -83,9 +84,9 @@ const WorkSampleFigs: SampleFig[] = [
       "Custom Node.js Server",
     ],
     image: {
-      src: "/whiteboards-shot.png",
+      src: "https://i.imgur.com/gxdD885.png",
       width: 1000,
       height: 576,
     },
-  }
+  },
 ];

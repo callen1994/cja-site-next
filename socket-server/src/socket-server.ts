@@ -11,6 +11,7 @@ import {
 } from "./WhiteboardService/WhiteboardService";
 import { linesToDataURL } from "./WhiteboardService/cleanup-room";
 import { case1 } from "./WhiteboardService/cleanup-tests";
+import { createReadStream } from "fs";
 
 const DATABASE_NAME = "whiteboard";
 const PORT = 8001;
@@ -34,6 +35,10 @@ app.get("/show-me", (req, res) => {
   res.send(
     `<style> img {border: 5px solid #000; margin: 20px;} </style> <div><img src=${sample} /></div>`
   );
+});
+app.get("/crash-test", (req, res) => {
+  createReadStream("crash test dummy");
+  res.send({ message: "that should have crashed me" });
 });
 app.post("/wb-test", (req, res) => {
   BIG_Log("Request Body");

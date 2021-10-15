@@ -23,10 +23,11 @@ export function logError(err: any) {
 
 export function nowString() {
   const date = new Date();
-  return date.toLocaleDateString() + date.toLocaleTimeString();
+  return `Date: ${date.toLocaleDateString()} Time: ${date.toLocaleTimeString()}`;
 }
 
 export function apiTest(req: Request, res: Response) {
+  console.log(`Is this some sort of test??`);
   // refactored to work on windows with backslash syntax on the path
   // also my windows setup uses "cja-site-next" (the github name) rather than "cja-site"
   // and configuring this regex was easier than messing with github stuff
@@ -39,6 +40,5 @@ export function apiTest(req: Request, res: Response) {
   }
   const root =
     __dirname.slice(0, __dirname.indexOf(desiredRoot[0])) + desiredRoot[0];
-  console.log(root);
   res.sendFile("./public/test.html", { root });
 }
